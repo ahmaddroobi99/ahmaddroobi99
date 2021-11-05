@@ -6,7 +6,7 @@
 
 ## 🙋‍♂️ About Me
 
-- 🔭 I’m currently working research FellowShip with univerity of Clemson 
+- 🔭 I’m currently working  as** researcher Fellow with university of Clemson **
 
 - 🌱 I’m currently learning **Machine Learning ,Big Data and AI.**
 
@@ -14,7 +14,7 @@
 
 - 👨‍💻 All of my projects are available at **[My Portfolio](http://www.ahmaddroobi.eb2a.com)**
 
-- 📫 How to reach me **ahmaddroobi1999@gmail.com**
+- 📫 How to reach me **ahmaddroobi@clemson.edu**
 
 - ⚡ Fun fact ** “More data beats clever algorithms, but better data beats more data.” so i am a hard worker more than a clever person I don't have time to check honestly ..**
 
