@@ -6,9 +6,9 @@
 
 ## 🙋‍♂️ About Me
 
-- 🔭 I’m currently working on **[Private Project]**
+- 🔭 I’m currently working research FellowShip with univerity of Clemson 
 
-- 🌱 I’m currently learning **Data Structures and Algorithms.**
+- 🌱 I’m currently learning **Machine Learning ,Big Data and AI.**
 
 - 👯 I’m looking to collaborate on **OpenSource Projects**
 
