@@ -6,7 +6,7 @@
 
 ## 🙋‍♂️ About Me
 
-- 🔭 I’m currently working  as** researcher Fellow with university of Clemson **
+- 🔭 I’m currently working  as** research and Dev at Paltel **
 
 - 🌱 I’m currently learning **Machine Learning ,Big Data and AI.**
 
