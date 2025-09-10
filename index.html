@@ -136,6 +136,32 @@
       transform: scale(1.05);
       transition: transform 0.3s ease-in-out;
     }
+
+    /* Updated styles for social icons */
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 10px;
+    }
+
+    .social-icons .icon {
+      font-size: 2rem;
+      color: #ffffff;
+      background-color: #003366;
+      border-radius: 50%;
+      padding: 10px;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+
+    .social-icons .icon:hover {
+      transform: scale(1.2) rotate(10deg);
+      background-color: #0073b1;
+    }
+
+    .github-icon { color: #333; }
+    .linkedin-icon { color: #0073b1; }
+    .scholar-icon { color: #d14836; }
   </style>
 </head>
 <body>
@@ -197,6 +223,7 @@
       <ul>
         <li style="margin:0 20px 0 0;"><a href="https://github.com/ahmaddroobi99" target="_blank"><i class="fa fa-github"></i></a></li>
         <li style="margin:0px 0 10px 0"><a href="https://www.linkedin.com/in/droobi/" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+        <li style="margin:0px 0 10px 0"><a href="https://scholar.google.com/citations?user=your-google-scholar-id" target="_blank"><i class="ai ai-google-scholar"></i></a></li>
       </ul>
     </div>
     <div class="main-navigation">
@@ -400,5 +427,12 @@
 
     typeWriter();
   </script>
+
+  <!-- Footer -->
+  <div class="row" id="footer">
+    <div class="col-md-12 text-center">
+        <p class="copyright-text">© 1999–2025 Ahmad Droobi</p>
+    </div>
+  </div>
 </body>
 </html>
