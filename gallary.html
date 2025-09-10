@@ -4,19 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Ahmad Droobi | Photos</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Material+Symbols+Rounded:FILL@0..1&display=swap" rel="stylesheet" />
+
+  <!-- Fonts / Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Material+Symbols+Rounded:FILL@0..1,GRAD@0..200,opsz@20..48,wght@300..700&display=swap" rel="stylesheet" />
+
   <style>
-    :root {
-      --bg: #0f0f0f;           /* dark default (like Google Photos) */
-      --surface: #171717;
-      --text: #e6e6e6;
-      --muted: #a1a1aa;
-      --brand: #8ab4f8;        /* Google-ish blue in dark */
-      --chip: #262626;
-      --accent: #8c1515;       /* your brand accent */
+    :root{
+      --bg:#0f0f0f; --surface:#171717; --text:#e6e6e6; --muted:#a1a1aa;
+      --brand:#8ab4f8; --chip:#262626; --accent:#8c1515;
+      --colw:280px; --gap:12px;
     }
-    @media (prefers-color-scheme: light) {
-      :root { --bg:#fafafa; --surface:#ffffff; --text:#1f2937; --muted:#6b7280; --brand:#1a73e8; --chip:#f3f4f6; }
+    @media (prefers-color-scheme: light){
+      :root{ --bg:#fafafa; --surface:#ffffff; --text:#1f2937; --muted:#6b7280; --brand:#1a73e8; --chip:#f3f4f6; }
     }
     *{box-sizing:border-box}
     html,body{height:100%}
@@ -34,11 +33,11 @@
     .icon{font-family:"Material Symbols Rounded";font-variation-settings:"FILL" 0,"wght" 600,"opsz" 24;vertical-align:middle;font-size:20px}
     .avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#003366,#8c1515)}
 
-    /* Content Shell */
+    /* Shell */
     .shell{display:grid;grid-template-columns:280px 1fr;gap:16px;max-width:1600px;margin:0 auto;padding:18px}
-    @media (max-width: 1080px){.shell{grid-template-columns:1fr}}
+    @media (max-width:1080px){.shell{grid-template-columns:1fr}}
 
-    /* Left rail (folders/filters) */
+    /* Left rail */
     .rail{display:flex;flex-direction:column;gap:10px}
     .rail .card{background:var(--surface);border:1px solid rgba(255,255,255,.06);border-radius:14px}
     .rail .card h3{margin:0;padding:14px 14px 6px;font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
@@ -47,21 +46,21 @@
     .rail .list a:hover{background:var(--chip)}
 
     /* Chips */
-    .chips{display:flex;flex-wrap:wrap;gap:10px;margin:4px 0 12px}
+    .chips{display:flex;flex-wrap:wrap;gap:10px;margin:4px 0 12px;padding:0 8px 10px}
     .chip{background:var(--chip);border:1px solid rgba(255,255,255,.06);color:var(--text);padding:8px 12px;border-radius:999px;font-size:12px;cursor:pointer}
     .chip.active{outline:2px solid var(--brand)}
 
-    /* Masonry Grid (CSS columns like Google Photos) */
-    .photos{column-width: 280px; column-gap: 12px}
-    @media (max-width: 1200px){.photos{column-width: 240px}}
-    @media (max-width: 900px){.photos{column-width: 200px}}
-    @media (max-width: 640px){.photos{column-width: 160px}}
+    /* Masonry (CSS columns) */
+    .photos{column-width:var(--colw); column-gap:var(--gap)}
+    @media (max-width:1200px){.photos{--colw:240px}}
+    @media (max-width:900px){.photos{--colw:200px}}
+    @media (max-width:640px){.photos{--colw:160px}}
 
-    .item{break-inside:avoid;display:block;margin:0 0 12px;position:relative;border-radius:12px;overflow:hidden;background:#000}
-    .thumb{width:100%;display:block;height:auto;opacity:0;transition:opacity .3s ease}
+    .item{break-inside:avoid;display:block;margin:0 0 var(--gap);position:relative;border-radius:12px;overflow:hidden;background:#000;box-shadow:0 1px 0 rgba(255,255,255,.04)}
+    .thumb{width:100%;display:block;height:auto;opacity:0;transition:opacity .28s ease}
     .item.loaded .thumb{opacity:1}
 
-    /* Hover overlays like Photos (check/select & quick actions) */
+    /* Hover overlay */
     .overlay{position:absolute;inset:0;display:flex;align-items:flex-start;justify-content:space-between;padding:8px;opacity:0;transition:opacity .15s ease;pointer-events:none}
     .item:hover .overlay{opacity:1}
     .select{pointer-events:auto}
@@ -70,7 +69,7 @@
     .quick{display:flex;gap:6px}
     .quick .qbtn{pointer-events:auto;background:rgba(0,0,0,.35);backdrop-filter:blur(6px);border-radius:8px;padding:6px;display:flex}
 
-    /* Selection bar (bottom) */
+    /* Selection bar */
     .selectbar{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;background:var(--surface);border:1px solid rgba(255,255,255,.08);border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.35);display:none;align-items:center;gap:10px;padding:10px 12px;z-index:25}
     .selectbar.show{display:flex}
 
@@ -82,9 +81,6 @@
     .lb-prev{left:24px}.lb-next{right:24px}
     .lb-btn{background:rgba(255,255,255,.1);padding:10px;border-radius:999px;cursor:pointer}
     .lb-top{position:fixed;top:16px;left:16px;right:16px;display:flex;justify-content:space-between;align-items:center;color:#fff}
-
-    /* Date headers (optional) */
-    .date-tag{position:absolute;left:10px;bottom:10px;background:rgba(0,0,0,.45);color:#fff;padding:4px 8px;border-radius:999px;font-size:11px}
   </style>
 </head>
 <body>
@@ -104,19 +100,17 @@
   </header>
 
   <main class="shell">
-    <!-- Left rail (filters/collections) -->
+    <!-- Left rail -->
     <aside class="rail">
       <div class="card">
         <h3>Filters</h3>
-        <div class="list">
-          <div class="chips" id="chips">
-            <button class="chip active" data-chip="all">All</button>
-            <button class="chip" data-chip="nature">Nature</button>
-            <button class="chip" data-chip="events">Events</button>
-            <button class="chip" data-chip="personal">Personal</button>
-            <button class="chip" data-chip="academic">Academic</button>
-            <button class="chip" data-chip="travel">Travel</button>
-          </div>
+        <div class="chips" id="chips">
+          <button class="chip active" data-chip="all">All</button>
+          <button class="chip" data-chip="nature">Nature</button>
+          <button class="chip" data-chip="events">Events</button>
+          <button class="chip" data-chip="personal">Personal</button>
+          <button class="chip" data-chip="academic">Academic</button>
+          <button class="chip" data-chip="travel">Travel</button>
         </div>
       </div>
       <div class="card">
@@ -131,7 +125,7 @@
       </div>
     </aside>
 
-    <!-- Photo stream (masonry) -->
+    <!-- Stream -->
     <section>
       <div class="photos" id="photos"></div>
     </section>
@@ -165,190 +159,177 @@
   </div>
 
   <script>
-    /**
-     * CONFIG — replace with your actual images. You can nest by category.
-     */
-    const DATA = {
-      nature: ["IMG_20211013_162450.jpg","IMG_20211013_214050.jpg"],
-      events: ["IMG_20211023_200358.jpg","IMG_20211112_161725.jpg"],
-      personal: ["IMG_20211203_150027.jpg","IMG_20211226_142401.jpg"],
-      academic: ["IMG_20221112_151501.jpg","IMG_20221205_133839.jpg"],
-      travel: ["IMG_20230123_151642.jpg","IMG_20230723_185251.jpg"],
-    };
+  /* ---------- CONFIG ---------- */
+  const BASE = "gallery/";      // image folder
+  const EXT  = ".jpg";          // default extension
 
-    // Flatten to master list with tags for filtering
-    const ALL = Object.entries(DATA).flatMap(([tag, files]) => files.map(f => ({src:`gallery/${f}`, name:f, tag})));
+  // Map your filenames into categories (from your screenshot)
+  const DATA = {
+    nature:  ["Photo_6","Photo_7","Photo_16","Photo_24","Photo_26","Photo_41","Photo_47","Photo_48","Photo_54"],
+    events:  ["Photo_10","Photo_11","Photo_12","Photo_13","Photo_27","Photo_42","Photo_43","Photo_44"],
+    personal:["Photo_1","Photo_2","Photo_3","Photo_4","Photo_5","Photo_8","Photo_9","Photo_14","Photo_15","Photo_17","Photo_18","Photo_19","Photo_20","Photo_21","Photo_22","Photo_23","Photo_25","Photo_28","Photo_29","Photo_30","Photo_31","Photo_32","Photo_33","Photo_34","Photo_35","Photo_36","Photo_37","Photo_38","Photo_39","Photo_40","Photo_45","Photo_46","Photo_49","Photo_50","Photo_51","Photo_52","Photo_53","Photo_55","Photo_56","Photo_57","Photo_58"],
+    academic:["Photo_12","Photo_29","Photo_30","Photo_41","Photo_43","Photo_44","Photo_47"],
+    travel:  ["Photo_6","Photo_7","Photo_41","Photo_47","Photo_48","Photo_58"],
+  };
 
-    // Runtime state
-    let density = 1; // 1 = default, 0.85 = compact
-    let filter = "all";
-    let selection = new Set();
-    let currentIndex = -1; // for lightbox
-    let view = []; // filtered view
+  /* ---------- BUILD FLAT VIEW ---------- */
+  const toSrc = (name)=> `${BASE}${name}${EXT}`;
+  const ALL = Object.entries(DATA).flatMap(([tag, files]) =>
+    files.map(f => ({ src: toSrc(f), name: f, tag }))
+  );
 
-    // Elements
-    const photosEl = document.getElementById('photos');
-    const selectbar = document.getElementById('selectbar');
-    const selCount = document.getElementById('selCount');
-    const clearSel = document.getElementById('clearSel');
-    const searchInput = document.getElementById('searchInput');
-    const clearSearch = document.getElementById('clearSearch');
+  /* ---------- STATE ---------- */
+  let filter = "all";
+  let density = 1;                 // toggles column width
+  let selection = new Set();
+  let view = [];                   // filtered list
+  let lbIndex = -1;                // lightbox index over "view"
 
-    // Build masonry items with lazy loading & overlays
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          const img = e.target.querySelector('img.thumb');
-          if (img && img.dataset.src) { img.src = img.dataset.src; img.removeAttribute('data-src'); }
-          e.target.classList.add('loaded');
-          io.unobserve(e.target);
+  /* ---------- ELEMENTS ---------- */
+  const photosEl   = document.getElementById('photos');
+  const selectbar  = document.getElementById('selectbar');
+  const selCount   = document.getElementById('selCount');
+  const clearSel   = document.getElementById('clearSel');
+  const searchInput= document.getElementById('searchInput');
+  const clearSearch= document.getElementById('clearSearch');
+
+  /* ---------- LAZY LOAD OBSERVER ---------- */
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const img = e.target.querySelector('img.thumb');
+        if (img && img.dataset.src) {
+          img.src = img.dataset.src;
+          img.onload = () => e.target.classList.add('loaded');
+          // jpg→png fallback
+          img.onerror = () => {
+            if (!img.dataset.triedPng){
+              img.dataset.triedPng = "1";
+              img.src = img.dataset.src.replace(/\.jpg$/i, ".png");
+            }
+          };
+          img.removeAttribute('data-src');
         }
-      });
-    }, {rootMargin: '300px'});
+        io.unobserve(e.target);
+      }
+    });
+  }, {rootMargin:'300px'});
 
-    function render(list) {
-      photosEl.innerHTML = '';
-      list.forEach((it, i) => {
-        const a = document.createElement('a');
-        a.href = '#';
-        a.className = 'item';
-        a.dataset.index = i;
-        a.dataset.name = it.name.toLowerCase();
-        a.dataset.tag = it.tag;
+  /* ---------- RENDER ---------- */
+  function render(list){
+    photosEl.innerHTML = "";
+    const frag = document.createDocumentFragment();
 
-        const img = document.createElement('img');
-        img.className = 'thumb';
-        img.alt = it.name;
-        img.loading = 'lazy';
-        img.decoding = 'async';
-        img.dataset.src = it.src; // lazy until intersect
-        a.appendChild(img);
+    list.forEach((it, i) => {
+      const a = document.createElement('a');
+      a.href = '#';
+      a.className = 'item';
+      a.dataset.index = i;
+      a.dataset.name = it.name.toLowerCase();
+      a.dataset.tag  = it.tag;
 
-        // Overlay (select + quick actions)
-        const overlay = document.createElement('div');
-        overlay.className = 'overlay';
+      const img = document.createElement('img');
+      img.className = 'thumb'; img.alt = it.name;
+      img.loading = 'lazy'; img.decoding='async';
+      img.dataset.src = it.src;
+      a.appendChild(img);
 
-        const left = document.createElement('div');
-        left.className = 'select';
-        const circle = document.createElement('div');
-        circle.className = 'circle';
-        left.appendChild(circle);
+      // Hover overlay
+      const overlay = document.createElement('div'); overlay.className='overlay';
+      const left = document.createElement('div'); left.className='select';
+      const circle = document.createElement('div'); circle.className='circle';
+      left.appendChild(circle);
+      const right = document.createElement('div'); right.className='quick';
+      right.innerHTML = `<div class="qbtn" title="Info"><span class="icon">info</span></div>
+                         <div class="qbtn" title="Favorite"><span class="icon">favorite</span></div>`;
+      overlay.appendChild(left); overlay.appendChild(right); a.appendChild(overlay);
 
-        const right = document.createElement('div');
-        right.className = 'quick';
-        right.innerHTML = `<div class="qbtn" title="Info"><span class="icon">info</span></div>
-                           <div class="qbtn" title="Favorite"><span class="icon">favorite</span></div>`;
-        overlay.appendChild(left);
-        overlay.appendChild(right);
-        a.appendChild(overlay);
+      // Click handlers
+      a.addEventListener('click', (ev)=>{ ev.preventDefault(); openLightbox(i); });
+      circle.addEventListener('click', (ev)=>{ ev.stopPropagation(); toggleSelect(it.src, a); });
 
-        // Optional date badge (derive from filename if you embed dates)
-        // const tag = document.createElement('span'); tag.className='date-tag'; tag.textContent='Oct 2023'; a.appendChild(tag);
-
-        // Behaviors
-        a.addEventListener('click', (ev) => {
-          ev.preventDefault();
-          openLightbox(i);
-        });
-        a.addEventListener('mouseenter', () => a.classList.add('hover'));
-        a.addEventListener('mouseleave', () => a.classList.remove('hover'));
-
-        // Selection toggle (click on circle)
-        circle.addEventListener('click', (ev) => {
-          ev.stopPropagation();
-          toggleSelect(it.src, a);
-        });
-
-        photosEl.appendChild(a);
-        io.observe(a);
-      });
-    }
-
-    function refresh() {
-      const q = searchInput.value.trim().toLowerCase();
-      view = ALL.filter(x => (filter==='all' || x.tag===filter) && (!q || x.name.toLowerCase().includes(q)));
-      render(view);
-    }
-
-    // Selection UX
-    function toggleSelect(key, node) {
-      if (selection.has(key)) selection.delete(key); else selection.add(key);
-      node.classList.toggle('selected');
-      selCount.textContent = `${selection.size} selected`;
-      selectbar.classList.toggle('show', selection.size>0);
-    }
-    clearSel.addEventListener('click', () => {
-      selection.clear();
-      document.querySelectorAll('.item.selected').forEach(n => n.classList.remove('selected'));
-      selectbar.classList.remove('show');
-      selCount.textContent = '0 selected';
+      frag.appendChild(a);
+      io.observe(a);
     });
 
-    // Chips (filters)
-    document.getElementById('chips').addEventListener('click', (e) => {
-      const btn = e.target.closest('.chip');
-      if (!btn) return;
-      document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-      btn.classList.add('active');
-      filter = btn.dataset.chip;
-      refresh();
-    });
+    photosEl.appendChild(frag);
+  }
 
-    // Search
-    searchInput.addEventListener('input', () => {
-      clearSearch.style.display = searchInput.value ? 'inline-block' : 'none';
-      refresh();
-    });
-    clearSearch.addEventListener('click', () => { searchInput.value=''; clearSearch.style.display='none'; refresh(); });
+  function refresh(){
+    const q = searchInput.value.trim().toLowerCase();
+    view = ALL.filter(x => (filter==='all' || x.tag===filter) && (!q || x.name.toLowerCase().includes(q)));
+    render(view);
+  }
 
-    // Density toggle
-    document.getElementById('densityBtn').addEventListener('click', () => {
-      density = density === 1 ? 0.85 : 1;
-      document.documentElement.style.setProperty('--density', density);
-      // programmatically tweak column width for compact mode
-      const base = Math.round(280 * density);
-      const style = document.createElement('style');
-      style.textContent = `.photos{column-width:${base}px}`;
-      document.head.appendChild(style);
-    });
+  /* ---------- SELECTION ---------- */
+  function toggleSelect(key, node){
+    if (selection.has(key)) selection.delete(key); else selection.add(key);
+    node.classList.toggle('selected');
+    selCount.textContent = `${selection.size} selected`;
+    selectbar.classList.toggle('show', selection.size>0);
+  }
+  clearSel.addEventListener('click', ()=>{
+    selection.clear();
+    document.querySelectorAll('.item.selected').forEach(n=>n.classList.remove('selected'));
+    selectbar.classList.remove('show');
+    selCount.textContent = '0 selected';
+  });
 
-    // Lightbox mechanics
-    const lb = document.getElementById('lightbox');
-    const lbImg = document.getElementById('lbImg');
-    const lbMeta = document.getElementById('lbMeta');
-    const lbPrev = document.getElementById('lbPrev');
-    const lbNext = document.getElementById('lbNext');
-    const lbClose = document.getElementById('lbClose');
+  /* ---------- FILTER CHIPS ---------- */
+  document.getElementById('chips').addEventListener('click', (e)=>{
+    const btn = e.target.closest('.chip'); if(!btn) return;
+    document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+    btn.classList.add('active'); filter = btn.dataset.chip; refresh();
+  });
 
-    function openLightbox(i){
-      currentIndex = i;
-      const it = view[currentIndex];
-      if (!it) return;
-      lbImg.src = it.src;
-      lbMeta.textContent = `${it.name} · ${it.tag}`;
-      lb.classList.add('open');
-    }
-    function closeLightbox(){ lb.classList.remove('open'); lbImg.removeAttribute('src'); }
-    function nav(step){
-      if (!view.length) return;
-      currentIndex = (currentIndex + step + view.length) % view.length;
-      lbImg.src = view[currentIndex].src;
-      lbMeta.textContent = `${view[currentIndex].name} · ${view[currentIndex].tag}`;
-    }
-
-    lbPrev.addEventListener('click', ()=>nav(-1));
-    lbNext.addEventListener('click', ()=>nav(1));
-    lbClose.addEventListener('click', closeLightbox);
-    lb.addEventListener('click', (e)=>{ if (e.target === lb) closeLightbox(); });
-    document.addEventListener('keydown', (e)=>{
-      if (!lb.classList.contains('open')) return;
-      if (e.key==='Escape') closeLightbox();
-      if (e.key==='ArrowRight') nav(1);
-      if (e.key==='ArrowLeft') nav(-1);
-    });
-
-    // Bootstrap
+  /* ---------- SEARCH ---------- */
+  searchInput.addEventListener('input', ()=>{
+    clearSearch.style.display = searchInput.value ? 'inline-block' : 'none';
     refresh();
+  });
+  clearSearch.addEventListener('click', ()=>{
+    searchInput.value=''; clearSearch.style.display='none'; refresh();
+  });
+
+  /* ---------- DENSITY TOGGLE ---------- */
+  document.getElementById('densityBtn').addEventListener('click', ()=>{
+    density = density === 1 ? 0.85 : 1;
+    const base = Math.round(280 * density);
+    document.documentElement.style.setProperty('--colw', base + 'px');
+  });
+
+  /* ---------- LIGHTBOX ---------- */
+  const lb      = document.getElementById('lightbox');
+  const lbImg   = document.getElementById('lbImg');
+  const lbMeta  = document.getElementById('lbMeta');
+  const lbPrev  = document.getElementById('lbPrev');
+  const lbNext  = document.getElementById('lbNext');
+  const lbClose = document.getElementById('lbClose');
+
+  function openLightbox(i){
+    lbIndex = i; const it = view[lbIndex]; if(!it) return;
+    lbImg.src = it.src; lbMeta.textContent = `${it.name} · ${it.tag}`;
+    lb.classList.add('open');
+  }
+  function closeLightbox(){ lb.classList.remove('open'); lbImg.removeAttribute('src'); }
+  function nav(step){
+    if(!view.length) return;
+    lbIndex = (lbIndex + step + view.length) % view.length;
+    const it = view[lbIndex]; lbImg.src = it.src; lbMeta.textContent = `${it.name} · ${it.tag}`;
+  }
+  lbPrev.addEventListener('click', ()=>nav(-1));
+  lbNext.addEventListener('click', ()=>nav(1));
+  lbClose.addEventListener('click', closeLightbox);
+  lb.addEventListener('click', (e)=>{ if(e.target===lb) closeLightbox(); });
+  document.addEventListener('keydown', (e)=>{
+    if(!lb.classList.contains('open')) return;
+    if(e.key==='Escape') closeLightbox();
+    if(e.key==='ArrowRight') nav(1);
+    if(e.key==='ArrowLeft')  nav(-1);
+  });
+
+  /* ---------- BOOT ---------- */
+  refresh();
   </script>
 </body>
 </html>
