@@ -40,11 +40,19 @@
 
         /* Unified sidebar styles */
         .sidebar-menu {
+            position: fixed;
+            left: -250px;
+            top: 0;
+            width: 250px;
+            height: 100%;
             background: linear-gradient(180deg, #001f3f, #003366);
             color: white;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: left 0.3s ease;
+            z-index: 1000;
+        }
+
+        .sidebar-menu:hover {
+            left: 0;
         }
 
         .sidebar-menu .profile-title {
@@ -175,7 +183,7 @@
                                 <ul>
                                     <li style="margin: 0 20px 0 0;"><a href="https://github.com/ahmaddroobi99" target="_blank"><i class="fa fa-github"></i></a></li>
                                     <li><a href="https://www.linkedin.com/in/droobi/" target="_blank"><i class="fa fa-linkedin"></i></a></li>
-                                    <li><a href="https://scholar.google.com/citations?user=your-google-scholar-id" target="_blank" class="icon scholar-icon" title="Google Scholar"><i class="ai ai-google-scholar"></i></a></li>
+                                    <li><a href="https://scholar.google.com/citations?hl=en&user=H-3pF00AAAAJ&view_op=list_works&sortby=pubdate" target="_blank" class="icon scholar-icon" title="Google Scholar"><i class="ai ai-google-scholar"></i></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -201,44 +209,30 @@
             <div class="profile-image">
                 <img src="img/prof.jpg" alt="Ahmad Droobi">
             </div>
-            <h3 class="profile-title"><a href="https://profiles.ucalgary.ca/ahmad-droobi" target="_blank">Ahmad Droobi</a></h3>
-            <p class="profile-description">MSc (Mechanical Engineering), Computational Applied Mathematics</p>
-            <p class="profile-description">
-              <a href="https://profiles.ucalgary.ca/mustafa-mohamad" target="_blank">Predictive & Intelligent Systems Lab</a>
-            </p>
-            <p class="profile-description"><a href="https://schulich.ucalgary.ca/" target="_blank">Schulich School of Engineering</a></p>
-            <p class="profile-description"><a href="https://ucalgary.ca/" target="_blank">University of Calgary</a></p>
-        </div>
-        <div class="social-icons">
-            <ul>
-                <li style="margin:0 20px 0 0;"><a href="https://github.com/ahmaddroobi99" target="_blank"><i class="fa fa-github"></i></a></li>
-                <li style="margin:0px 0 10px 0"><a href="https://www.linkedin.com/in/droobi/" target="_blank"><i class="fa fa-linkedin"></i></a></li>
-                <li><a href="https://scholar.google.com/citations?user=your-google-scholar-id" target="_blank" class="icon scholar-icon" title="Google Scholar"><i class="ai ai-google-scholar"></i></a></li>
-            </ul>
+            <h3 class="profile-title">Ahmad Droobi</h3>
+            <p class="profile-description">Graduate Research Assistant</p>
         </div>
         <div class="main-navigation">
             <ul class="navigation">
                 <li><a href="index.html"><i class="fa fa-home fa-fw"></i>Home</a></li>
-                <li class="current"><a href="education.html"><i class="fa fa-graduation-cap fa-fw"></i>Education</a></li>
+                <li><a href="education.html"><i class="fa fa-graduation-cap fa-fw"></i>Education</a></li>
                 <li><a href="publications.html"><i class="fa fa-file fa-fw"></i>Publications</a></li>
                 <li><a href="experience.html"><i class="fa fa-suitcase fa-fw"></i>Experience</a></li>
                 <li><a href="advising.html"><i class="fa fa-users fa-fw"></i>Advising</a></li>
                 <li><a href="awards.html"><i class="fa fa-star fa-fw"></i>Awards</a></li>
-                <li><a href="gallary.html"><i class="fa fa-image fa-fw"></i>Gallery</a></li>
+                <li><a href="gallary.html"><i class="fa fa-picture-o fa-fw"></i>Gallery</a></li>
             </ul>
         </div>
-        <div class="skills">
-            <h4>Skills</h4>
-            <ul>
-                <li>Machine Learning</li>
-                <li>Deep Learning</li>
-                <li>Data Analysis</li>
-                <li>Statistical Modeling</li>
-                <li>Programming (Python, C++, MATLAB)</li>
-                <li>Software Development</li>
-                <li>Research Methodologies</li>
-                <li>Technical Writing</li>
-            </ul>
+        <div class="social-icons">
+            <a href="https://github.com/ahmaddroobi99" target="_blank" class="icon github-icon" title="GitHub">
+                <i class="fa fa-github"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/droobi/" target="_blank" class="icon linkedin-icon" title="LinkedIn">
+                <i class="fa fa-linkedin"></i>
+            </a>
+            <a href="https://scholar.google.com/citations?hl=en&user=H-3pF00AAAAJ&view_op=list_works&sortby=pubdate" target="_blank" class="icon scholar-icon" title="Google Scholar">
+                <i class="ai ai-google-scholar"></i>
+            </a>
         </div>
     </div> .sidebar-menu
     <div class="main-content">

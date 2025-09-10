@@ -1,417 +1,280 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Ahmad Droobi | Experience</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Ahmad Droobi | Experience</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Google Fonts: Inter for UI, Merriweather for headings -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="css/normalize.css">
-        <link rel="stylesheet" href="css/font-awesome.css">
-        <link rel="stylesheet" href="css/academicons.css">
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/templatemo-style.css">
-        <link rel="shortcut icon" href="img/licensed-image.ico">
+  <!-- Fonts + existing stack -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/font-awesome.css">
+  <link rel="stylesheet" href="css/academicons.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/templatemo-style.css">
+  <link rel="shortcut icon" href="img/licensed-image.ico">
 
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=9ByQ8gbazn">
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=9ByQ8gbazn">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=9ByQ8gbazn">
-        <link rel="manifest" href="/manifest.json?v=9ByQ8gbazn">
-        <link rel="mask-icon" href="/safari-pinned-tab.svg?v=9ByQ8gbazn" color="#8c1515">
-        <link rel="shortcut icon" href="/favicon.ico?v=9ByQ8gbazn">
-        <meta name="msapplication-TileColor" content="#8c1515">
-        <meta name="msapplication-TileImage" content="/mstile-144x144.png?v=9ByQ8gbazn">
-        <meta name="theme-color" content="#ffffff">
+  <!-- Favicons (unchanged) -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=9ByQ8gbazn">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=9ByQ8gbazn">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=9ByQ8gbazn">
+  <link rel="manifest" href="/manifest.json?v=9ByQ8gbazn">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg?v=9ByQ8gbazn" color="#8c1515">
+  <meta name="msapplication-TileColor" content="#8c1515">
+  <meta name="theme-color" content="#ffffff">
 
-        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
-        <script>
-            (function(i,s,o,g,r,a,m){
-                i['GoogleAnalyticsObject']=r;
-                i[r]=i[r]||function(){
-                    (i[r].q=i[r].q||[]).push(arguments)
-                },i[r].l=1*new Date();
-                a=s.createElement(o),
-                m=s.getElementsByTagName(o)[0];
-                a.async=1;
-                a.src=g;
-                m.parentNode.insertBefore(a,m)
-            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-88631709-1', 'auto'); ga('send', 'pageview');
+  </script>
 
-            ga('create', 'UA-88631709-1', 'auto');
-            ga('send', 'pageview');
-        </script>
+  <!-- Modern sidebar + motion -->
+  <style>
+    :root{
+      --sidebar-w:264px;
+      --brand-1:#001f3f; --brand-2:#003366; --accent:#0073b1;
+      --ink:#0f172a; --muted:#64748b; --card:#ffffff;
+      --shadow:0 10px 25px rgba(2,6,23,.12);
+    }
+    html,body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--ink);background:#f3f6f9;}
 
-        <style>
-            /* Updated styles for LinkedIn-like design */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f3f6f9;
-    color: #333;
-}
+    /* Sidebar */
+    .sidebar{
+      position:fixed; top:0; left:0; height:100vh; width:var(--sidebar-w);
+      background:linear-gradient(180deg,var(--brand-1),var(--brand-2)); color:#fff;
+      transform:translateX(-180px); transition:transform .45s cubic-bezier(.2,.8,.2,1);
+      border-right:1px solid rgba(255,255,255,.08); box-shadow:var(--shadow); z-index:1050;
+      backdrop-filter:saturate(140%) blur(2px);
+    }
+    .sidebar:hover,.sidebar.is-open{ transform:translateX(0); }
+    .sidebar__inner{ display:flex; flex-direction:column; height:100%; gap:14px; padding:18px; }
 
-.sidebar-menu {
-    background-color: #ffffff;
-    border: 1px solid #e1e9ee;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-}
+    .profile-card{
+      display:flex; flex-direction:column; align-items:center; text-align:center;
+      background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.04));
+      border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:14px;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.12);
+    }
+    .profile-img-wrap{ width:112px; height:112px; border-radius:999px; overflow:hidden;
+      box-shadow:0 10px 25px rgba(0,0,0,.25); transform:translateZ(0);
+      animation:floatY 6s ease-in-out infinite;
+    }
+    .profile-img-wrap img{ width:100%; height:100%; object-fit:cover; }
+    .profile-img-wrap:hover{ transform:rotateX(6deg) rotateY(-6deg) scale(1.02); filter:saturate(110%); }
+    @keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+    .profile-name{ font-weight:700; font-size:18px; margin-top:10px; }
+    .profile-role{ font-size:12px; color:#e5e7eb; opacity:.9; }
 
-.main-content {
-    background-color: #ffffff;
-    border: 1px solid #e1e9ee;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin-top: 20px;
-}
+    .side-nav{ display:flex; flex-direction:column; gap:6px; }
+    .side-nav a{ display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:10px;
+      color:#e5e7eb; text-decoration:none; transition:background .2s, transform .2s; }
+    .side-nav a i{ width:18px; text-align:center; }
+    .side-nav a:hover{ background:rgba(255,255,255,.10); transform:translateX(3px); }
 
-h4.widget-title {
-    color: #0073b1;
-    font-weight: bold;
-    margin-bottom: 20px;
-}
+    .social-row{ margin-top:auto; display:flex; justify-content:center; gap:14px; }
+    .social-row a{ width:38px; height:38px; display:inline-flex; align-items:center; justify-content:center;
+      border-radius:999px; background:rgba(255,255,255,.10); color:#fff; text-decoration:none; transition:transform .2s, background .2s; }
+    .social-row a:hover{ transform:translateY(-3px) scale(1.06); background:rgba(255,255,255,.18); }
 
-ul {
-    list-style: none;
-    padding: 0;
-}
+    /* Layout push */
+    @media(min-width:992px){ .with-sidebar{ margin-left:calc(var(--sidebar-w) - 180px); } }
+    @media(max-width:991px){
+      .sidebar{ transform:translateX(-100%); }
+      .sidebar.is-open{ transform:translateX(0); }
+      .with-sidebar{ margin-left:0; }
+      .mobile-toggle{
+        position:fixed; top:14px; left:14px; z-index:1100; width:42px; height:42px;
+        border:none; border-radius:10px; background:#fff; color:#0f172a; box-shadow:var(--shadow);
+      }
+    }
 
-li {
-    margin-bottom: 15px;
-}
+    /* Cards + headings */
+    .main-content{ background:var(--card); border-radius:14px; box-shadow:var(--shadow); padding:20px; margin-top:20px; }
+    .widget-title{ font-family:Merriweather,serif; font-weight:700; color:var(--accent); }
+    .life-item{ display:flex; align-items:flex-start; gap:14px; padding:14px; border:1px solid #e6eef5; border-radius:12px; background:#fff; box-shadow:0 2px 8px rgba(2,6,23,.05); }
+    .life-item-img img{ width:56px; height:56px; border-radius:50%; object-fit:cover; }
+    .li-separator{ height:12px; }
+    .copyright-text{ color:var(--muted); }
+  </style>
+</head>
+<body>
 
-.life-item {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    border: 1px solid #e1e9ee;
-    border-radius: 8px;
-    background-color: #ffffff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
+  <!-- Mobile toggle -->
+  <button class="mobile-toggle visible-xs visible-sm" aria-label="Open menu"><i class="fa fa-bars"></i></button>
 
-.life-item-img img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    margin-right: 15px;
-}
+  <!-- LEFT SIDEBAR -->
+  <aside class="sidebar" id="leftSidebar" aria-label="Site navigation">
+    <div class="sidebar__inner">
+      <div class="profile-card">
+        <div class="profile-img-wrap"><img src="img/prof.jpg" alt="Ahmad Droobi"></div>
+        <div class="profile-name">Ahmad Droobi</div>
+        <div class="profile-role">Graduate Research Assistant</div>
+      </div>
 
-.life-item-content {
-    flex: 1;
-}
+      <nav class="side-nav" role="navigation">
+        <a href="index.html"><i class="fa fa-home"></i><span>Home</span></a>
+        <a href="education.html"><i class="fa fa-graduation-cap"></i><span>Education</span></a>
+        <a href="publications.html"><i class="fa fa-file"></i><span>Publications</span></a>
+        <a href="experience.html"><i class="fa fa-suitcase"></i><span>Experience</span></a>
+        <a href="advising.html"><i class="fa fa-users"></i><span>Advising</span></a>
+        <a href="awards.html"><i class="fa fa-star"></i><span>Awards</span></a>
+        <a href="gallary.html"><i class="fa fa-picture-o"></i><span>Gallery</span></a>
+      </nav>
 
-.footer {
-    text-align: center;
-    color: #666;
-    font-size: 14px;
-    margin-top: 20px;
-}
+      <div class="social-row" aria-label="Social links">
+        <a href="https://github.com/ahmaddroobi99" target="_blank" title="GitHub"><i class="fa fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/droobi/" target="_blank" title="LinkedIn"><i class="fa fa-linkedin"></i></a>
+        <a href="https://scholar.google.com/citations?hl=en&user=H-3pF00AAAAJ&view_op=list_works&sortby=pubdate" target="_blank" title="Google Scholar"><i class="ai ai-google-scholar"></i></a>
+      </div>
+    </div>
+  </aside>
+  <!-- /LEFT SIDEBAR -->
 
-/* Updated styles for social icons */
-.social-icons {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 10px;
-}
+  <!-- MAIN -->
+  <div class="with-sidebar">
+    <!-- (Optional) mobile responsive header kept if you use it elsewhere -->
+    <!-- Experience content -->
+    <div class="main-content">
+      <div class="fluid-container">
+        <div class="content-wrapper">
 
-.social-icons .icon {
-    font-size: 2rem;
-    color: #ffffff;
-    background-color: #003366;
-    border-radius: 50%;
-    padding: 10px;
-    transition: transform 0.3s ease, background-color 0.3s ease;
-}
+          <div class="page-section" id="experience">
+            <div class="row">
+              <div class="col-md-12">
+                <h4 class="widget-title">Experience</h4>
+                <ul style="list-style:none; padding-left:0;">
 
-.social-icons .icon:hover {
-    transform: scale(1.2) rotate(10deg);
-    background-color: #0073b1;
-}
-
-.github-icon { color: #333; }
-.linkedin-icon { color: #0073b1; }
-.scholar-icon { color: #d14836; }
-        </style>
-    </head>
-    <body>
-        <div class="responsive-header visible-xs visible-sm">
-            <div class="container">
-                <div class="row" style="margin-right: 0px">
-                    <div class="col-md-12">
-                        <div class="top-section">
-                            <div class="profile-image">
-                                <img src="img/prof.jpg" alt="Ahmad">
-                            </div>
-                            <div class="profile-content">
-                                <h3 class="profile-title"><a href="https://profiles.ucalgary.ca/ahmad-droobi" target="_blank">Ahmad Droobi</a></h3>
-                                <p class="profile-description">Graduate Research Assistant</p>
-                                <div class="social-icons">
-                                    <ul>
-                                        <li style="margin: 0 20px 0 0;"><a href="https://github.com/ahmaddroobi99" target="_blank" class="icon github-icon" title="GitHub"><i class="fa fa-github"></i></a></li>
-                                        <li><a href="https://www.linkedin.com/in/droobi/" target="_blank" class="icon linkedin-icon" title="LinkedIn"><i class="fa fa-linkedin"></i></a></li>
-                                        <li><a href="https://scholar.google.com/citations?user=your-google-scholar-id" target="_blank" class="icon scholar-icon" title="Google Scholar"><i class="ai ai-google-scholar"></i></a></li>
-                                    </ul>
-                                </div> <!-- .social-icons -->
-                            </div>
-                        </div>
+                  <li>
+                    <div class="life-item">
+                      <div class="life-item-img">
+                        <img src="img/UCal.jpg" alt="University of Calgary">
+                      </div>
+                      <div class="life-item-content">
+                        <h5><b><span class="blue-grey">September 2023 - Present</span></b></h5>
+                        <h5 class="life-item-title"><b>Graduate Research Assistant</b></h5>
+                        <h5>University of Calgary — Calgary, Alberta, Canada</h5>
+                        <ul>
+                          <li>Working with Professor <a href="https://profiles.ucalgary.ca/mustafa-mohamad" target="_blank">Mustafa Mohamad</a> Research Team</li>
+                        </ul>
+                      </div>
                     </div>
-                </div>
-                <a href="#" class="toggle-menu"><i class="fa fa-bars"></i></a>
-                <div class="main-navigation responsive-menu">
-                    <ul class="navigation">
-                        <li><a href="index.html"><i class="fa fa-home fa-fw"></i>Home</a></li>
-                        <li><a href="education.html"><i class="fa fa-graduation-cap fa-fw"></i>Education</a></li>
-                        <li><a href="publications.html"><i class="fa fa-file fa-fw"></i>Publications</a></li>
-                        <li><a href="experience.html"><i class="fa fa-suitcase fa-fw"></i>Experience</a></li>
-                        <li><a href="advising.html"><i class="fa fa-users fa-fw"></i>Advising</a></li>
-                        <li><a href="awards.html"><i class="fa fa-star fa-fw"></i>Awards</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+                  </li>
 
-          <!-- SIDEBAR -->
-          <div class="sidebar-menu hidden-xs hidden-sm">
-            <div class="top-section">
-                <div class="profile-image">
-                    <img src="img/prof.jpg" alt="Ahmad">
-                </div>
-                <h3 class="profile-title"><a href="https://profiles.ucalgary.ca/ahmad-droobi" target="_blank">Ahmad Droobi</a></h3>
-                <p class="profile-description">MSc (Mechanical Engineering), Computational Applied Mathematics</p>
-                <p class="profile-description">
-      <a href="https://profiles.ucalgary.ca/mustafa-mohamad" target="_blank">Predictive & Intelligent Systems Lab</a>
-    </p>
-                <p class="profile-description"><a href="https://schulich.ucalgary.ca/" target="_blank">Schulich School of Engineering</a></p>
-                <p class="profile-description"><a href="https://ucalgary.ca/" target="_blank">University of Calgary</a></p>
-            </div> <!-- top-section -->
-            <div class="social-icons">
-                <ul>
-                    <li style="margin: 0 20px 0 0;"><a href="https://github.com/ahmaddroobi99" target="_blank" class="icon github-icon" title="GitHub"><i class="fa fa-github"></i></a></li>
-                    <li style="margin: 0px 0 10px 0"><a href="https://www.linkedin.com/in/droobi/" target="_blank" class="icon linkedin-icon" title="LinkedIn"><i class="fa fa-linkedin"></i></a></li>
-                    <li><a href="https://scholar.google.com/citations?user=your-google-scholar-id" target="_blank" class="icon scholar-icon" title="Google Scholar"><i class="ai ai-google-scholar"></i></a></li>
+                  <div class="li-separator"></div>
+
+                  <li>
+                    <div class="life-item">
+                      <div class="life-item-img">
+                        <img src="img/ITG.jpg" alt="ITG Software Engineering">
+                      </div>
+                      <div class="life-item-content">
+                        <h5><b><span class="blue-grey">February 2023 - August 2023</span></b></h5>
+                        <h5 class="life-item-title"><b>Backend Engineer — Python</b></h5>
+                        <h5>ITG Software Engineering — Cincinnati, Ohio, United States · Remote</h5>
+                        <ul>
+                          <li>Built a subscription analytics product (Kiboko) leveraging Google Analytics → BigQuery pipelines.</li>
+                        </ul>
+                        <font size="-1">"making some money for flight tickets to Alberta"</font>
+                      </div>
+                    </div>
+                  </li>
+
+                  <div class="li-separator"></div>
+
+                  <li>
+                    <div class="life-item">
+                      <div class="life-item-img">
+                        <img src="img/harri.jpg" alt="Harri">
+                      </div>
+                      <div class="life-item-content">
+                        <h5><b><span class="blue-grey">January 2022 - February 2023</span></b></h5>
+                        <h5 class="life-item-title"><b>AI/ML and Data Science Engineering Intern</b></h5>
+                        <h5>Harri — New York and Ramallah</h5>
+                        <ul>
+                          <li>Time-series hiring demand forecasting; Django services bridging DS and backend.</li>
+                          <li><b>Reference:</b> <a target="_blank" href="https://www.linkedin.com/in/ramiazmi/">Rami Tailakh</a></li>
+                        </ul>
+                        <font size="-1">"offered a full time position, but I had already got my offers for higher education"</font>
+                      </div>
+                    </div>
+                  </li>
+
+                  <div class="li-separator"></div>
+
+                  <li>
+                    <div class="life-item">
+                      <div class="life-item-img">
+                        <img src="img/images.png" alt="Clemson University">
+                      </div>
+                      <div class="life-item-content">
+                        <h5><b><span class="blue-grey">October 2021 - May 2022</span></b></h5>
+                        <h5 class="life-item-title"><b>Undergraduate Researcher</b></h5>
+                        <h5>Future Computing Technologies Lab, Clemson University — South Carolina, USA</h5>
+                        <ul>
+                          <li>Real-time emotion recognition with TensorFlow/OpenCV; 97% train accuracy on FER-7; Haar cascade baseline 57.4%.</li>
+                          <li><b>References:</b> <a target="_blank" href="https://www.clemson.edu/cecas/departments/ece/faculty_staff/faculty/msmith.html">Prof. Melissa Smith</a>, <a target="_blank" href="https://www.linkedin.com/in/mikaila-gossman-133622106/">Mikaila Gossman</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </li>
+
+                  <div class="li-separator"></div>
+
+                  <li>
+                    <div class="life-item">
+                      <div class="life-item-img">
+                        <img src="img/download (1).png" alt="Apple Inc">
+                      </div>
+                      <div class="life-item-content">
+                        <h5><b><span class="blue-grey">May 2021 - October 2021</span></b></h5>
+                        <h5 class="life-item-title"><b>SWE Intern</b></h5>
+                        <h5>Apple Inc — Ramallah, West Bank, Palestine</h5>
+                        <ul>
+                          <li>Internal inventory/lab management system; Django + React flows for data I/O.</li>
+                          <li><b>Reference:</b> <a target="_blank" href="https://www.linkedin.com/in/aminmukhaimar/">Amin Mukhaimar</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </li>
+
                 </ul>
-            </div> <!-- .social-icons -->
-            <div class="main-navigation">
-                <ul class="navigation">
-                    <li><a href="index.html"><i class="fa fa-home fa-fw"></i>Home</a></li>
-                    <li><a href="education.html"><i class="fa fa-graduation-cap fa-fw"></i>Education</a></li>
-                    <li><a href="publications.html"><i class="fa fa-file fa-fw"></i>Publications</a></li>
-                    <li class="current"><a href="experience.html"><i class="fa fa-suitcase fa-fw"></i>Experience</a></li>
-                    <li><a href="advising.html"><i class="fa fa-users fa-fw"></i>Advising</a></li>
-                    <li><a href="awards.html"><i class="fa fa-star fa-fw"></i>Awards</a></li>
-                    <li><a href="gallary.html"><i class="fa fa-image fa-fw"></i>Gallery</a></li>
-                </ul>
-            </div> 
-        </div>
-
-        <!-- MAIN CONTENT -->
-        <div class="main-content">
-            <div class="fluid-container">
-                <div class="content-wrapper">
-
-                    <!-- EXPERIENCE -->
-                    <div class="page-section" id="experience">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h4 class="widget-title">Experience</h4>
-                                <ul>
-                                    <li>
-                                        <div class="life-item">
-                                            <div class="life-item-img">
-                                                <img src="img/UCal.jpg" alt="University of Calgary">
-                                            </div>
-                                            <div class="life-item-content">
-                                                <h5><b><span class="blue-grey">September 2023 - Present</span></b></h5>
-                                                <h5 class="life-item-title"><b>Graduate Research Assistant</b></h5>
-                                                <h5>University of Calgary - Calgary, Alberta - Canada</h5>
-                                                <ul>
-                                                    <li>Working with Professor <a href="https://profiles.ucalgary.ca/mustafa-mohamad" target="_blank">Mustafa Mohamad</a> Research Team</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <div class="li-separator"></div>
-                                    <!-- <li>
-                                        <div class="life-item">
-                                            <div class="life-item-img">
-                                                <img src="img/one.jpg" alt="Correlation-One">
-                                            </div>
-                                            <div class="life-item-content">
-                                                <h5><b><span class="blue-grey">July 2023 - Present</span></b></h5>
-                                                <h5 class="life-item-title"><b>Teaching Assistant - Data Science</b></h5>
-                                                <h5>Correlation-One - Amman, Jordan · Remote</h5>
-                                                <ul>
-                                                    <li>Participating in all live lectures, providing helpful and fast responses via Slack, and prepared to host breakout rooms as needed.</li>
-                                                    <li>Providing 6 hours of individual office hour sessions for Fellows each week.</li>
-                                                    <li>Hosting review sessions or other support mechanisms to ensure the progress and satisfaction of Fellows.</li>
-                                                    <li>Participating in the weekly TA meeting.</li>
-                                                    <li>Submitting weekly write-ups summarizing the week’s accomplishments and challenges.</li>
-                                                    <li>Taking attendance during office hours on the TA portal.</li>
-                                                    <li>Grading Fellows’ submissions, providing feedback and ongoing learning support.</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <div class="li-separator"></div> -->
-                                    <li>
-                                        <div class="life-item">
-                                            <div class="life-item-img">
-                                                <img src="img/ITG.jpg" alt="ITG Software Engineering">
-                                            </div>
-                                            <div class="life-item-content">
-                                                <h5><b><span class="blue-grey">February 2023 - August 2023</span></b></h5>
-                                                <h5 class="life-item-title"><b>Backend Engineer - Python</b></h5>
-                                                <h5>ITG Software Engineering - Cincinnati, Ohio, United States · Remote</h5>
-                                                <ul>
-                                                    <li>Worked on creating a new site for Kiboko, a subscription-based service that allows organizations and companies to collect and analyze their data from Google Analytics using BigQuery APIs.</li>
-                                                </ul>
-                                                 <font size="-1"> "making some money for flight tickets to Alberta"</font>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <div class="li-separator"></div>
-                                    <!-- <li>
-                                        <div class="life-item">
-                                            <div class="life-item-img">
-                                                <img src="img/Man.jpg" alt="Manara">
-                                            </div>
-                                            <div class="life-item-content">
-                                                <h5><b><span class="blue-grey">October 2022 - April 2023</span></b></h5>
-                                                <h5 class="life-item-title"><b>SWE Intern</b></h5>
-                                                <h5>Manara - United States</h5>
-                                                <ul>
-                                                    <li>Selected from amongst 12,000 applicants as one of only 200 participants in the program.</li>
-                                                    <li>Studied under the supervision of world-class instructors from companies such as <b>Google, Meta, Amazon</b>.</li>
-                                                    <li>Studied problem-solving, soft skills, and technical skills with an intensive program for 7 months.</li>
-                                                    <li>Participated in job interviews with Google, noon, RelationalAI, and Meta, but decided to follow my dream in higher education.</li>
-                                                    <li>Manara takes top 1% Engineering and CS students in the Middle East and makes referrals to them in the high-tech industry.</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <div class="li-separator"></div> -->
-                                    <li>
-                                        <div class="life-item">
-                                            <div class="life-item-img">
-                                                <img src="img/harri.jpg" alt="Harri">
-                                            </div>
-                                            <div class="life-item-content">
-                                                <h5><b><span class="blue-grey">January 2022 - February 2023</span></b></h5>
-                                                <h5 class="life-item-title"><b>AI/ML and Data Science Engineering Intern</b></h5>
-                                                <h5>Harri - New York and Ramallah</h5>
-                                                <ul>
-                                                    <li>Served the backend team for Harri, a global leader in frontline employee experience, worked on time series and forecasting projects to predict hiring needs for restaurants and retailers.</li>
-                                                    <li>Coordinated with the data team to create a pipeline for client data, using time series forecasting algorithms; built a backend system with Django; created a bridge between the backend and data science team.</li>
-                                                    <li>Worked in R&D of new and customized algorithms and backend solutions to create an employee forecasting product used by 20 clients, which reached hourly prediction intervals; included embedded features for employer clients such as location, type of business, and original data from the last 10 years.</li>
-                                                    <li><b>Reference: </b><a target="_blank" href="https://www.linkedin.com/in/ramiazmi/">Rami Tailakh</a></li>
-                                               
-                                                </ul>
-                                                
-                                                <font size="-1">"offered a full time position, but I had already got my offers for higher education"</font>
-
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <div class="li-separator"></div>
-                                    <!-- <li>
-                                        <div class="life-item">
-                                            <div class="life-item-img">
-                                                <img src="img/HUK_QZmw_400x400.jpg" alt="Equitech Futures">
-                                            </div>
-                                            <div class="life-item-content">
-                                                <h5><b><span class="blue-grey">September 2022 - January 2023</span></b></h5>
-                                                <h5 class="life-item-title"><b>Undergraduate Researcher</b></h5>
-                                                <h5>Equitech Futures - Chicago, Illinois</h5>
-                                                <ul>
-                                                    <li>Applied machine learning techniques to real-world datasets such as predictive algorithms for climate forecasting and wind speed prediction, and gained experience in applied artificial intelligence.</li>
-                                                    <li>Developed proficiency in Python through participation in Coding Gym sessions.</li>
-                                                    <li>Conducted independent research and team projects; presented climate forecasting research findings and wrote reports, effectively communicating technical information to a diverse audience.</li>
-                                                    <li>Collaborated with peers and mentors to design experiments and analyze and validate results for weather datasets, through Kaggle and other lab results.</li>
-                                                </ul>
-                                                <br>
-                                                <ul>
-                                                    <li><b>References:</b></li>
-                                                    <li><a target="_blank" href="https://harris.uchicago.edu/directory/abhilash-mishra">Abhilash Mishra</a>, PhD, Caltech</li>
-                                                    <li><a target="_blank" href="https://www.equitechfutures.com/faculty/bhasi-nair">Bhasi Nair</a>, PhD, University of Cambridge</li>
-                                                    <li><a target="_blank" href="https://www.linkedin.com/in/manoflamuncie/">Thomas Murray</a>, MFA, Virginia Tech</li>
-                                                    <li><a target="_blank" href="https://www.linkedin.com/in/krittika-bhattacharjee-5530a3214/">Krittika Bhattacharjee</a>, PhD, University of Edinburgh</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </li> -->
-                                    <!-- <div class="li-separator"></div> -->
-                                    <li>
-                                        <div class="life-item">
-                                            <div class="life-item-img">
-                                                <img src="img/images.png" alt="Clemson University">
-                                            </div>
-                                            <div class="life-item-content">
-                                                <h5><b><span class="blue-grey">October 2021 - May 2022</span></b></h5>
-                                                <h5 class="life-item-title"><b>Undergraduate Researcher</b></h5>
-                                                <h5>Future Computing Technologies Lab, Clemson University - South Carolina, USA</h5>
-                                                <ul>
-                                                    <li>Worked on real-time emotion recognition using deep learning with Google Colab, TensorFlow, OpenCV, and Dlib to contribute to the success of this approach in recognizing emotions.</li>
-                                                    <li>Introduced deep learning techniques (CNN, DNN, and other multimodal methods) to accelerate recognition accuracy; demonstrated a general architectural model for building a recognition system with deep learning.</li>
-                                                    <li>Analyzed pre- and post-processes involved in the model's methodology; conducted extensive work on image and video as input (Real-Time System) to recognize emotions.</li>
-                                                    <li>Benchmarked different performance parameters in different research to show this sphere's progress.</li>
-                                                    <li>Carried out the experimental observation on the Kaggle dataset involving seven emotions, which yielded 97% accuracy in the training set and 57.4% accuracy when applying the Haar cascade technique.</li>
-                                                    <li><b>References:</b> <a target="_blank" href="https://www.clemson.edu/cecas/departments/ece/faculty_staff/faculty/msmith.html">Prof. Melissa Smith</a> and <a target="_blank" href="https://www.linkedin.com/in/mikaila-gossman-133622106/">Mikaila Gossman</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <div class="li-separator"></div>
-                                    <li>
-                                        <div class="life-item">
-                                            <div class="life-item-img">
-                                                <img src="img/download (1).png" alt="Apple Inc" class="small-icon">
-                                            </div>
-                                            <div class="life-item-content">
-                                                <h5><b><span class="blue-grey">May 2021 - October 2021</span></b></h5>
-                                                <h5 class="life-item-title"><b>SWE Intern</b></h5>
-                                                <h5>Apple Inc - Ramallah, West Bank - Palestine</h5>
-                                                <ul>
-                                                    <li>Supported a data stream interface project, building an internal employee system that managed inventories and labs, part of the company's critical supply chain process.</li>
-                                                    <li>Implemented and iterated retrieve/update information using Django and React.</li>
-                                                    <li><b>Reference:</b> <a target="_blank" href="https://www.linkedin.com/in/aminmukhaimar/">Amin Mukhaimar</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                                <hr>
-                            </div>
-                        </div> <!-- #EXPERIENCE -->
-                    </div>
-
-                    <div class="row" id="footer">
-                        <div class="col-md-12 text-center">
-                            <p class="copyright-text">© 1999–2026 Ahmad Droobi</p>
-                        </div>
-
-
-
-
-
-
-                    </div>
-
-                </div>
+                <hr>
+              </div>
             </div>
+          </div>
+
+          <div class="row" id="footer">
+            <div class="col-md-12 text-center">
+              <p class="copyright-text">© 1999–2026 Ahmad Droobi</p>
+            </div>
+          </div>
+
         </div>
+      </div>
+    </div>
+  </div>
+  <!-- /MAIN -->
 
-        <script src="js/vendor/jquery-1.10.2.min.js"></script>
-        <script src="js/min/plugins.min.js"></script>
-        <script src="js/min/main.min.js"></script>
+  <script src="js/vendor/jquery-1.10.2.min.js"></script>
+  <script src="js/min/plugins.min.js"></script>
+  <script src="js/min/main.min.js"></script>
 
-    </body>
+  <!-- Sidebar behavior -->
+  <script>
+    (function(){
+      const sidebar = document.getElementById('leftSidebar');
+      const btn = document.querySelector('.mobile-toggle');
+      if(btn){ btn.addEventListener('click', ()=> sidebar.classList.toggle('is-open')); }
+      if(window.matchMedia('(min-width: 992px)').matches){
+        setTimeout(()=> sidebar.classList.add('is-open'), 400);
+        setTimeout(()=> sidebar.classList.remove('is-open'), 1800);
+      }
+    })();
+  </script>
+</body>
 </html>
