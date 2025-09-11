@@ -1,0 +1,25 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build SVG from TikZ",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy", "Bypass",
+        "-File", "build-svg.ps1"
+      ],
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "Open HTML",
+      "type": "shell",
+      "command": "start",
+      "args": ["repository.html"],
+      "dependsOn": "Build SVG from TikZ",
+      "problemMatcher": []
+    }
+  ]
+}
