@@ -13,6 +13,19 @@
     th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
     th { background-color: #f4f4f4; font-weight: bold; }
     h1, h2, h3 { color: #333; }
+    .alg { border: 1px solid #ddd; padding: 16px; margin: 16px 0; }
+    .alg__head { display: flex; justify-content: space-between; align-items: center; }
+    .alg__chip { background-color: #007bff; color: white; padding: 4px 8px; border-radius: 16px; font-size: 0.9em; }
+    .alg__title { margin: 0; font-size: 1.5em; }
+    .alg__body { margin-top: 16px; }
+    .alg__io { font-weight: bold; margin-bottom: 16px; }
+    .steps { counter-reset: step; }
+    .step { margin: 8px 0; padding-left: 20px; position: relative; }
+    .step:before { content: counter(step); counter-increment: step; position: absolute; left: 0; top: 0; }
+    .sub { margin-left: 20px; }
+    .note { font-style: italic; color: #555; }
+    .code { background-color: #f4f4f4; padding: 2px 4px; border-radius: 4px; font-family: monospace; }
+    .math-block { margin: 16px 0; }
   </style>
 </head>
 <body>
@@ -113,6 +126,129 @@
         <li><strong>Linear Dynamics</strong>: Systems with proportional cause-effect relationships \( y = mx + c \)</li>
         <li><strong>Static Equilibrium</strong>: Systems without evolutionary change</li>
       </ul>
+    </section>
+
+    <section>
+      <header>
+        <h1>Hybrid EnKF–PF Algorithms (HTML)</h1>
+        <p>HTML conversion of two LaTeX algorithms with MathJax rendering and enterprise-grade presentation.</p>
+      </header>
+
+      <!-- Algorithm 1 -->
+      <section class="alg">
+        <div class="alg__head">
+          <span class="alg__chip">ALGORITHM</span>
+          <h2 class="alg__title">Hybrid EnKF–PF for Barotropic QG Flow with Lagrangian Tracers</h2>
+        </div>
+        <div class="alg__body">
+          <div class="alg__io">
+            <strong>Input:</strong> Initial ensemble \( \{\mathbf{x}_k^0\}_{k=1}^{N} \), velocity field, tracer paths \( \mathbf{X} \), time step \( \Delta t \), observation error covariance \( \mathbf{R} \)<br/>
+            <strong>Output:</strong> Posterior ensemble mean \( \mathbf{m}^a(t) \) at saved times \( t_s \)
+          </div>
+
+          <ol class="steps">
+            <li class="step">
+              <div>
+                Initialize spectral domain \( \mathbf{k}_x,\mathbf{k}_y,\lVert\mathbf{k}\rVert \); damping \( \gamma(\mathbf{k}) \); noise \( \sigma(\mathbf{k}) \).
+              </div>
+            </li>
+            <li class="step">
+              <div>
+                Generate observation operator \( \mathcal{H}(\mathbf{X}) \) via velocity projections \( q \rightarrow \psi \rightarrow (u,v) \).
+              </div>
+            </li>
+
+            <li class="step">
+              <div>
+                <strong>For</strong> \( t = 1 \) to \( T \) <strong>do</strong>
+                <div class="sub">
+                  <div class="note"><em>Forecast step over ensemble members</em></div>
+                  <div class="sub">
+                    <strong>For</strong> \( k = 1 \) to \( N \) <strong>do</strong>
+                    <div class="sub">
+                      <div class="code">\( \psi_k \gets \mathcal{F}^{-1}\!\left[ \dfrac{\hat{q}_k}{\lVert\mathbf{k}\rVert^2 + \mu} \right] \)</div>
+                      <div class="code">Compute nonlinear advection \( \dfrac{\partial q_k}{\partial t} \) via pseudo-spectral QG.</div>
+                      <div class="code">\( \mathbf{x}_k^{f} \gets \mathbf{x}_k^{f} + \Delta t \, \dfrac{\partial q_k}{\partial t} + \Sigma \boldsymbol{\xi}_k \)</div>
+                    </div>
+                    <strong>end for</strong>
+                  </div>
+
+                  <div class="note"><em>Analysis step on save cadence</em></div>
+                  <div class="sub">
+                    If \( \mathrm{mod}(t,n_{\text{save}})=0 \) then:
+                    <div class="sub">
+                      <div class="code">Construct observation matrix \( \mathbf{H} \) from tracer locations.</div>
+                      <div class="code">Ingest observed velocities \( \mathbf{d}(t) \) from \( \dot{\mathbf{X}} \).</div>
+                      <div class="code">Predict obs: \( \mathbf{Y}_k = \mathbf{H}\mathbf{x}_k^{f} \).</div>
+
+                      <div class="math-block">
+                        \[
+                        \mathbf{P}_{yy} = \frac{1}{N-1} \sum (\mathbf{Y}_k-\bar{\mathbf{Y}})(\mathbf{Y}_k-\bar{\mathbf{Y}})^\top + \mathbf{R}, \quad
+                        \mathbf{P}_{xy} = \frac{1}{N-1} \sum (\mathbf{x}_k^{f}-\bar{\mathbf{x}})(\mathbf{Y}_k-\bar{\mathbf{Y}})^\top
+                        \]
+                      </div>
+                      <div class="math-block">
+                        \[
+                        \mathbf{K} = \mathbf{P}_{xy}\mathbf{P}_{yy}^{-1}
+                        \]
+                      </div>
+
+                      <div class="note"><em>EnKF update</em></div>
+                      <div class="sub">
+                        <strong>For</strong> \( k = 1 \) to \( N \) <strong>do</strong>
+                        <div class="code">\( \mathbf{x}_k^{a} \gets \mathbf{x}_k^{f} + \mathbf{K}(\mathbf{d}-\mathbf{Y}_k) \)</div>
+                        <strong>end for</strong>
+                      </div>
+
+                      <div class="note"><em>Particle filter reweight + resample</em></div>
+                      <div class="math-block">
+                        \[
+                        w_k \propto \exp\!\left(-\tfrac{1}{2}(\mathbf{d}-\mathbf{Y}_k)^\top \mathbf{R}^{-1}(\mathbf{d}-\mathbf{Y}_k)\right), 
+                        \quad w_k \leftarrow \frac{w_k}{\sum_j w_j}
+                        \]
+                      </div>
+                      <div class="code">Resample \( \{\mathbf{x}_k^{a}\} \leftarrow \mathrm{Resample}(\{\mathbf{x}_k^{a}\},\{w_k\}) \)</div>
+                      <div class="code">Store posterior mean \( \mathbf{m}(t) = \frac{1}{N}\sum_{k=1}^N \mathbf{x}_k^{a} \)</div>
+                    </div>
+                  </div>
+                </div>
+                <strong>end for</strong>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- Algorithm 2 -->
+      <section class="alg">
+        <div class="alg__head">
+          <span class="alg__chip">ALGORITHM</span>
+          <h2 class="alg__title">Systematic Resampling of Ensemble Members</h2>
+        </div>
+        <div class="alg__body">
+          <div class="alg__io">
+            <strong>Input:</strong> Weighted ensemble \( \{ \mathbf{x}_k, w_k \}_{k=1}^{N} \)<br/>
+            <strong>Output:</strong> Resampled ensemble \( \{ \tilde{\mathbf{x}}_k \}_{k=1}^{N} \)
+          </div>
+          <ol class="steps">
+            <li class="step"><div>Compute cumulative weights \( W_k = \sum_{j=1}^{k} w_j \).</div></li>
+            <li class="step"><div>Set stride \( \delta = \frac{1}{N} \).</div></li>
+            <li class="step"><div>Draw \( u \sim \mathcal{U}[0,\delta] \).</div></li>
+            <li class="step"><div>Initialize \( i \leftarrow 1 \).</div></li>
+            <li class="step">
+              <div>
+                <strong>For</strong> \( k = 1 \) to \( N \) <strong>do</strong>
+                <div class="sub">
+                  <div class="code">\( u_k = u + (k-1)\delta \)</div>
+                  <div class="code">While \( u_k > W_i \): set \( i \leftarrow i+1 \)</div>
+                  <div class="code">Set \( \tilde{\mathbf{x}}_k \leftarrow \mathbf{x}_i \)</div>
+                </div>
+                <strong>end for</strong>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </section>
     </section>
   </main>
 </body>
