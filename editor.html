@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <title>LaTeX Workbench with TikZ Diagram</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- MathJax v3 (TeX -> CHTML) -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        packages: {'[+]': ['ams']},
+        tags: 'none'
+      },
+      options: { skipHtmlTags: {'[+]': ['textarea','pre','code']} },
+      chtml: { scale: 1 }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+  <style>
+    :root {
+      --accent: #0073b1; --ink: #0f172a; --muted: #64748b; --card: #ffffff; --bg: #f3f6f9;
+      --shadow: 0 10px 25px rgba(2,6,23,.12); --radius: 12px;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; color: var(--ink); background: var(--bg); }
+    .main-content { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px; margin: 20px; }
+    .widget-title { color: var(--accent); margin: 0 0 12px; font-size: 1.5em; }
+    .toolbar { display: flex; justify-content: space-between; gap: 12px; margin: 6px 0 14px; flex-wrap: wrap; }
+    .btn { border: 0; border-radius: 10px; background: #fff; color: var(--ink); padding: 8px 12px; box-shadow: 0 1px 2px rgba(2,6,23,.08); cursor: pointer; font-weight: 600; }
+    .btn.sm { padding: 7px 10px; font-size: 13px; }
+    .btn.primary { background: var(--accent); color: #fff; }
+    .btn.ghost { background: #fff; border: 1px solid #e5eef5; }
+    .workspace { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .editor-wrap, .preview-wrap { background: #fff; border: 1px solid #e6eef5; border-radius: var(--radius); overflow: hidden; box-shadow: 0 2px 8px rgba(2,6,23,.05); }
+    .editor-header { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; background: #f9fbfd; border-bottom: 1px solid #eef3f8; }
+    .editor-header .hint { color: var(--muted); font-size: 12px; }
+    #editor { width: 100%; height: 380px; border: 0; padding: 12px 14px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 14px; line-height: 1.4; outline: none; resize: vertical; }
+    .preview { min-height: 380px; padding: 12px 14px; }
+    .palettes { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; margin-top: 16px; }
+    .palette { background: #fff; border: 1px solid #e6eef5; border-radius: var(--radius); }
+    .palette h5 { margin: 10px 12px; color: #0f172a; }
+    .grid { display: grid; grid-template-columns: repeat(8, minmax(34px, 1fr)); gap: 6px; padding: 10px; }
+    .sym { display: flex; align-items: center; justify-content: center; height: 38px; border: 1px solid #e6eef5; border-radius: 8px; background: #fff; cursor: pointer; user-select: none; }
+    .sym:hover { background: #f5f9ff; border-color: #d0e3ff; }
+    .footnote { color: var(--muted); margin-top: 8px; }
+    #dropZone { outline: 2px dashed transparent; }
+    #dropZone.dragover { outline-color: #99c2f9; background: #f7fbff; }
+    @media (max-width: 1024px) { .workspace { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="main-content">
+      <h3 class="widget-title">Drag-and-Drop LaTeX Compiler</h3>
+
+      <!-- Controls -->
+      <section class="toolbar">
+        <div class="left">
+          <button id="btnInline" class="btn sm" title="Wrap selection with $…$">Inline</button>
+          <button id="btnDisplay" class="btn sm" title="Wrap selection with \[ … \]">Display</button>
+          <button id="btnCompile" class="btn sm primary">Compile</button>
+          <button id="btnClear" class="btn sm ghost">Clear</button>
+        </div>
+        <div class="right">
+          <input id="fileInput" type="file" accept=".tex,.txt" hidden>
+          <button id="btnOpen" class="btn sm">Open .tex</button>
+          <button id="btnDownload" class="btn sm">Download .tex</button>
+        </div>
+      </section>
+
+      <!-- Workspace: Editor / Preview -->
+      <section class="workspace">
+        <div class="editor-wrap" id="dropZone" aria-label="Drag & drop .tex here">
+          <div class="editor-header">
+            <strong>Editor</strong>
+            <span class="hint">Drag & drop .tex — autosaves to browser</span>
+          </div>
+          <textarea id="editor" spellcheck="false" placeholder="% Type LaTeX. Use palette buttons to insert symbols at the cursor.">% !TEX program = pdflatex
+\documentclass[tikz,border=2mm]{standalone}
+\usepackage{amsmath,amssymb}
+\usepackage{mathrsfs}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,calc,positioning,fit,backgrounds,decorations.pathreplacing,shapes.geometric}
+% ---------- Layers
+\pgfdeclarelayer{bg}
+\pgfsetlayers{bg,main}
+% ---------- Palette (refined contrast & accessibility)
+\definecolor{foundationBlue}{RGB}{36, 99, 235}
+\definecolor{observerViolet}{RGB}{138, 75, 190}
+\definecolor{physicsTeal}{RGB}{ 0, 148, 143}
+\definecolor{couplingOrange}{RGB}{224, 120, 0}
+\definecolor{roadmapGray}{RGB}{ 70, 78, 84}
+\definecolor{paperTint}{RGB}{247,249,252}
+\colorlet{bgFoundation}{foundationBlue!6}
+\colorlet{bgObserver}{observerViolet!8}
+\colorlet{bgPhysics}{physicsTeal!7}
+\colorlet{bgCoupling}{couplingOrange!8}
+\colorlet{bgRoadmap}{roadmapGray!8}
+% ---------- Global knobs
+\newif\ifShowJacobian \ShowJacobiantrue
+\newif\ifShowHilbert \ShowHilberttrue
+\newif\ifShowAxis \ShowAxistrue
+\newif\ifEnableA \EnableAtrue
+\newif\ifEnableB \EnableBtrue
+\newif\ifEnableC \EnableCtrue
+\newif\ifEnableD \EnableDtrue
+% panel grid
+\def\PanelW{12.8} % cm per window
+\def\PanelH{10.2} % cm per window
+\def\PanelGap{1.0} % cm
+% shared time axis
+\def\axisLen{2*\PanelW + \PanelGap}
+\def\timeY{-2.4} % relative to bottom of lower row
+\def\nTicks{16}
+\def\dt{1.2}
+\def\ta{9.0}
+\def\tb{12.0}
+% ---------- Styles
+\tikzset{
+  font=\small,
+  card/.style={rectangle,rounded corners=4pt,very thick,minimum width=42mm,minimum height=12mm,text width=40mm,align=center,inner sep=3.5pt},
+  cardF/.style={card,draw=foundationBlue!70!black,fill=bgFoundation},
+  cardO/.style={card,draw=observerViolet!75!black,fill=bgObserver},
+  cardP/.style={card,draw=physicsTeal!70!black,fill=bgPhysics},
+  cardC/.style={card,draw=couplingOrange!80!black,fill=bgCoupling,text width=36mm,minimum width=0pt},
+  cardM/.style={card,draw=roadmapGray!85!black,fill=bgRoadmap},
+  dot/.style={circle,draw=foundationBlue!70!black,fill=bgFoundation,very thick,minimum size=8mm},
+  flowF/.style={-{Latex[length=3mm]},very thick,draw=foundationBlue!85!black,shorten >=2pt,shorten <=2pt},
+  flowO/.style={-{Latex[length=3mm]},very thick,draw=observerViolet!85!black,shorten >=2pt,shorten <=2pt},
+  flowP/.style={-{Latex[length=3mm]},very thick,draw=physicsTeal!80!black,shorten >=2pt,shorten <=2pt},
+  flowC/.style={-{Latex[length=2.8mm]},thick,draw=couplingOrange!95!black,shorten >=2pt,shorten <=2pt},
+  flowM/.style={-{Latex[length=2.8mm]},thick,draw=roadmapGray!95!black,shorten >=2pt,shorten <=2pt},
+  flowAxis/.style={-{Latex[length=3mm]},very thick,draw=black},
+  auxflow/.style={-{Latex[length=2.6mm]},thick,draw=roadmapGray!80!black,dashed,shorten >=2pt,shorten <=2pt},
+  note/.style={font=\scriptsize,inner sep=1pt},
+  axisBadge/.style={draw=black,rounded corners=2pt,inner sep=1pt,fill=paperTint}
+}
+% ---------- Jacobian badges for window edges
+\newcommand{\EdgeBadges}[3]{%
+  \ifShowJacobian
+    \node[axisBadge,anchor=north west] at (#1) {$J_{x}=\frac{\partial x}{\partial s}$};
+    \path (#1) ++(#2,0) node[axisBadge,anchor=north east] {$J_{t}=\frac{\partial t}{\partial s}$};
+    \path (#1) ++(0,#3) node[axisBadge,anchor=south west] {$J_{y}=\frac{\partial y}{\partial s}$};
+    \path (#1) ++(#2,#3) node[axisBadge,anchor=south east] {$\det J$};
+  \fi
+}
+% ---------- A: Inference Core
+\newcommand{\WindowA}[1]{%
+  \begin{scope}[shift={(#1)}]
+    \def\xL{0.0} \def\xM{6.8} \def\xR{13.6} \def\xRR{20.8}
+    \def\yA{3.8} \def\yB{0.4} \def\yC{-3.6} \def\yD{-7.4} \def\yE{-11.2} \def\yF{-15.0}
+    \node[cardF] (measure) at (\xL,\yA) {Measure Theory\\$\mathcal{M}=(X,\mathcal{F},\mu)$};
+    \node[cardF] (topology) at (\xL,\yB) {Topology\\$\mathscr{T}$};
+    \node[dot] (phi) at (\xM,\yA) {$\Phi$};
+    \node[cardF] (params) at (\xR,\yA+1.4) {Parameters\\$\varphi_i\in\Phi$};
+    \draw[flowF] (measure) -- node[note,anchor=west] {$\mu\mapsto$} (phi);
+    \draw[flowF] (topology) -- node[note,anchor=west] {$\mathscr{T}\mapsto$} (phi);
+    \draw[flowF] (phi) -- node[note,above] {projection} (params);
+    \node[cardF,text width=38mm] (policy) at (\xL-3.9,\yA-0.9) {Priors / Policy\\$\log\pi=\log p(y|\theta)+\log p(\theta)$};
+    \draw[flowF] (policy) -- node[note,above]{constraints} (params);
+    \node[cardO] (observer) at (\xL,\yC) {Observer\\$\mathcal{O}:\mathbb{R}^4\!\to\!\mathcal{P}$};
+    \node[cardO] (noise) at (\xM,\yC) {Noise\\$\epsilon\sim\mathcal{D}$};
+    \node[cardO] (behavior) at (\xL,\yD) {Behavioral State\\$B_t=f(\mathcal{O},\epsilon)$};
+    \node[cardO] (prob) at (\xM,\yD) {Posterior Factors\\$p(\psi\,|\,\mathcal{O})$};
+    \draw[flowO] (observer) -- (behavior);
+    \draw[flowO] (noise) -- (behavior);
+    \draw[flowO] (behavior) -- (prob);
+    \node[cardP] (potential) at (\xL,\yE) {Energy/Potential\\$U(x)=-\log\pi(x)$};
+    \node[cardP] (relativity) at (\xM,\yE) {Preconditioning\\Riemannian metric};
+    \node[cardM] (mcmc) at (\xM+3.0,\yE) {MCMC Kernel\\$q(x'|x)$, $\alpha=\min\{1,\frac{\pi(x')q(x|x')}{\pi(x)q(x'|x)}\}$};
+    \node[cardM] (cnf) at (\xR,\yE) {CNF / Flow $T_t$\\$\dot x=v_\phi(x,s)$,\; $\int\!\mathrm{tr}\,\nabla v_\phi\,ds$};
+    \node[cardM,text width=40mm] (langevin) at (\xM-0.2,\yE+1.9) {Overdamped Langevin\\$\mathrm{d}X_t=-\nabla U(X_t)\,dt+\sqrt{2}\,dW_t$};
+    \node[cardM,text width=40mm] (wgf) at (\xR+3.0,\yE+1.9) {Wasserstein GF\\$\partial_s\rho=\nabla\!\cdot(\rho\,\nabla\log\frac{\rho}{\pi})$};
+    \node[cardP] (rationality) at (\xL,\yF) {Deterministic Mean\\$\bar x,\ \nabla U(\bar x)$};
+    \node[cardP] (equilibrium) at (\xM,\yF) {Equilibrium\\$\nabla_{\vec{s}}\Phi=0$};
+    \node[cardC] (ens) at (\xRR-1.0,\yF) {Ensembles\\EnKF / PF\\$x^a=x^f+K(y-Hx^f)$};
+    \node[cardP] (forecast) at (\xRR-1.0,\yE-2.0) {Forecast\\$\hat y_{t+1}$};
+    \node[cardC,text width=34mm] (gradmean) at (\xRR-4.0,\yF+2.0) {Ensemble Mean/Grad\\$N^{-1}\!\sum\nabla U(x_i)$};
+    \draw[flowP] (prob) -- node[note,above]{likelihood} (potential);
+    \draw[flowP] (potential) -- node[note,above]{grad / metric} (relativity);
+    \draw[flowM] (relativity) -- node[note,above]{proposal shaping} (mcmc);
+    \draw[flowM] (cnf) -- node[note,above]{init/guide} (mcmc);
+    \draw[flowM] (prob) -- node[note,above]{transport} (cnf);
+    \draw[flowM] (langevin) -- node[note,above]{Euler–Maruyama + MH} (mcmc);
+    \draw[flowM] (policy) -- node[note,below]{regularize} (potential);
+    \draw[flowM] (wgf) -- node[note,above]{guide $v_\phi$} (cnf);
+    \draw[flowP] (mcmc) -- node[note,above]{samples} (ens);
+    \draw[flowP] (ens) -- node[note,right]{mean/CI} (rationality);
+    \draw[flowP] (rationality) -- node[note,above]{deterministic map} (equilibrium);
+    \draw[flowP] (ens) -- (forecast);
+    \draw[flowP] (ens) -- node[note,above]{mean/grad} (gradmean);
+    \draw[auxflow] (mcmc.north east) to[out=45,in=135] node[note,above]{refresh} (mcmc.north west);
+    \node[cardM,text width=30mm,minimum height=10mm] (aux) at (\xR+3.0,\yE-0.2) {Aux latent $\xi$\\(augmented dim.)};
+    \draw[auxflow] (mcmc) -- node[note,below]{augment} (aux);
+    \draw[auxflow] (aux) -- node[note,below]{marginalize} (mcmc);
+    \coordinate (R0) at (\xRR-0.8,\yC+1.2);
+    \draw[very thick, draw=couplingOrange!90!black] ($(R0)+(0,3.4)$) -- node[note,rotate=90,midway,xshift=-7pt]{Observer Space} ($(R0)+(0,0)$);
+    \draw[very thick, draw=couplingOrange!90!black] ($(R0)+(5.2,3.4)$) -- node[note,rotate=90,midway,xshift=+7pt]{Physical Space} ($(R0)+(5.2,0)$);
+    \foreach \yy in {0.6,1.6,2.6,3.2}{
+      \draw[flowC] ($(R0)+(0,\yy)$) -- node[note,above]{features $\to$ states} ($(R0)+(5.2,\yy)$);
+      \draw[flowC] ($(R0)+(5.2,\yy-0.3)$) -- node[note,below]{feedback $\to$ priors} ($(R0)+(0,\yy-0.3)$);
+    }
+    \node[cardC] at ($(R0)+(0,4.0)$) {Conscious States\\$S_c=\{B_t,p(\psi)\}$};
+    \node[cardC] at ($(R0)+(5.2,4.0)$) {Physical States\\$S_p=\{U,\text{metric},\Phi\}$};
+    \node[note, text=couplingOrange!85!black] at ($(R0)+(2.6,3.3)$) {Information Coupling};
+    \begin{pgfonlayer}{bg}
+      \node[draw=foundationBlue!30, fill=bgFoundation, rounded corners=6pt, inner sep=6pt, fill opacity=.10, draw opacity=.45, fit=(measure)(topology)(params)(phi)(policy)] {};
+      \node[draw=observerViolet!30, fill=bgObserver, rounded corners=6pt, inner sep=6pt, fill opacity=.10, draw opacity=.45, fit=(observer)(prob)(behavior)(noise)] {};
+      \node[draw=physicsTeal!30, fill=bgPhysics, rounded corners=6pt, inner sep=6pt, fill opacity=.10, draw opacity=.45, fit=(potential)(equilibrium)(relativity)(mcmc)(cnf)(langevin)(wgf)(gradmean)(ens)(forecast)(aux)(rationality)] {};
+      \node[draw=couplingOrange!25, fill=bgCoupling, rounded corners=6pt, inner sep=6pt, fill opacity=.10, draw opacity=.45, fit=(R0)] {};
+    \end{pgfonlayer}
+    \node[draw=black, very thick, rounded corners=8pt, inner sep=6pt, fit=(measure)(policy)(equilibrium)(forecast)(wgf)(gradmean)(aux)(params)(phi)(mcmc)(cnf)(langevin) (R0)] (POP) {};
+    \node[anchor=north west, font=\bfseries] at ([xshift=4pt,yshift=-4pt]POP.north west) {A. Inference Core};
+    \EdgeBadges{POP.south west}{\widthof{POP}}{\heightof{POP}}
+  \end{scope}
+}
+% ---------- B: Space–Time Jacobian Explorer
+\newcommand{\WindowB}[1]{%
+  \begin{scope}[shift={(#1)}]
+    \node[cardP,text width=52mm] (disp) at (2.8,2.8) {Dispersion \& Phase\\$\omega=\omega(k)$,\; $v_g=\frac{\mathrm{d}\omega}{\mathrm{d}k}$,\; $v_p=\frac{\omega}{k}$};
+    \node[cardM,text width=50mm] (schr) at (9.2,2.8) {Local PDE patch\\Schrödinger / Klein–Gordon\\$\partial_t \psi = \mathcal{L}\psi$};
+    \node[cardF,text width=52mm] (jac) at (2.8,-1.4) {Spacetime Jacobian\\$J=\begin{bmatrix}\partial x/\partial s & \partial x/\partial u\\[2pt]\partial t/\partial s & \partial t/\partial u\end{bmatrix}$};
+    \node[cardC,text width=50mm] (map) at (9.2,-1.4) {Restriction map $\Pi_{[t_a,t_b]}$\\band-limited probe of $\psi$};
+    \draw[flowP] (disp) -- node[note,above]{wave kinematics} (schr);
+    \draw[flowM] (jac) -- node[note,above]{chart} (map);
+    \draw[flowC] (map) -- node[note,above]{features} (schr);
+    \node[draw=black, very thick, rounded corners=8pt, inner sep=6pt, fit=(disp)(schr)(jac)(map)] (FRAMEB) {};
+    \node[anchor=north west, font=\bfseries] at ([xshift=4pt,yshift=-4pt]FRAMEB.north west) {B. Space–Time Jacobian Explorer};
+    \EdgeBadges{FRAMEB.south west}{\widthof{FRAMEB}}{\heightof{FRAMEB}}
+  \end{scope}
+}
+% ---------- C: Causality & Light-Cone
+\newcommand{\WindowC}[1]{%
+  \begin{scope}[shift={(#1)}]
+    \node[cardP,text width=50mm] (cone) at (3.0,2.6) {Light-cone budget\\$ds^2=c^2dt^2-\|dx\|^2$};
+    \node[cardM,text width=50mm] (laser) at (9.0,2.6) {Laser regime\\coherent source $\Rightarrow$ narrow $k$-support};
+    \node[cardM,text width=50mm] (bh) at (6.0,-1.4) {Horizon proxy\\$t$-like foliation,\; redshift window};
+    \draw[flowP] (cone) -- (laser);
+    \draw[flowM] (cone) -- (bh);
+    \draw[flowC] (laser) -- node[note,above]{energy → priors} (bh);
+    \node[draw=black, very thick, rounded corners=8pt, inner sep=6pt, fit=(cone)(laser)(bh)] (FRAMEC) {};
+    \node[anchor=north west, font=\bfseries] at ([xshift=4pt,yshift=-4pt]FRAMEC.north west) {C. Causality / Light-Cone};
+    \EdgeBadges{FRAMEC.south west}{\widthof{FRAMEC}}{\heightof{FRAMEC}}
+  \end{scope}
+}
+% ---------- D: Learning-to-Index Time
+\newcommand{\WindowD}[1]{%
+  \begin{scope}[shift={(#1)}]
+    \node[cardF,text width=50mm] (state) at (3.0,2.8) {State encoder\\$z=\Phi_{\Delta t}(\psi_{[t_a,t_b]})$};
+    \node[cardP,text width=50mm] (freeE) at (9.0,2.8) {Free-energy objective\\$\mathcal{F}=\mathrm{KL}(q\|\pi)$};
+    \node[cardM,text width=50mm] (update) at (6.0,-1.2) {Window update\\$\theta \leftarrow \theta - \eta \nabla \mathcal{F}$};
+    \draw[flowF] (state) -- node[note,above]{sufficient stats} (freeE);
+    \draw[flowM] (freeE) -- node[note,above]{gradient} (update);
+    \node[draw=black, very thick, rounded corners=8pt, inner sep=6pt, fit=(state)(freeE)(update)] (FRAMED) {};
+    \node[anchor=north west, font=\bfseries] at ([xshift=4pt,yshift=-4pt]FRAMED.north west) {D. Learning-to-Index Time};
+    \EdgeBadges{FRAMED.south west}{\widthof{FRAMED}}{\heightof{FRAMED}}
+  \end{scope}
+}
+% ---------- Hilbert scaffold
+\newcommand{\HilbertScaffold}[1]{%
+  \ifShowHilbert
+    \node[draw=foundationBlue!60,fill=bgFoundation,rounded corners=6pt,inner sep=6pt, align=center,text width=10.5cm,anchor=south] (Hilbert) at (#1) {\textbf{Hilbert-Space Scaffold $\mathcal{H}$}\\ basis $\{\phi_i\}$, projections $\langle x,\phi_i\rangle$, invariants};
+  \fi
+}
+\begin{document}
+\begin{tikzpicture}[remember picture,overlay]
+\begin{pgfonlayer}{bg}
+  \fill[paperTint] (current bounding box.south west) rectangle (current bounding box.north east);
+\end{pgfonlayer}
+\coordinate (A0) at (0, \PanelH + \PanelGap/2);
+\coordinate (B0) at (\PanelW + \PanelGap, \PanelH + \PanelGap/2);
+\coordinate (C0) at (0, 0);
+\coordinate (D0) at (\PanelW + \PanelGap, 0);
+\ifEnableA \WindowA{A0}\fi
+\ifEnableB \WindowB{B0}\fi
+\ifEnableC \WindowC{C0}\fi
+\ifEnableD \WindowD{D0}\fi
+\ifEnableA
+  \HilbertScaffold{([yshift=10mm]A0)+(0,\PanelH)}
+\else\ifEnableB
+  \HilbertScaffold{([yshift=10mm]B0)+(0,\PanelH)}
+\fi\fi
+\ifShowAxis
+  \path (C0) ++(0,-0.2) coordinate (RowBottom);
+  \draw[flowAxis] (RowBottom) ++(0,\timeY) -- ++(\axisLen,0) node[below right] {$t$ (universal time)};
+  \pgfmathtruncatemacro{\lastTick}{\nTicks-1}
+  \foreach \n in {0,...,\lastTick} {
+    \pgfmathsetmacro{\x}{\n*\dt}
+    \draw[black] ($(RowBottom)+(0,\timeY)+(\x,0)$) -- ++(0,0.12);
+    \fill[black] ($(RowBottom)+(0,\timeY)+(\x,0)$) circle (1.2pt);
+    \node[below, yshift=-2pt] at ($(RowBottom)+(0,\timeY)+(\x,0)$) {$t_{\n}$};
+  }
+  \node[above] at ($(RowBottom)+(0,\timeY)$) {$\Delta t$ samples via $\mathsf{S}_{\Delta t}$};
+  \fill[couplingOrange!20,rounded corners=2pt] ($(RowBottom)+(\ta,\timeY-0.16)$) rectangle ($(RowBottom)+(\tb,\timeY+0.16)$);
+  \draw[couplingOrange!90!black,thick,rounded corners=2pt] ($(RowBottom)+(\ta,\timeY-0.16)$) rectangle ($(RowBottom)+(\tb,\timeY+0.16)$);
+  \node[note, text=couplingOrange!90!black, above=3pt] at ($(RowBottom)+({0.5*(\ta+\tb)},\timeY+0.16)$) {$[t_a,t_b]$ window};
+\fi
+\end{tikzpicture}
+\end{document}
+</textarea>
+        </div>
+        <div class="preview-wrap">
+          <div class="editor-header"><strong>Preview</strong><span class="hint">MathJax</span></div>
+          <div id="preview" class="preview"></div>
+        </div>
+      </section>
+
+      <!-- Symbol Palettes -->
+      <section class="palettes">
+        <div class="palette" data-group="greek"><h5>Greek</h5><div class="grid" id="pal-greek"></div></div>
+        <div class="palette" data-group="operators"><h5>Operators</h5><div class="grid" id="pal-ops"></div></div>
+        <div class="palette" data-group="arrows"><h5>Arrows</h5><div class="grid" id="pal-arrows"></div></div>
+        <div class="palette" data-group="sets"><h5>Sets / Logic</h5><div class="grid" id="pal-sets"></div></div>
+        <div class="palette" data-group="decor"><h5>Accents / Decorators</h5><div class="grid" id="pal-decor"></div></div>
+        <div class="palette" data-group="fonts"><h5>Fonts</h5><div class="grid" id="pal-fonts"></div></div>
+      </section>
+
+      <p class="footnote">Click inserts the macro. <strong>Shift-click</strong> inserts the literal glyph. <strong>Alt-click</strong> copies the macro to clipboard.</p>
+    </div>
+  </main>
+
+  <script>
+    const LATEX_SYMBOL_PALETTES = {
+      greek: [
+        {g:'α', m:'\\alpha'}, {g:'β', m:'\\beta'}, {g:'γ', m:'\\gamma'}, {g:'δ', m:'\\delta'},
+        {g:'ε', m:'\\epsilon'}, {g:'θ', m:'\\theta'}, {g:'λ', m:'\\lambda'}, {g:'μ', m:'\\mu'},
+        {g:'π', m:'\\pi'}, {g:'ρ', m:'\\rho'}, {g:'σ', m:'\\sigma'}, {g:'τ', m:'\\tau'},
+        {g:'φ', m:'\\phi'}, {g:'ψ', m:'\\psi'}, {g:'ω', m:'\\omega'},
+        {g:'Γ', m:'\\Gamma'}, {g:'Δ', m:'\\Delta'}, {g:'Θ', m:'\\Theta'}, {g:'Λ', m:'\\Lambda'},
+        {g:'Π', m:'\\Pi'}, {g:'Σ', m:'\\Sigma'}, {g:'Φ', m:'\\Phi'}, {g:'Ψ', m:'\\Psi'}, {g:'Ω', m:'\\Omega'}
+      ],
+      operators: [
+        {g:'∑', m:'\\sum'}, {g:'∏', m:'\\prod'}, {g:'∫', m:'\\int'}, {g:'∬', m:'\\iint'},
+        {g:'∮', m:'\\oint'}, {g:'∇', m:'\\nabla'}, {g:'∞', m:'\\infty'}, {g:'≈', m:'\\approx'},
+        {g:'≃', m:'\\simeq'}, {g:'≅', m:'\\cong'}, {g:'≠', m:'\\neq'}, {g:'≤', m:'\\leq'},
+        {g:'≥', m:'\\geq'}, {g:'±', m:'\\pm'}, {g:'∓', m:'\\mp'}, {g:'⋅', m:'\\cdot'},
+        {g:'∘', m:'\\circ'}, {g:'∙', m:'\\bullet'}, {g:'√', m:'\\sqrt{}'}, {g:'^', m:'^{ }'},
+        {g:'_', m:'_{ }'}, {g:'⌊⌋', m:'\\lfloor  \\rfloor'}, {g:'⌈⌉', m:'\\lceil  \\rceil'}
+      ],
+      arrows: [
+        {g:'→', m:'\\to'}, {g:'⇒', m:'\\Rightarrow'}, {g:'↦', m:'\\mapsto'}, {g:'←', m:'\\leftarrow'},
+        {g:'⇐', m:'\\Leftarrow'}, {g:'↔', m:'\\leftrightarrow'}, {g:'⇔', m:'\\Leftrightarrow'},
+        {g:'↗', m:'\\nearrow'}, {g:'↘', m:'\\searrow'}, {g:'↩', m:'\\hookleftarrow'}, {g:'↪', m:'\\hookrightarrow'}
+      ],
+      sets: [
+        {g:'∈', m:'\\in'}, {g:'∉', m:'\\notin'}, {g:'⊂', m:'\\subset'}, {g:'⊆', m:'\\subseteq'},
+        {g:'⊃', m:'\\supset'}, {g:'⊇', m:'\\supseteq'}, {g:'∪', m:'\\cup'}, {g:'∩', m:'\\cap'},
+        {g:'∖', m:'\\setminus'}, {g:'ℕ', m:'\\mathbb{N}'}, {g:'ℤ', m:'\\mathbb{Z}'},
+        {g:'ℚ', m:'\\mathbb{Q}'}, {g:'ℝ', m:'\\mathbb{R}'}, {g:'ℂ', m:'\\mathbb{C}'},
+        {g:'∀', m:'\\forall'}, {g:'∃', m:'\\exists'}, {g:'¬', m:'\\neg'}
+      ],
+      decor: [
+        {g:'⃗', m:'\\vec{}'}, {g:'ˆ', m:'\\hat{}'}, {g:'˙', m:'\\dot{}'}, {g:'¨', m:'\\ddot{}'},
+        {g:'¯', m:'\\overline{}'}, {g:'~', m:'\\tilde{}'}, {g:'⟨⟩', m:'\\langle  \\rangle'},
+        {g:'| |', m:'\\lVert  \\rVert'}, {g:'‖ ‖', m:'\\lvert  \\rvert'}, {g:'〈〉', m:'\\left\\langle  \\right\\rangle'}
+      ],
+      fonts: [
+        {g:'𝑨', m:'\\mathit{}'}, {g:'𝐀', m:'\\mathbf{}'}, {g:'𝒜', m:'\\mathcal{}'},
+        {g:'𝔄', m:'\\mathfrak{}'}, {g:'𝕬', m:'\\mathbb{}'}, {g:'R', m:'\\mathrm{}'}
+      ]
+    };
+
+    const $ = (q, c=document) => c.querySelector(q);
+    const editor = $('#editor');
+    const preview = $('#preview');
+    const dropZone = $('#dropZone');
+    const STORAGE_KEY = 'latex-wb-buffer';
+
+    if (localStorage.getItem(STORAGE_KEY)) editor.value = localStorage.getItem(STORAGE_KEY);
+    editor.addEventListener('input', () => localStorage.setItem(STORAGE_KEY, editor.value));
+
+    function insertAtCursor(text) {
+      const start = editor.selectionStart, end = editor.selectionEnd;
+      const before = editor.value.slice(0, start);
+      const after = editor.value.slice(end);
+      editor.value = before + text + after;
+      editor.focus();
+      const caret = start + text.length;
+      editor.setSelectionRange(caret, caret);
+      localStorage.setItem(STORAGE_KEY, editor.value);
+    }
+    function wrapSelection(left, right) {
+      const start = editor.selectionStart, end = editor.selectionEnd;
+      const sel = editor.value.slice(start, end);
+      const rep = left + (sel || ' ') + right;
+      const before = editor.value.slice(0, start), after = editor.value.slice(end);
+      editor.value = before + rep + after;
+      editor.focus();
+      editor.setSelectionRange(start + left.length, start + left.length + (sel || ' ').length);
+      localStorage.setItem(STORAGE_KEY, editor.value);
+    }
+    async function compile() {
+      preview.innerText = editor.value;
+      await MathJax.typesetPromise([preview]);
+    }
+
+    $('#btnInline').addEventListener('click', () => wrapSelection('$', '$'));
+    $('#btnDisplay').addEventListener('click', () => wrapSelection('\\[', '\\]'));
+    $('#btnCompile').addEventListener('click', compile);
+    $('#btnClear').addEventListener('click', () => { editor.value = ''; localStorage.removeItem(STORAGE_KEY); preview.innerHTML = ''; });
+
+    $('#btnOpen').addEventListener('click', () => $('#fileInput').click());
+    $('#fileInput').addEventListener('change', async (e) => {
+      const f = e.target.files[0]; if (!f) return;
+      const text = await f.text(); editor.value = text; localStorage.setItem(STORAGE_KEY, text); compile();
+      e.target.value = '';
+    });
+    $('#btnDownload').addEventListener('click', () => {
+      const blob = new Blob([editor.value], { type: 'text/x-tex' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'diagram.tex';
+      a.click();
+      URL.revokeObjectURL(a.href);
+    });
+
+    ['dragenter', 'dragover'].forEach(evt => dropZone.addEventListener(evt, e => {
+      e.preventDefault(); e.stopPropagation(); dropZone.classList.add('dragover');
+    }));
+    ['dragleave', 'drop'].forEach(evt => dropZone.addEventListener(evt, e => {
+      e.preventDefault(); e.stopPropagation(); dropZone.classList.remove('dragover');
+    }));
+    dropZone.addEventListener('drop', async e => {
+      const f = e.dataTransfer.files?.[0];
+      if (f && (f.name.endsWith('.tex') || f.type.startsWith('text/'))) {
+        const text = await f.text();
+        editor.value = text; localStorage.setItem(STORAGE_KEY, text); compile();
+      } else {
+        const text = e.dataTransfer.getData('text/plain');
+        if (text) { insertAtCursor(text); compile(); }
+      }
+    });
+
+    function addSym(el, glyph, macro) {
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'sym';
+      b.innerHTML = `<span>${glyph}</span>`;
+      b.title = macro;
+      b.addEventListener('click', (ev) => {
+        if (ev.shiftKey) { insertAtCursor(glyph); }
+        else if (ev.altKey) { navigator.clipboard?.writeText(macro); }
+        else {
+          const needsArg = /{\s*}/.test(macro);
+          insertAtCursor(needsArg ? macro.replace(/\{\s*\}/, '{ }') : macro);
+        }
+        compile();
+      });
+      el.appendChild(b);
+    }
+    (function hydrate() {
+      const groups = [
+        ['pal-greek', 'greek'], ['pal-ops', 'operators'], ['pal-arrows', 'arrows'],
+        ['pal-sets', 'sets'], ['pal-decor', 'decor'], ['pal-fonts', 'fonts']
+      ];
+      groups.forEach(([id, key]) => {
+        const host = document.getElementById(id);
+        LATEX_SYMBOL_PALETTES[key].forEach(x => addSym(host, x.g, x.m));
+      });
+    })();
+
+    compile();
+  </script>
+</body>
+</html>
