@@ -8,11 +8,108 @@
     src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
   </script>
   <style>
-    body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; line-height: 1.6; }
+    .container { display: flex; }
+    /* Updated Sidebar Styling */
+    .sidebar {
+      background: linear-gradient(180deg, #001f3f, #003366, #00509e);
+      color: #fff;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      width: 250px;
+      position: fixed;
+      height: 100%;
+      overflow-y: auto;
+      transform: translateX(-250px);
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .sidebar:hover {
+      transform: translateX(0);
+    }
+
+    .sidebar__inner {
+      position: relative;
+    }
+
+    .profile-card {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .profile-img-wrap {
+      border-radius: 50%;
+      overflow: hidden;
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 10px;
+    }
+
+    .profile-img-wrap img {
+      width: 100%;
+      height: auto;
+    }
+
+    .profile-name {
+      font-size: 1.2em;
+      margin: 0;
+    }
+
+    .profile-role {
+      font-size: 0.9em;
+      color: #ddd;
+    }
+
+    .sidebar a {
+      color: #e5e7eb;
+      text-decoration: none;
+      padding: 10px 15px;
+      display: block;
+      border-radius: 8px;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .sidebar a:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+    }
+
+    main {
+      margin-left: 270px;
+      padding: 20px;
+      flex: 1;
+    }
+
+    header {
+      background-color: #f4f4f4;
+      padding: 10px 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 1.8em;
+    }
+
+    p {
+      margin: 0;
+      color: #555;
+    }
+
+    footer {
+      background-color: #f4f4f4;
+      padding: 10px 20px;
+      border-radius: 8px;
+      margin-top: 20px;
+      text-align: center;
+    }
+
     table { width: 100%; border-collapse: collapse; margin: 20px 0; }
     th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-    th { background-color: #f4f4f4; font-weight: bold; }
-    h1, h2, h3 { color: #333; }
+    th { background-color: #007bff; color: white; font-weight: bold; }
+    h2, h3 { color: #333; }
     .alg { border: 1px solid #ddd; padding: 16px; margin: 16px 0; }
     .alg__head { display: flex; justify-content: space-between; align-items: center; }
     .alg__chip { background-color: #007bff; color: white; padding: 4px 8px; border-radius: 16px; font-size: 0.9em; }
@@ -26,10 +123,90 @@
     .note { font-style: italic; color: #555; }
     .code { background-color: #f4f4f4; padding: 2px 4px; border-radius: 4px; font-family: monospace; }
     .math-block { margin: 16px 0; }
+    .pdf-container {
+      position: relative;
+      perspective: 1000px;
+      margin: 20px 0;
+    }
+
+    .pdf-container iframe {
+      transition: transform 0.6s;
+      transform-origin: center right;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+    }
+
+    .pdf-container:hover iframe {
+      transform: rotateY(-10deg);
+    }
+
+    .document-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: space-between;
+    }
+
+    .document {
+      flex: 1 1 calc(50% - 20px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .document:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    .document h2 {
+      background-color: #007bff;
+      color: white;
+      margin: 0;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .viewer {
+      position: relative;
+      padding: 10px;
+      background-color: #f9f9f9;
+    }
   </style>
 </head>
 <body>
+  <!-- Left Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar__inner">
+      <div class="profile-card">
+        <div class="profile-img-wrap">
+          <img src="img/AhmadDroobiSignature.png" alt="Profile Picture">
+        </div>
+        <div class="profile-name">Ahmad Droobi</div>
+        <div class="profile-role">Scientific Researcher</div>
+      </div>
+
+      <nav class="side-nav">
+        <a href="index.html"><i class="fa fa-home"></i> Home</a>
+        <a href="repository.html"><i class="fa fa-book"></i> Repository</a>
+        <a href="gallary.html"><i class="fa fa-image"></i> Gallery</a>
+        <a href="publications.html"><i class="fa fa-file-text"></i> Publications</a>
+        <a href="education.html"><i class="fa fa-graduation-cap"></i> Education</a>
+        <a href="experience.html"><i class="fa fa-briefcase"></i> Experience</a>
+        <a href="awards.html"><i class="fa fa-trophy"></i> Awards</a>
+        <a href="advising.html"><i class="fa fa-users"></i> Advising</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Main Content -->
   <main>
+    <header>
+      <h1>Scientific Repository</h1>
+      <p>Explore scientific documents, algorithms, and concepts.</p>
+    </header>
+
     <h1>Opposites of Fundamental Concepts</h1>
 
     <table>
@@ -253,17 +430,47 @@
 
     <section>
       <header>
-        <h1>FTF Document</h1>
-        <p>Below is the embedded FTF document. You can also download it using the link provided.</p>
+        <h1>Scientific Documents</h1>
+        <p>Below are the embedded scientific documents. You can also download them using the links provided.</p>
       </header>
 
-      <!-- Download Link -->
-      <p><a href="files/FTF.pdf" download>Download FTF Document (PDF)</a></p>
+      <div class="document-container">
+        <!-- FTF Document -->
+        <div class="document">
+          <h2>FTF Document</h2>
+          <p><a href="files/FTF.pdf" download>Download FTF Document (PDF)</a></p>
+          <div class="viewer">
+            <iframe src="files/FTF.pdf" style="width:100%; height:600px; border:none;" title="FTF Document"></iframe>
+          </div>
+        </div>
 
-      <!-- Embedded PDF -->
-      <iframe src="files/FTF.pdf" style="width:100%; height:600px; border:none;" title="FTF Document"></iframe>
+        <!-- Time Behavior Document -->
+        <div class="document">
+          <h2>Time Behavior Document</h2>
+          <p><a href="files/time_behavior.pdf" download>Download Time Behavior Document (PDF)</a></p>
+          <div class="viewer">
+            <iframe src="files/time_behavior.pdf" style="width:100%; height:600px; border:none;" title="Time Behavior Document"></iframe>
+          </div>
+        </div>
+      </div>
     </section>
+
+    <footer>
+      <p>&copy; 2025 Ahmad Droobi. All rights reserved.</p>
+    </footer>
   </main>
+
+  <script>
+    document.querySelectorAll('.pdf-container').forEach(container => {
+      container.addEventListener('mouseover', () => {
+        container.querySelector('iframe').style.transform = 'rotateY(-10deg)';
+      });
+
+      container.addEventListener('mouseout', () => {
+        container.querySelector('iframe').style.transform = 'rotateY(0deg)';
+      });
+    });
+  </script>
 </body>
 
 </html>
