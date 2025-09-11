@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scientific Repository</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.css">
+    <link rel="stylesheet" href="css/templatemo-style.css">
+    <link rel="stylesheet" href="css/academicons.css">
+    <link rel="stylesheet" href="css/normalize.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f6f9;
+            color: #333;
+        }
+        .repository-section {
+            margin: 20px auto;
+            max-width: 800px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .repository-section h2 {
+            color: #0073b1;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .repository-section img {
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+        }
+        .repository-section p {
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .repository-section .math-equation {
+            background: #f9f9f9;
+            padding: 10px;
+            border-left: 4px solid #0073b1;
+            margin: 20px 0;
+            font-family: 'Courier New', Courier, monospace;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar-menu hidden-xs hidden-sm">
+        <div class="top-section">
+            <div class="profile-image">
+                <img src="img/prof.jpg" alt="Ahmad Droobi">
+            </div>
+            <h3 class="profile-title">Ahmad Droobi</h3>
+            <p class="profile-description">Graduate Research Assistant</p>
+        </div>
+        <div class="main-navigation">
+            <ul class="navigation">
+                <li><a href="index.html"><i class="fa fa-home fa-fw"></i>Home</a></li>
+                <li><a href="education.html"><i class="fa fa-graduation-cap fa-fw"></i>Education</a></li>
+                <li><a href="publications.html"><i class="fa fa-file fa-fw"></i>Publications</a></li>
+                <li><a href="experience.html"><i class="fa fa-suitcase fa-fw"></i>Experience</a></li>
+                <li><a href="advising.html"><i class="fa fa-users fa-fw"></i>Advising</a></li>
+                <li><a href="awards.html"><i class="fa fa-star fa-fw"></i>Awards</a></li>
+                <li><a href="gallary.html"><i class="fa fa-picture-o fa-fw"></i>Gallery</a></li>
+                <li><a href="repository.html" class="active"><i class="fa fa-book fa-fw"></i>Scientific Repository</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="repository-section">
+        <h2>Scientific Repository</h2>
+        <p>Welcome to the scientific repository. Here, you will find mathematical equations, images, and explanations designed to showcase research and academic work in a format similar to Medium articles.</p>
+
+        <h3>Mathematical Equations</h3>
+        <div class="math-equation">\[ E = mc^2 \]</div>
+        <div class="math-equation">\[ \nabla \cdot \mathbf{E} = \frac{\rho}{\varepsilon_0} \]</div>
+
+        <h3>Images</h3>
+        <img src="img/sample-equation.png" alt="Sample Equation">
+        <img src="img/sample-graph.png" alt="Sample Graph">
+
+        <h3>Explanations</h3>
+        <p>This section provides detailed explanations of the equations and images above. For example, the equation \( E = mc^2 \) represents the relationship between energy and mass, as described by Einstein's theory of relativity.</p>
+        <p>The graph illustrates the relationship between variables in a scientific experiment, showcasing trends and patterns observed during the study.</p>
+    </div>
+
+    <!-- LaTeX TikZ Diagram Section -->
+    <div class="repository-section">
+        <h3>LaTeX TikZ Diagram</h3>
+        <p>The following diagram is rendered using LaTeX and TikZ:</p>
+        <div id="latex-diagram">
+            \[ \text{TikZ diagram rendering is currently a placeholder.} \]
+        </div>
+        <p>To view the full LaTeX code, download the source file:</p>
+        <a href="files/latex_diagram.tex" download>Download LaTeX Source</a>
+    </div>
+
+    <!-- Footer -->
+    <div class="row" id="footer">
+        <div class="col-md-12 text-center">
+            <p class="copyright-text">© 1999–2026 Ahmad Droobi</p>
+        </div>
+    </div>
+
+    <script src="js/vendor/jquery-1.10.2.min.js"></script>
+    <script src="js/min/plugins.min.js"></script>
+    <script src="js/min/main.min.js"></script>
+</body>
+</html>
