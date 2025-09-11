@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="css/academicons.css">
     <link rel="stylesheet" href="css/normalize.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -97,9 +96,23 @@
         <div id="latex-diagram">
             \[ \text{TikZ diagram rendering is currently a placeholder.} \]
         </div>
-        <p>To view the full LaTeX code, download the source file:</p>
+        <p>To view or edit the full LaTeX code, download the source file:</p>
         <a href="files/latex_diagram.tex" download>Download LaTeX Source</a>
     </div>
+
+    <!-- MathJax Configuration -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <!-- Footer -->
     <div class="row" id="footer">

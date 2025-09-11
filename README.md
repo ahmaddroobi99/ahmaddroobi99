@@ -47,4 +47,4 @@ This project is licensed under the MIT License. Feel free to use and modify the 
 
 ## Contact
 
-For any inquiries or feedback, please contact Ahmad Droobi at [your-email@example.com].
+For any inquiries or feedback, please contact Ahmad Droobi at [ahmaddroobi@clemson.edu].
