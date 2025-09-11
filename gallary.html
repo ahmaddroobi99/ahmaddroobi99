@@ -28,8 +28,32 @@
     .search{flex:1;display:flex;align-items:center;gap:10px;background:var(--chip);padding:10px 12px;border-radius:999px}
     .search input{flex:1;border:0;outline:0;background:transparent;color:var(--text);font-size:14px}
     .kv{display:flex;align-items:center;gap:8px}
-    .btn{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:10px;background:var(--chip);color:var(--text);border:1px solid rgba(255,255,255,.06);cursor:pointer;user-select:none}
-    .btn:hover{filter:brightness(1.08)}
+    .btn {
+      background: linear-gradient(90deg, #6aa3ff, #64d2ff);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-transform: none;
+    }
+
+    .btn:hover {
+      background: linear-gradient(90deg, #64d2ff, #6aa3ff);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .btn .icon {
+      font-size: 18px;
+      color: white;
+    }
     .icon{font-family:"Material Symbols Rounded";font-variation-settings:"FILL" 0,"wght" 600,"opsz" 24;vertical-align:middle;font-size:20px}
     .avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#003366,#8c1515)}
 
@@ -42,13 +66,55 @@
     .rail .card{background:var(--surface);border:1px solid rgba(255,255,255,.06);border-radius:14px}
     .rail .card h3{margin:0;padding:14px 14px 6px;font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
     .rail .list{padding:6px}
-    .rail .list a{display:flex;align-items:center;gap:10px;padding:10px 10px;border-radius:10px;color:var(--text);text-decoration:none}
-    .rail .list a:hover{background:var(--chip)}
+    .rail .list a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      text-decoration: none;
+      color: var(--text);
+      background: var(--chip);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      font-size: 14px;
+    }
+
+    .rail .list a:hover {
+      background: var(--surface);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .rail .list a .icon {
+      font-size: 18px;
+      color: var(--text);
+    }
 
     /* Chips */
     .chips{display:flex;flex-wrap:wrap;gap:10px;margin:4px 0 12px;padding:0 8px 10px}
-    .chip{background:var(--chip);border:1px solid rgba(255,255,255,.06);color:var(--text);padding:8px 12px;border-radius:999px;font-size:12px;cursor:pointer}
-    .chip.active{outline:2px solid var(--brand)}
+    .chip {
+      background: #f0f0f0;
+      color: #333;
+      border: 1px solid #ddd;
+      border-radius: 16px;
+      padding: 6px 12px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .chip:hover {
+      background: #e0e0e0;
+      border-color: #ccc;
+    }
+
+    .chip.active {
+      background: #6aa3ff;
+      color: white;
+      border-color: #6aa3ff;
+    }
 
     /* Masonry (CSS columns) */
     .photos{column-width:var(--colw); column-gap:var(--gap)}
@@ -81,6 +147,33 @@
     .lb-prev{left:24px}.lb-next{right:24px}
     .lb-btn{background:rgba(255,255,255,.1);padding:10px;border-radius:999px;cursor:pointer}
     .lb-top{position:fixed;top:16px;left:16px;right:16px;display:flex;justify-content:space-between;align-items:center;color:#fff}
+
+    /* Example of an image with a modernized button */
+    .image-container {
+      position: relative;
+      display: inline-block;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .image-btn {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background: rgba(0, 0, 0, 0.6);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .image-btn:hover {
+      background: rgba(0, 0, 0, 0.8);
+      transform: scale(1.1);
+    }
   </style>
 </head>
 <body>
@@ -93,8 +186,8 @@
       <span id="clearSearch" class="icon" style="cursor:pointer;display:none">close</span>
     </div>
     <div class="kv">
-      <button id="densityBtn" class="btn" title="Toggle density"><span class="icon">density_small</span><span class="hide-sm">Density</span></button>
-      <button class="btn" title="Upload (wire action)"><span class="icon">upload</span><span class="hide-sm">Upload</span></button>
+      <button id="densityBtn" class="btn" title="Toggle density"><span class="icon">density_small</span> Density</button>
+      <button class="btn" title="Upload (wire action)"><span class="icon">upload</span> Upload</button>
       <div class="avatar" title="Account"></div>
     </div>
   </header>
@@ -116,11 +209,11 @@
       <div class="card">
         <h3>Collections</h3>
         <div class="list">
-          <a href="#"><span class="icon">photo_library</span>All Photos</a>
-          <a href="#"><span class="icon">favorite</span>Favorites</a>
-          <a href="#"><span class="icon">people_alt</span>People</a>
-          <a href="#"><span class="icon">location_on</span>Places</a>
-          <a href="#"><span class="icon">event</span>Albums</a>
+          <a href="#" id="collection-all"><span class="icon">photo_library</span> All Photos</a>
+          <a href="#" id="collection-favorites"><span class="icon">favorite</span> Favorites</a>
+          <a href="#" id="collection-people"><span class="icon">people_alt</span> People</a>
+          <a href="#" id="collection-places"><span class="icon">location_on</span> Places</a>
+          <a href="#" id="collection-albums"><span class="icon">event</span> Albums</a>
         </div>
       </div>
     </aside>
@@ -330,6 +423,27 @@
 
   /* ---------- BOOT ---------- */
   refresh();
+
+  // Example backend integration for left panel
+  const collections = {
+    all: "All Photos",
+    favorites: "Favorites",
+    people: "People",
+    places: "Places",
+    albums: "Albums",
+  };
+
+  document.querySelectorAll(".list a").forEach((link) => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const id = link.id.replace("collection-", "");
+      console.log(`Fetching data for ${collections[id]}...`);
+      // Simulate backend call
+      setTimeout(() => {
+        alert(`Data for ${collections[id]} loaded successfully!`);
+      }, 1000);
+    });
+  });
   </script>
 </body>
 </html>
