@@ -189,6 +189,62 @@
       flex-direction: column;
       gap: 16px;
       z-index: 20;
+      transform: translateX(-250px);
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .sidebar:hover {
+      transform: translateX(0);
+    }
+
+    .sidebar a {
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    .sidebar:hover a {
+      opacity: 1;
+    }
+
+    .sidebar__inner {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .profile-card {
+      background: var(--chip);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile-img-wrap {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .profile-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .profile-name {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .profile-role {
+      font-size: 14px;
+      color: var(--muted);
     }
 
     .side-nav {
@@ -221,6 +277,22 @@
     .side-nav a .icon {
       font-size: 18px;
       color: var(--text);
+    }
+
+    .social-row {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .social-row a {
+      color: var(--text);
+      transition: color 0.3s ease;
+    }
+
+    .social-row a:hover {
+      color: var(--brand);
     }
   </style>
 </head>
@@ -298,6 +370,36 @@
     <img id="lbImg" class="lb-img" alt="Photo" />
     <button id="lbNext" class="lb-btn lb-nav lb-next" title="Next (→)"><span class="icon">chevron_right</span></button>
   </div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="leftSidebar" aria-label="Site navigation">
+    <div class="sidebar__inner">
+      <div class="profile-card">
+        <div class="profile-img-wrap">
+          <img src="img/prof.jpg" alt="Ahmad Droobi">
+        </div>
+        <div class="profile-name">Ahmad Droobi</div>
+        <div class="profile-role">Computational Applied Mathematics</div>
+      </div>
+
+      <nav class="side-nav" role="navigation">
+        <a href="index.html"><i class="fa fa-home"></i> <span>Home</span></a>
+        <a href="education.html"><i class="fa fa-graduation-cap"></i> <span>Education</span></a>
+        <a href="publications.html"><i class="fa fa-file"></i> <span>Publications</span></a>
+        <a href="experience.html"><i class="fa fa-suitcase"></i> <span>Experience</span></a>
+        <a href="advising.html"><i class="fa fa-users"></i> <span>Advising</span></a>
+        <a href="awards.html"><i class="fa fa-star"></i> <span>Awards</span></a>
+        <a href="gallery.html"><i class="fa fa-picture-o"></i> <span>Gallery</span></a>
+        <a href="repository.html"><i class="fa fa-folder"></i> <span>Repository</span></a>
+      </nav>
+
+      <div class="social-row" aria-label="Social links">
+        <a href="https://github.com/ahmaddroobi99" target="_blank" title="GitHub"><i class="fa fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/droobi/" target="_blank" title="LinkedIn"><i class="fa fa-linkedin"></i></a>
+        <a href="https://scholar.google.com/citations?hl=en&user=H-3pF00AAAAJ&view_op=list_works&sortby=pubdate" target="_blank" title="Google Scholar"><i class="ai ai-google-scholar"></i></a>
+      </div>
+    </div>
+  </aside>
 
   <script>
   /* ---------- CONFIG ---------- */
@@ -490,6 +592,18 @@
       setTimeout(() => {
         alert(`Data for ${collections[id]} loaded successfully!`);
       }, 1000);
+    });
+  });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const sidebar = document.querySelector('.sidebar');
+
+    sidebar.addEventListener('mouseover', () => {
+      sidebar.style.transform = 'translateX(0)';
+    });
+
+    sidebar.addEventListener('mouseout', () => {
+      sidebar.style.transform = 'translateX(-250px)';
     });
   });
   </script>

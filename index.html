@@ -1,204 +1,296 @@
 <!DOCTYPE html>
-<html class="no-js">
+<html lang="en" class="no-js">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Ahmad Droobi | Home</title>
-  <meta name="description" content="Scientific Machine Learning • Uncertainty Quantification • Lagrangian Data Assimilation">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Scientific Machine Learning • Uncertainty Quantification • Lagrangian Data Assimilation" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+  <!-- Fonts + Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Merriweather:wght@300;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/font-awesome.css" />
+  <link rel="stylesheet" href="css/academicons.css" />
 
-  <!-- Vendor CSS (keep your stack) -->
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/font-awesome.css">
-  <link rel="stylesheet" href="css/academicons.css">
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/templatemo-style.css">
+  <!-- Favicons (keep your existing) -->
+  <link rel="shortcut icon" href="img/licensed-image.ico" />
+  <meta name="theme-color" content="#001f3f" />
 
-  <!-- Favicons -->
-  <link rel="shortcut icon" href="img/licensed-image.ico">
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=9ByQ8gbazn">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=9ByQ8gbazn">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=9ByQ8gbazn">
-  <link rel="manifest" href="/manifest.json?v=9ByQ8gbazn">
-  <link rel="mask-icon" href="/safari-pinned-tab.svg?v=9ByQ8gbazn" color="#8c1515">
-  <meta name="msapplication-TileColor" content="#8c1515">
-  <meta name="theme-color" content="#ffffff">
-
-  <script src="js/vendor/modernizr-2.6.2.min.js"></script>
-
-  <!-- Google Analytics -->
-  <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-    ga('create', 'UA-88631709-1', 'auto');
-    ga('send', 'pageview');
-  </script>
-
-  <!-- Modern Sidebar + Animations -->
   <style>
+    /* =======================
+       Design System (Brand)
+       ======================= */
     :root{
-      --sidebar-w: 264px;
-      --brand-1:#001f3f;
-      --brand-2:#003366;
-      --accent:#0073b1;
-      --ink:#0f172a;
-      --muted:#64748b;
-      --card:#ffffff;
-      --shadow:0 10px 25px rgba(2,6,23,.12);
+      --brand-1:#001f3f;       /* deep navy */
+      --brand-2:#003366;       /* royal navy */
+      --accent:#8c1515;        /* your accent */
+      --link:#0073b1;          /* linkedin blue */
+      --ink:#0f172a;           /* text */
+      --ink-2:#334155;         /* secondary */
+      --bg:#0b1220;            /* deep canvas */
+      --card:#0f1a2b;          /* card surface */
+      --glass:rgba(255,255,255,.08);
+      --muted:#94a3b8;
+      --ring:rgba(138,180,248,.45);
+      --shadow:0 18px 40px rgba(2,6,23,.28);
+      --radius:16px;
+      --radius-lg:22px;
+      --speed:.55s;
     }
 
-    html,body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--ink);}
-    .social-row{ justify-content:flex-start; padding-left:8px; }
-
-    /* ===== Left Sidebar ===== */
-    .sidebar {
-      position: fixed;
-      top: 0; left: 0;
-      width: var(--sidebar-w);
-      height: 100vh;
-      background: linear-gradient(180deg, var(--brand-1), var(--brand-2));
-      color: #fff;
-      z-index: 1050;
-      box-shadow: var(--shadow);
-      transform: translateX(-180px);            /* “peek” */
-      transition: transform .45s cubic-bezier(.2,.8,.2,1);
-      border-right: 1px solid rgba(255,255,255,.08);
-      backdrop-filter: saturate(140%) blur(2px);
+    /* Global reset (minimal) */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:#e5e7eb;
+      background:
+        radial-gradient(1200px 600px at 20% -10%, rgba(0,115,177,.25), transparent 60%),
+        radial-gradient(900px 500px at 120% 20%, rgba(140,21,21,.20), transparent 60%),
+        linear-gradient(180deg, #0b1220 0%, #0a0f1a 100%);
+      overflow-x:hidden;
     }
-    .sidebar:hover,
-    .sidebar.is-open { transform: translateX(0); }
+    a{color:#cfe6ff;text-decoration:none}
+    a:hover{color:#fff}
 
-    .sidebar__inner {
-      display: flex; flex-direction: column;
-      height: 100%;
-      padding: 18px 18px 14px 18px;
-      gap: 14px;
+    /* =======================
+       Sidebar (Peek + Motion)
+       ======================= */
+    .sidebar{
+      position:fixed; inset:0 auto 0 0; width:264px; z-index:60;
+      background: linear-gradient(180deg,var(--brand-1),var(--brand-2));
+      border-right:1px solid rgba(255,255,255,.06);
+      transform:translateX(-180px);
+      transition:transform var(--speed) cubic-bezier(.2,.8,.2,1);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.04), 0 20px 40px rgba(0,0,0,.35);
+      will-change:transform;
+      backdrop-filter:saturate(140%) blur(2px);
     }
-
-    /* Profile Card */
+    .sidebar:hover,.sidebar.is-open{transform:translateX(0)}
+    .sidebar__inner{height:100%; display:flex; flex-direction:column; gap:14px; padding:18px}
     .profile-card{
-      display:flex; flex-direction:column; align-items:center; text-align:center;
-      background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.04));
-      border: 1px solid rgba(255,255,255,.12);
-      border-radius: 16px; padding: 14px;
+      background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.04));
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:var(--radius);
+      padding:16px; text-align:center;
       box-shadow: inset 0 1px 0 rgba(255,255,255,.12);
     }
-
-    .profile-img-wrap{
-      width: 112px; height: 112px; border-radius: 999px; overflow:hidden;
-      box-shadow: 0 10px 25px rgba(0,0,0,.25);
-      transform: translateZ(0); will-change: transform, filter;
-      animation: floatY 6s ease-in-out infinite;
-      perspective: 700px;
+    .profile-img{
+      width:112px; height:112px; border-radius:999px; overflow:hidden; margin:0 auto;
+      box-shadow:0 12px 30px rgba(0,0,0,.35);
+      transform:translateZ(0);
+      animation:floatY 6s ease-in-out infinite;
     }
-    .profile-img-wrap img{ width:100%; height:100%; object-fit:cover; display:block; }
-    .profile-img-wrap:hover{ transform: rotateX(6deg) rotateY(-6deg) scale(1.02); filter: saturate(110%); }
+    .profile-img img{width:100%; height:100%; object-fit:cover; display:block}
+    @keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+    .profile-name{font-weight:800; margin-top:10px}
+    .profile-role{font-size:12px; opacity:.9}
 
-    @keyframes floatY {
-      0%,100%{ transform: translateY(0); }
-      50%    { transform: translateY(-6px); }
-    }
-
-    .profile-name{ font-weight:700; font-size:18px; margin-top:10px; }
-    .profile-role{ font-size:12px; color:#e5e7eb; opacity:.9; }
-
-    /* Nav */
-    .side-nav{
-      margin-top: 4px;
-      display:flex; flex-direction:column; gap:6px;
-    }
+    .side-nav{display:flex; flex-direction:column; gap:6px; margin-top:8px}
     .side-nav a{
-      display:flex; align-items:center; gap:10px;
-      padding:10px 12px; border-radius:10px; color:#e5e7eb; text-decoration:none;
-      transition: background .2s ease, transform .2s ease;
+      display:flex; align-items:center; gap:10px; padding:10px 12px;
+      color:#e5e7eb; border-radius:12px; position:relative; overflow:hidden;
+      transition: transform .2s ease, background .25s ease;
     }
-    .side-nav a i{ width:18px; text-align:center; }
-    .side-nav a:hover{ background: rgba(255,255,255,.10); transform: translateX(3px); }
+    .side-nav a i{width:18px; text-align:center}
+    .side-nav a::after{
+      content:""; position:absolute; inset:0; background:linear-gradient(90deg,transparent,rgba(255,255,255,.14),transparent);
+      transform:translateX(-120%); transition:transform .6s ease;
+    }
+    .side-nav a:hover{background:rgba(255,255,255,.10); transform:translateX(3px)}
+    .side-nav a:hover::after{transform:translateX(120%)}
 
-    /* Horizontal Social Bar */
-    .social-row{
-      margin-top:auto;
-      display:flex; justify-content:center; gap:14px; padding-top:4px;
-    }
+    .social-row{margin-top:auto; display:flex; justify-content:center; gap:14px}
     .social-row a{
-      display:inline-flex; align-items:center; justify-content:center;
-      width:38px; height:38px; border-radius:999px; background: rgba(255,255,255,.10);
-      color:#fff; text-decoration:none; transition: transform .2s ease, background .2s ease;
+      width:40px; height:40px; display:inline-flex; align-items:center; justify-content:center;
+      border-radius:999px; background:rgba(255,255,255,.10);
+      transition:transform .2s ease, background .2s ease, box-shadow .2s ease;
+      box-shadow:0 2px 0 rgba(255,255,255,.08) inset;
     }
-    .social-row a:hover{ transform: translateY(-3px) scale(1.06); background: rgba(255,255,255,.18); }
+    .social-row a:hover{transform:translateY(-3px) scale(1.06); background:rgba(255,255,255,.18)}
 
-    /* Content push/right margin so it’s not under sidebar */
-    @media (min-width: 992px){
-      .with-sidebar { margin-left: calc(var(--sidebar-w) - 180px); } /* accounts for peek */
-    }
-    @media (max-width: 991px){
-      .sidebar{ transform: translateX(-100%); }          /* hidden on mobile until toggled */
-      .sidebar.is-open{ transform: translateX(0); }
-      .with-sidebar { margin-left: 0; }
-      .mobile-toggle {
-        position: fixed; top: 14px; left: 14px; z-index: 1100;
-        width: 42px; height: 42px; border-radius: 10px; border:none;
-        background:#ffffff; color:#0f172a; box-shadow: var(--shadow);
-      }
-    }
-
-    /* Modernized hero + cards */
-    .banner-bg .banner-overlay img{ transition: transform .5s ease; border-radius: 14px; }
-    .banner-bg .banner-overlay img:hover{ transform: scale(1.02); }
-
-    .widget-title{
-      font-family: Merriweather, serif;
-      font-weight:700; letter-spacing:.2px;
-    }
-    .card {
-      background: var(--card);
-      border-radius: 14px;
-      box-shadow: var(--shadow);
-      padding: 18px;
+    /* =======================
+       Main Canvas + Sections
+       ======================= */
+    .with-sidebar{margin-left:84px} /* account for peek */
+    @media (min-width:992px){.with-sidebar{margin-left:84px}}
+    @media (max-width:991px){
+      .sidebar{transform:translateX(-100%)}
+      .sidebar.is-open{transform:translateX(0)}
+      .with-sidebar{margin-left:0}
+      .mobile-toggle{position:fixed; top:14px; left:14px; z-index:65; width:46px; height:46px; border:none;
+        border-radius:12px; background:#ffffff; color:#0f172a; box-shadow:var(--shadow)}
     }
 
-    /* Local view counter block */
-    .profile { background:#fff; padding:20px; border-radius:12px; box-shadow: var(--shadow); }
+    /* Hero with Parallax Image + Gradient Rings */
+    .hero{
+      position:relative; min-height:72vh; display:grid; place-items:center; overflow:hidden;
+      padding:120px 24px 60px 24px;
+    }
+    .hero__bg{
+      position:absolute; inset:0; pointer-events:none; overflow:hidden;
+    }
+    .hero__bg img{
+      position:absolute; inset:auto; width:110%; left:-5%; top:-2%;
+      filter:saturate(105%) contrast(105%) brightness(95%);
+      transform:translateZ(0) scale(1); transition:transform 12s ease;
+    }
+    .hero:hover .hero__bg img{transform:scale(1.05)}
+    .rings{
+      position:absolute; inset:0; pointer-events:none;
+      background:
+        radial-gradient(600px 600px at 80% 20%, rgba(255,255,255,.07), transparent 60%),
+        radial-gradient(800px 800px at 0% 100%, rgba(138,180,248,.10), transparent 60%);
+      mix-blend:screen;
+    }
+    .hero__content{
+      position:relative; max-width:1100px; width:100%;
+      display:grid; grid-template-columns: 1.1fr .9fr; gap:28px;
+    }
+    @media (max-width:1000px){.hero__content{grid-template-columns:1fr}}
+    .hero-card{
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:var(--radius-lg); padding:28px; box-shadow:var(--shadow);
+      backdrop-filter: blur(6px) saturate(120%);
+      transform:translateY(8px); opacity:.0;
+    }
+    .hero h1{
+      font-family:Merriweather,serif; font-size:42px; line-height:1.15; margin:0 0 10px;
+      text-shadow:0 1px 0 rgba(0,0,0,.35);
+    }
+    .hero p{color:#dbeafe; margin:0 0 18px; font-size:18px}
+    .hero .badges{display:flex; gap:10px; flex-wrap:wrap; margin:8px 0 0}
+    .chip{
+      padding:8px 12px; border-radius:999px; font-size:12px; letter-spacing:.2px;
+      background:linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.06));
+      border:1px solid rgba(255,255,255,.12);
+    }
+
+    .cta-row{display:flex; gap:12px; flex-wrap:wrap; margin-top:10px}
+    .btn{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:12px 16px; border-radius:12px; font-weight:700; letter-spacing:.2px;
+      background:#ffffff; color:#0b1220; border:none; cursor:pointer;
+      box-shadow:0 10px 25px rgba(255,255,255,.12), 0 0 0 6px transparent;
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .btn:hover{transform:translateY(-2px); box-shadow:0 14px 32px rgba(255,255,255,.20), 0 0 0 6px var(--ring)}
+    .btn.secondary{background:transparent; color:#e5e7eb; border:1px solid rgba(255,255,255,.16)}
+    .btn i{font-size:14px}
+
+    /* Focus Areas (3 cards) */
+    .section{padding:36px 24px 0 24px}
+    .container{max-width:1200px; margin:0 auto}
+    .section h2{
+      font-family:Merriweather,serif; font-size:28px; margin:0 0 16px;
+    }
+    .grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
+    @media (max-width:980px){.grid-3{grid-template-columns:1fr}}
+    .card{
+      background:var(--card);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:var(--radius);
+      padding:18px; box-shadow:var(--shadow);
+      position:relative; overflow:hidden;
+      transform:translateY(8px); opacity:0;
+    }
+    .card::before{
+      content:""; position:absolute; inset:1px; border-radius:calc(var(--radius) - 1px);
+      background:linear-gradient(180deg,rgba(255,255,255,.06),transparent 60%);
+      pointer-events:none;
+    }
+    .card:hover{transform:translateY(-3px)}
+    .card h3{margin:2px 0 6px}
+    .card p{color:#cbd5e1; margin:0 0 10px}
+    .pill{display:inline-flex; align-items:center; gap:8px; font-size:12px; opacity:.9}
+    .pill i{opacity:.9}
+
+    /* Featured Work (interactive tiles) */
+    .tiles{display:grid; grid-template-columns:2fr 1fr; gap:18px}
+    @media (max-width:1000px){.tiles{grid-template-columns:1fr}}
+    .tile{
+      position:relative; border-radius:18px; overflow:hidden; min-height:220px;
+      background:#0c1526; border:1px solid rgba(255,255,255,.08);
+      box-shadow:var(--shadow); transform:translateY(8px); opacity:0;
+    }
+    .tile img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.85; transition:transform .9s ease, opacity .35s ease}
+    .tile:hover img{transform:scale(1.06); opacity:.92}
+    .tile .overlay{
+      position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,.0) 0%, rgba(0,0,0,.45) 100%);
+    }
+    .tile .label{
+      position:absolute; left:14px; bottom:14px;
+      background:rgba(0,0,0,.45); color:#fff; padding:10px 14px; border-radius:12px;
+      backdrop-filter: blur(4px);
+    }
+    .tile .label b{display:block; font-size:16px}
+    .tile .label span{font-size:12px; opacity:.9}
+
+    /* About + Interests */
+    .about{display:grid; grid-template-columns:1.2fr .8fr; gap:18px}
+    @media (max-width:1000px){.about{grid-template-columns:1fr}}
+    .copy p{color:#dbeafe; margin:.2rem 0 .8rem}
+    .interests{display:flex; flex-wrap:wrap; gap:8px}
+    .interest{
+      padding:8px 12px; border-radius:999px; font-size:12px; border:1px solid rgba(255,255,255,.16);
+      background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
+    }
+
+    /* CTA Footer */
+    .cta{
+      margin:26px 0 60px; text-align:center;
+      background:linear-gradient(90deg, rgba(0,115,177,.14), rgba(140,21,21,.14));
+      border:1px solid rgba(255,255,255,.10); border-radius:20px; padding:18px;
+      box-shadow:var(--shadow);
+      transform:translateY(8px); opacity:0;
+    }
 
     /* Footer */
-    #footer .copyright-text{ color: var(--muted); }
+    footer{padding:24px 0 40px; text-align:center; color:var(--muted)}
+
+    /* Scroll Reveal */
+    .reveal{transform:translateY(8px); opacity:0}
+    .reveal.in{transform:translateY(0); opacity:1; transition: all .7s cubic-bezier(.2,.8,.2,1)}
+
+    /* Motion preferences */
+    @media (prefers-reduced-motion:reduce){
+      .hero:hover .hero__bg img{transform:none}
+      .btn, .side-nav a, .tile img{transition:none}
+      .reveal{opacity:1; transform:none}
+      .profile-img{animation:none}
+    }
   </style>
 </head>
 
 <body>
   <!-- Mobile toggle -->
-  <button class="mobile-toggle visible-xs visible-sm" aria-label="Open menu">
-    <i class="fa fa-bars"></i>
-  </button>
+  <button class="mobile-toggle visible-xs visible-sm" aria-label="Open menu"><i class="fa fa-bars"></i></button>
 
-  <!-- ===== LEFT SIDEBAR ===== -->
+  <!-- ========== LEFT SIDEBAR ========== -->
   <aside class="sidebar" id="leftSidebar" aria-label="Site navigation">
     <div class="sidebar__inner">
       <div class="profile-card">
-        <div class="profile-img-wrap">
-          <img src="img/prof.jpg" alt="Ahmad Droobi">
-        </div>
+        <div class="profile-img"><img src="img/prof.jpg" alt="Ahmad Droobi" /></div>
         <div class="profile-name">Ahmad Droobi</div>
         <div class="profile-role">Computational Applied Mathematics</div>
       </div>
 
       <nav class="side-nav" role="navigation">
-        <a href="index.html"><i class="fa fa-home"></i> <span>Home</span></a>
-        <a href="education.html"><i class="fa fa-graduation-cap"></i> <span>Education</span></a>
-        <a href="publications.html"><i class="fa fa-file"></i> <span>Publications</span></a>
-        <a href="experience.html"><i class="fa fa-suitcase"></i> <span>Experience</span></a>
-        <a href="advising.html"><i class="fa fa-users"></i> <span>Advising</span></a>
-        <a href="awards.html"><i class="fa fa-star"></i> <span>Awards</span></a>
-        <a href="gallery.html"><i class="fa fa-picture-o"></i> <span>Gallery</span></a>
-        <a href="repository.html"><i class="fa fa-folder"></i> <span>Repository</span></a>
+        <a href="#top"><i class="fa fa-home"></i><span>Home</span></a>
+        <a href="#focus"><i class="fa fa-cubes"></i><span>Focus Areas</span></a>
+        <a href="#work"><i class="fa fa-rocket"></i><span>Featured Work</span></a>
+        <a href="#about"><i class="fa fa-user"></i><span>About</span></a>
+        <a href="education.html"><i class="fa fa-graduation-cap"></i><span>Education</span></a>
+        <a href="publications.html"><i class="fa fa-file"></i><span>Publications</span></a>
+        <a href="experience.html"><i class="fa fa-suitcase"></i><span>Experience</span></a>
+        <a href="advising.html"><i class="fa fa-users"></i><span>Advising</span></a>
+        <a href="awards.html"><i class="fa fa-star"></i><span>Awards</span></a>
+        <a href="repository.html"><i class="fa fa-folder"></i><span>Repository</span></a>
+        <a href="gallary.html"><i class="fa fa-picture-o"></i><span>Gallery</span></a>
       </nav>
 
-      <!-- Horizontal social icons -->
       <div class="social-row" aria-label="Social links">
         <a href="https://github.com/ahmaddroobi99" target="_blank" title="GitHub"><i class="fa fa-github"></i></a>
         <a href="https://www.linkedin.com/in/droobi/" target="_blank" title="LinkedIn"><i class="fa fa-linkedin"></i></a>
@@ -206,238 +298,169 @@
       </div>
     </div>
   </aside>
-  <!-- ===== /LEFT SIDEBAR ===== -->
 
-  <!-- ===== MAIN CONTENT ===== -->
-  <div class="with-sidebar">
-    <!-- Existing responsive header (kept for mobile) -->
-    <div class="responsive-header visible-xs visible-sm">
-      <div class="container">
-        <div class="row" style="margin-right:0px">
-          <div class="col-md-12">
-            <div class="top-section">
-              <div class="profile-image">
-                <img src="img/prof.jpg" alt="Ahmad Droobi">
-              </div>
-              <div class="profile-content">
-                <h3 class="profile-title">
-                  <a href="https://profiles.ucalgary.ca/ahmad-droobi" target="_blank">Ahmad Droobi</a>
-                </h3>
-                <p class="profile-description">Computational Applied Mathematics • ML for Dynamical Systems</p>
-                <div class="social-icons">
-                  <ul>
-                    <li style="margin:0 20px 0 0;">
-                      <a href="https://github.com/ahmaddroobi99" target="_blank"><i class="fa fa-github"></i></a>
-                    </li>
-                    <li>
-                      <a href="https://www.linkedin.com/in/droobi/" target="_blank"><i class="fa fa-linkedin"></i></a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <a href="#" class="toggle-menu"><i class="fa fa-bars"></i></a>
-        <div class="main-navigation responsive-menu">
-          <ul class="navigation">
-            <li><a href="index.html"><i class="fa fa-home fa-fw"></i>Home</a></li>
-            <li><a href="education.html"><i class="fa fa-graduation-cap fa-fw"></i>Education</a></li>
-            <li><a href="publications.html"><i class="fa fa-file fa-fw"></i>Publications</a></li>
-            <li><a href="experience.html"><i class="fa fa-suitcase fa-fw"></i>Experience</a></li>
-            <li><a href="advising.html"><i class="fa fa-users fa-fw"></i>Advising</a></li>
-            <li><a href="awards.html"><i class="fa fa-star fa-fw"></i>Awards</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
+  <!-- ========== MAIN CONTENT ========== -->
+  <main class="with-sidebar" id="top">
     <!-- Hero -->
-    <div class="banner-bg" id="top">
-      <div class="banner-overlay"><img src="img/ccc.png" alt=""></div>
-      <div class="welcome-text">
-        <h2><i class="fa fa-angle-right"></i> Hello, World!</h2>
-        <h5>
-          I build data-driven filters for high-dimensional dynamical systems—at the intersection of
-          Scientific Machine Learning, Uncertainty Quantification, and Lagrangian Data Assimilation.
-        </h5>
+    <section class="hero">
+      <div class="hero__bg" aria-hidden="true">
+        <img src="img/ccc.png" alt="" />
+        <div class="rings"></div>
       </div>
-    </div>
-
-    <!-- Main -->
-    <div class="main-content">
-      <div class="fluid-container">
-        <div class="content-wrapper">
-          <!-- Updates -->
-          <div class="page-section" id="about">
-            <div class="row">
-              <div class="col-md-12" id="updates">
-                <h4 class="widget-title">Updates</h4>
-                <table>
-                  <tr>
-                    <td class="update-date"><b>Nov 12, 2025</b></td>
-                    <td>Degree conferral scheduled: <i>Master of Science, Mechanical Engineering</i> (University of Calgary).</td>
-                  </tr>
-                  <tr>
-                    <td class="update-date"><b>Jul 17, 2025</b></td>
-                    <td>Thesis submitted and degree requirements completed — <a href="https://hdl.handle.net/1880/122341" target="_blank">Data-Driven Filtering Techniques for Turbulent Flow Models (LaDA)</a>.</td>
-                  </tr>
-                  <tr>
-                    <td class="update-date"><b>May 6, 2025</b></td>
-                    <td>Oral examination passed (MSc, Mechanical Engineering).</td>
-                  </tr>
-                  <tr>
-                    <td class="update-date"><b>Fall 2024</b></td>
-                    <td>Teaching Assistant — ENME 600: Introduction to Numerical Methods for Engineers.</td>
-                  </tr>
-                  <tr>
-                    <td class="update-date"><b>Jul 2024</b></td>
-                    <td>Presented hybrid EnKF–PF for QG systems at WCCM 2024.</td>
-                  </tr>
-                </table>
-              </div>
-            </div>
-
-            <br>
-
-            <div class="row">
-              <div class="col-md-12">
-                <h4 class="widget-title">About Me</h4>
-                <p>
-                  I recently completed the MSc in Mechanical Engineering (Computational Applied Mathematics) at the University of Calgary,
-                  working in the <a href="https://profiles.ucalgary.ca/mustafa-mohamad" target="_blank">Predictive & Intelligent Systems Lab</a>.
-                  My research operationalizes Scientific Machine Learning and Bayesian inference for turbulent, stochastic flow fields.
-                </p>
-                <p>
-                  Core focus areas include state/parameter estimation, uncertainty quantification, and data assimilation with sparse, noisy Lagrangian observations.
-                  In my thesis, I developed a hybrid Ensemble Kalman Filter–Particle Filter framework to reconstruct quasi-geostrophic flow fields
-                  and recover Eulerian energy spectra from tracer data in high-dimensional regimes (&gt;16k states).
-                </p>
-                <p>
-                  I’m motivated by decision-making under uncertainty across climate, environmental, and engineering systems, with emphasis on scalable numerics,
-                  reproducible pipelines, and HPC-ready implementations in Python/MATLAB.
-                </p>
-                <p style="margin-bottom:-30px; text-align:center;">
-                  <a href="files/Ahmad_Droobi_CV_2026.pdf" target="_blank"><i class="fa fa-file fa-fw"></i>Curriculum Vitae</a> (2026) &nbsp;•&nbsp;
-                  <a href="https://hdl.handle.net/1880/122341" target="_blank"><i class="fa fa-university fa-fw"></i>Master’s Thesis</a> (2025)
-                </p>
-                <hr>
-                <div class="research-interests">
-                  <b>Research interests:</b>
-                  <span class="interests">
-                    State Estimation, Parameter Estimation, Time Series, Scientific Machine Learning, Tracer Modeling,
-                    Lagrangian Data Assimilation, Dynamical Systems, Uncertainty Quantification.
-                  </span>
-                </div>
-                <hr>
-              </div>
-            </div>
-
-            <!-- <div class="row">
-              <div class="col-md-12 text-center">
-                <br>
-                <img src="img/AhmadDroobiSignature.png" alt="Ahmad Droobi Signature Logo" style="max-width:200px;">
-                <br><br>
-                <p class="copyright-text">&copy; 1999–2025 Ahmad Droobi</p>
-              </div>
-            </div>
-          </div> -->
-
-          <!-- Academic Profile
-          <div class="page-section" id="academic-profile">
-            <h4 class="widget-title">Academic Profile</h4>
-            <p>
-              Welcome to my academic portfolio! I am Ahmad Droobi, a researcher specializing in Computational Applied Mathematics, Scientific Machine Learning, and Uncertainty Quantification.
-            </p>
-            <ul>
-              <li><a href="files/Ahmad_Droobi_CV_2026.pdf" target="_blank">Download My CV</a></li>
-              <li><a href="files/Confirmation of Credential.pdf" target="_blank">View My Credentials</a></li>
-            </ul>
-          </div> -->
-
-          <!-- Gallery tabs preserved -->
-          <!-- <div class="page-section" id="gallery">
-            <h4 class="widget-title">Gallery</h4>
-            <p>Explore categorized images and videos from my academic and personal journey.</p>
-            <div class="gallery-tabs">
-              <button class="tab-button" onclick="showGallery('work')">Work</button>
-              <button class="tab-button" onclick="showGallery('nature')">Nature</button>
-              <button class="tab-button" onclick="showGallery('amusing')">Amusing</button>
-            </div>
-            <div id="gallery-content"></div>
+      <div class="hero__content">
+        <div class="hero-card reveal">
+          <h1><span style="opacity:.7"><i class="fa fa-angle-right"></i></span> Hello, World.</h1>
+          <p>I build data-driven filters for high-dimensional dynamical systems—at the intersection of
+             <b>Scientific Machine Learning</b>, <b>Uncertainty Quantification</b>, and <b>Lagrangian Data Assimilation</b>.
+          </p>
+          <div class="badges">
+            <span class="chip">Digital Twins</span>
+            <span class="chip">Bayesian Inference</span>
+            <span class="chip">Spectral QG</span>
+            <span class="chip">HPC-ready Python/MATLAB</span>
           </div>
+          <div class="cta-row">
+            <a class="btn" href="files/Ahmad_Droobi_CV_2026.pdf" target="_blank"><i class="fa fa-file"></i> Curriculum Vitae</a>
+            <a class="btn secondary" href="https://hdl.handle.net/1880/122341" target="_blank"><i class="fa fa-university"></i> Master’s Thesis</a>
+          </div>
+        </div>
 
-           Local view counter -->
-          <!-- <div class="profile">
-            <h1>Profile</h1>
-            <p id="view-counter">Profile views: 0</p>
-          </div> -->
+        <div class="hero-card reveal" style="display:grid; gap:12px">
+          <div class="pill"><i class="fa fa-map-signs"></i> Outcome-driven research with reproducible pipelines</div>
+          <div class="pill"><i class="fa fa-bolt"></i> Real-time tracer modeling & assimilation</div>
+          <div class="pill"><i class="fa fa-code"></i> PyTorch • NumPy • MATLAB • FastAPI • Poetry</div>
+          <div class="pill"><i class="fa fa-shield"></i> Robust numerics • Scalable inference • Deterministic delivery</div>
+        </div>
+      </div>
+    </section>
 
-          <!-- Animated Panel -->
-          <!-- <div class="animated-panel">
-            <p id="animated-text"></p>
+    <!-- Focus Areas -->
+    <section class="section" id="focus">
+      <div class="container">
+        <h2>Core Focus</h2>
+        <div class="grid-3">
+          <article class="card reveal">
+            <h3>State & Parameter Estimation</h3>
+            <p>Hybrid EnKF–PF for QG and SWE; tightly-coupled priors, adaptive inflation, and flow-consistent constraints.</p>
+            <div class="pill"><i class="fa fa-sliders"></i> Kalman family, particles, smoothing</div>
+          </article>
+          <article class="card reveal">
+            <h3>Tracer-Driven LaDA</h3>
+            <p>Recover Eulerian energy spectra from sparse, noisy Lagrangian trajectories (&gt;16k states) with spectral diagnostics.</p>
+            <div class="pill"><i class="fa fa-life-ring"></i> Observability, trajectory design</div>
+          </article>
+          <article class="card reveal">
+            <h3>Reproducible SciML</h3>
+            <p>End-to-end pipelines with config management, versioned data, and regression-safe training/eval loops.</p>
+            <div class="pill"><i class="fa fa-cogs"></i> Poetry, logging, CI-ready structure</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Work -->
+    <section class="section" id="work">
+      <div class="container">
+        <h2>Featured Work</h2>
+        <div class="tiles">
+          <a class="tile reveal" href="https://hdl.handle.net/1880/122341" target="_blank" aria-label="Thesis">
+            <img src="img/ccc.png" alt="" />
+            <div class="overlay"></div>
+            <div class="label"><b>Data-Driven Filtering for Turbulent Flow Models</b><span>Hybrid EnKF–PF • QG • Tracer spectra</span></div>
+          </a>
+          <div class="tile reveal" style="min-height:220px">
+            <img src="img/prof.jpg" alt="" />
+            <div class="overlay"></div>
+            <div class="label"><b>Teaching & Talks</b><span>Numerical Methods • WCCM 2024</span></div>
           </div>
         </div>
       </div>
-    </div> -->
+    </section>
 
-    <!-- Footer -->
-    <div class="row" id="footer">
-      <div class="col-md-12 text-center">
-        <p class="copyright-text">© 1999–2025 Ahmad Droobi</p>
+    <!-- About + Interests -->
+    <section class="section" id="about">
+      <div class="container">
+        <h2>About & Interests</h2>
+        <div class="about">
+          <div class="card copy reveal">
+            <p>I completed the MSc in Mechanical Engineering (Computational Applied Mathematics) at the University of Calgary,
+               working in the <a href="https://profiles.ucalgary.ca/mustafa-mohamad" target="_blank">Predictive & Intelligent Systems Lab</a>.
+               My research deploys Bayesian inference and SciML to reconstruct turbulent, stochastic flow fields.</p>
+            <p>Core areas: state/parameter estimation, UQ, and data assimilation with sparse, noisy Lagrangian observations.
+               My thesis develops a hybrid EnKF–PF to reconstruct quasi-geostrophic flows and recover Eulerian energy spectra
+               from tracer data in high-dimensional regimes.</p>
+            <p>Operating model: outcome focus, scalable numerics, reproducible pipelines, HPC-ready implementations in Python/MATLAB.</p>
+          </div>
+          <div class="card reveal">
+            <h3 style="margin-top:0">Research Interests</h3>
+            <div class="interests" style="margin-top:8px">
+              <span class="interest">State Estimation</span>
+              <span class="interest">Parameter Estimation</span>
+              <span class="interest">Time Series</span>
+              <span class="interest">Scientific ML</span>
+              <span class="interest">Tracer Modeling</span>
+              <span class="interest">Lagrangian DA</span>
+              <span class="interest">Dynamical Systems</span>
+              <span class="interest">Uncertainty Quantification</span>
+            </div>
+            <div style="margin-top:14px">
+              <a class="btn secondary" href="publications.html"><i class="fa fa-file"></i> Publications</a>
+              <a class="btn" href="files/Ahmad_Droobi_CV_2026.pdf" target="_blank"><i class="fa fa-file-text-o"></i> CV (PDF)</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="cta reveal">
+          <strong>Open to collaborative research and PhD opportunities</strong><br />
+          Digital twins • Sparse sensing • Robust Bayesian inference for geophysical systems
+        </div>
       </div>
-    </div>
-  </div>
-  <!-- ===== /MAIN CONTENT ===== -->
+    </section>
 
-  <!-- JS (existing) -->
-  <script src="js/vendor/jquery-1.10.2.min.js"></script>
-  <script src="js/min/plugins.min.js"></script>
-  <script src="js/min/main.min.js"></script>
+    <footer>
+      © 1999–2025 Ahmad Droobi
+    </footer>
+  </main>
 
-  <!-- Gallery stub
+  <!-- ========== INTERACTIONS (Vanilla JS) ========== -->
   <script>
-    function showGallery(category) {
-      const el = document.getElementById('gallery-content');
-      el.innerHTML = `<p>Loading ${category} images...</p>`;
-      // TODO: inject content by category
-    }
-  </script> -->
-
-  <!-- Typing + Counters + Sidebar toggle
-  <script>
-    // View counter
-    (function(){
-      const key='profileViews';
-      const viewCounter=document.getElementById('view-counter');
-      let v=+localStorage.getItem(key)||0;
-      localStorage.setItem(key, ++v);
-      viewCounter.textContent=`Profile views: ${v}`;
-    })();
-
-    // Typewriter
-    (function(){
-      const text = "Hello, World! I build data-driven filters for high-dimensional dynamical systems—at the intersection of Scientific Machine Learning, Uncertainty Quantification, and Lagrangian Data Assimilation.";
-      const target = document.getElementById("animated-text");
-      let i=0, speed=34;
-      (function type(){
-        if(i<text.length){ target.textContent += text.charAt(i++); setTimeout(type, speed); }
-      })();
-    })(); -->
-
-    <!-- // Mobile sidebar toggle + initial reveal
+    // Mobile sidebar toggle
     (function(){
       const sidebar = document.getElementById('leftSidebar');
       const btn = document.querySelector('.mobile-toggle');
-      if(btn){
-        btn.addEventListener('click', ()=> sidebar.classList.toggle('is-open'));
-      }
-      // Initial gentle reveal on desktop
+      if(btn){ btn.addEventListener('click', ()=> sidebar.classList.toggle('is-open')); }
       if(window.matchMedia('(min-width: 992px)').matches){
         setTimeout(()=> sidebar.classList.add('is-open'), 400);
-        setTimeout(()=> sidebar.classList.remove('is-open'), 1800); // revert to “peek”
+        setTimeout(()=> sidebar.classList.remove('is-open'), 1600);
       }
-    })(); -->
+    })();
+
+    // Parallax on hero image
+    (function(){
+      const img = document.querySelector('.hero__bg img');
+      if(!img) return;
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if(reduce) return;
+      window.addEventListener('mousemove', (e)=>{
+        const x = (e.clientX / window.innerWidth - .5) * 8;
+        const y = (e.clientY / window.innerHeight - .5) * 6;
+        img.style.transform = `translate(${x}px, ${y}px) scale(1.04)`;
+      });
+    })();
+
+    // Scroll reveal
+    (function(){
+      const items = document.querySelectorAll('.reveal, .card, .tile, .hero-card, .cta');
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(ent=>{
+          if(ent.isIntersecting){
+            ent.target.classList.add('in');
+            io.unobserve(ent.target);
+          }
+        });
+      },{threshold:.12});
+      items.forEach(el=> io.observe(el));
+    })();
   </script>
 </body>
 </html>

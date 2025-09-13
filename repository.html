@@ -12,15 +12,15 @@
     .container { display: flex; }
     /* Updated Sidebar Styling */
     .sidebar {
-      background: linear-gradient(180deg, #001f3f, #003366, #00509e);
-      color: #fff;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-      border-right: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 20px;
-      width: 250px;
       position: fixed;
-      height: 100%;
-      overflow-y: auto;
+      top: 0;
+      left: 0;
+      width: 264px;
+      height: 100vh;
+      background: linear-gradient(180deg, #001f3f, #003366);
+      color: #fff;
+      z-index: 1050;
+      box-shadow: 0 10px 25px rgba(2, 6, 23, 0.12);
       transform: translateX(-250px);
       transition: transform 0.3s ease-in-out;
     }
@@ -30,49 +30,71 @@
     }
 
     .sidebar__inner {
-      position: relative;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      padding: 18px;
+      gap: 14px;
     }
 
     .profile-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       text-align: center;
-      margin-bottom: 20px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04));
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      padding: 14px;
     }
 
     .profile-img-wrap {
-      border-radius: 50%;
+      width: 112px;
+      height: 112px;
+      border-radius: 999px;
       overflow: hidden;
-      width: 100px;
-      height: 100px;
-      margin: 0 auto 10px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
     }
 
     .profile-img-wrap img {
       width: 100%;
-      height: auto;
+      height: 100%;
+      object-fit: cover;
     }
 
     .profile-name {
-      font-size: 1.2em;
-      margin: 0;
+      font-weight: 700;
+      font-size: 18px;
+      margin-top: 10px;
     }
 
     .profile-role {
-      font-size: 0.9em;
-      color: #ddd;
+      font-size: 12px;
+      color: #e5e7eb;
+      opacity: 0.9;
     }
 
-    .sidebar a {
+    .side-nav {
+      margin-top: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .side-nav a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 10px;
       color: #e5e7eb;
       text-decoration: none;
-      padding: 10px 15px;
-      display: block;
-      border-radius: 8px;
-      transition: background 0.3s, color 0.3s;
+      transition: background 0.2s ease, transform 0.2s ease;
     }
 
-    .sidebar a:hover {
+    .side-nav a:hover {
       background: rgba(255, 255, 255, 0.1);
-      color: #ffffff;
+      transform: translateX(3px);
     }
 
     main {
@@ -173,6 +195,24 @@
       padding: 10px;
       background-color: #f9f9f9;
     }
+
+    .right-panel {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 264px;
+      height: 100vh;
+      background: linear-gradient(180deg, #001f3f, #003366);
+      color: #fff;
+      z-index: 1050;
+      box-shadow: 0 10px 25px rgba(2, 6, 23, 0.12);
+      transform: translateX(250px);
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .right-panel:hover {
+      transform: translateX(0);
+    }
   </style>
 </head>
 <body>
@@ -181,7 +221,7 @@
     <div class="sidebar__inner">
       <div class="profile-card">
         <div class="profile-img-wrap">
-          <img src="img/AhmadDroobiSignature.png" alt="Profile Picture">
+          <img src="img/prof.jpg" alt="Ahmad Droobi">
         </div>
         <div class="profile-name">Ahmad Droobi</div>
         <div class="profile-role">Scientific Researcher</div>
