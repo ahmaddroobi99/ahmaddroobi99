@@ -294,6 +294,139 @@
     .social-row a:hover {
       color: var(--brand);
     }
+
+    /* Scroll-Driven Story Panels */
+    .story {
+      height: calc(100vh * 3);
+      scroll-snap-type: y mandatory;
+      overflow-y: auto;
+      perspective: 1200px;
+    }
+    .scene {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: grid;
+      place-items: center;
+      transform-style: preserve-3d;
+      animation: sceneIn 1 both;
+      will-change: transform, opacity, filter;
+    }
+    .scene img {
+      width: min(100%, 1200px);
+      height: auto;
+      border-radius: 16px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+    }
+    .scene figcaption {
+      position: absolute;
+      bottom: 8vh;
+      left: 6vw;
+      padding: 0.6rem 1rem;
+      backdrop-filter: blur(10px);
+      color: #fff;
+      font: 600 1.1rem/1.2 system-ui;
+      letter-spacing: 0.02em;
+      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.6);
+      transform: translateY(12px);
+      opacity: 0;
+      animation: captionIn 1 both;
+    }
+    @keyframes sceneIn {
+      0% {
+        opacity: 0;
+        transform: translateZ(-200px) rotateX(8deg) scale(0.96);
+        filter: saturate(0.7) brightness(0.7);
+      }
+      100% {
+        opacity: 1;
+        transform: translateZ(0) rotateX(0deg) scale(1);
+        filter: none;
+      }
+    }
+    @keyframes captionIn {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Ken Burns Effect */
+    .kenburns {
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+      aspect-ratio: 16/9;
+    }
+    .kenburns img {
+      width: 120%;
+      height: 120%;
+      object-fit: cover;
+      transform: translate(-10%, -10%) scale(1.08);
+      animation: kb 12s ease-in-out both;
+    }
+    @keyframes kb {
+      0% {
+        transform: translate(-6%, -4%) scale(1.08);
+      }
+      60% {
+        transform: translate(0%, 0%) scale(1.14);
+      }
+      100% {
+        transform: translate(4%, 2%) scale(1.2);
+      }
+    }
+
+    /* Parallax Depth Stack */
+    .depth {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+      perspective: 1000px;
+    }
+    .depth img {
+      position: absolute;
+      inset: 0;
+      object-fit: cover;
+    }
+    .bg {
+      animation: z1 1 both;
+    }
+    .mid {
+      animation: z2 1 both;
+    }
+    .fg {
+      animation: z3 1 both;
+    }
+    @keyframes z1 {
+      from {
+        transform: translateY(-6%) scale(1.05);
+      }
+      to {
+        transform: translateY(6%) scale(1.12);
+      }
+    }
+    @keyframes z2 {
+      from {
+        transform: translateY(-12%) scale(1.08);
+      }
+      to {
+        transform: translateY(12%) scale(1.18);
+      }
+    }
+    @keyframes z3 {
+      from {
+        transform: translateY(-20%) scale(1.12);
+      }
+      to {
+        transform: translateY(20%) scale(1.28);
+      }
+    }
   </style>
 </head>
 <body>
