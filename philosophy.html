@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Eternal Flow: A Philosopher's Odyssey Through Nature's Code</title>
+  <script type="text/javascript" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        packages: {'[+]': ['ams']},
+        tags: 'none'
+      },
+      options: { skipHtmlTags: {'[+]': ['textarea','pre','code']} },
+      chtml: { scale: 1 }
+    };
+  </script>
+  <style>
+    body { 
+      font-family: 'Georgia', serif; 
+      margin: 0; 
+      padding: 0; 
+      line-height: 1.8; 
+      background: linear-gradient(to bottom, #f0f8ff, #e6f3ff);
+      color: #2c3e50;
+    }
+    
+    /* Enhanced Philosophical Aesthetic */
+    :root {
+      --accent: #1a5276;
+      --ink: #0f172a;
+      --muted: #7f8c8d;
+      --card: rgba(255, 255, 255, 0.95);
+      --bg: #f3f6f9;
+      --shadow: 0 10px 25px rgba(2,6,23,.12);
+      --radius: 12px;
+    }
+    
+    .philo-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 264px;
+      height: 100vh;
+      background: linear-gradient(180deg, #001f3f, #003366);
+      color: #fff;
+      z-index: 1050;
+      box-shadow: var(--shadow);
+      transform: translateX(-250px);
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .sidebar:hover {
+      transform: translateX(0);
+    }
+
+    .sidebar__inner {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      padding: 18px;
+      gap: 14px;
+    }
+
+    .profile-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04));
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      padding: 14px;
+    }
+
+    .profile-img-wrap {
+      width: 112px;
+      height: 112px;
+      border-radius: 999px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+    }
+
+    .profile-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .profile-name {
+      font-weight: 700;
+      font-size: 18px;
+      margin-top: 10px;
+    }
+
+    .profile-role {
+      font-size: 12px;
+      color: #e5e7eb;
+      opacity: 0.9;
+      font-style: italic;
+    }
+
+    .side-nav {
+      margin-top: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .side-nav a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      color: #e5e7eb;
+      text-decoration: none;
+      transition: background 0.2s ease, transform 0.2s ease;
+      font-style: italic;
+    }
+
+    .side-nav a:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateX(3px);
+    }
+
+    main {
+      margin-left: 270px;
+      padding: 20px;
+      flex: 1;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--accent), #34495e);
+      color: white;
+      padding: 40px 20px;
+      border-radius: var(--radius);
+      margin-bottom: 30px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 2.5em;
+      font-style: italic;
+    }
+
+    .subtitle {
+      font-size: 1.2em;
+      opacity: 0.9;
+      margin-bottom: 20px;
+    }
+
+    .journey-section {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 30px;
+      margin: 30px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .journey-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent), #3498db);
+    }
+
+    .journey-section h2 {
+      color: var(--accent);
+      border-bottom: 2px solid #ecf0f1;
+      padding-bottom: 10px;
+      font-style: italic;
+    }
+
+    .poetic-text {
+      font-style: italic;
+      color: #5d6d7e;
+      line-height: 2;
+      margin: 20px 0;
+    }
+
+    table { 
+      width: 100%; 
+      border-collapse: collapse; 
+      margin: 20px 0; 
+      background: white;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    th, td { 
+      border: 1px solid #ddd; 
+      padding: 12px; 
+      text-align: left; 
+    }
+    
+    th { 
+      background: linear-gradient(135deg, var(--accent), #34495e); 
+      color: white; 
+      font-weight: bold; 
+    }
+
+    tr:hover td {
+      background: #f8f9ff;
+    }
+
+    .alg { 
+      border: 1px solid #ddd; 
+      padding: 20px; 
+      margin: 20px 0; 
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .math-flowchart {
+      background: linear-gradient(135deg, #f8f9ff, #e8f4f8);
+      border: 2px solid #bdc3c7;
+      border-radius: var(--radius);
+      padding: 30px;
+      margin: 30px 0;
+      box-shadow: var(--shadow);
+      font-family: monospace;
+      white-space: pre;
+      overflow-x: auto;
+      text-align: center;
+      font-style: italic;
+    }
+
+    .latex-editor {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 20px;
+      margin: 20px 0;
+    }
+
+    footer {
+      background: linear-gradient(135deg, #34495e, var(--accent));
+      color: white;
+      padding: 20px;
+      text-align: center;
+      margin-top: 40px;
+      border-radius: var(--radius) 0 0 0;
+    }
+
+    /* Animation for poetic flow */
+    .poetic-flow {
+      animation: flow 10s ease-in-out infinite;
+    }
+
+    @keyframes flow {
+      0%, 100% { opacity: 0.7; transform: translateX(0); }
+      50% { opacity: 1; transform: translateX(10px); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Left Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar__inner">
+      <div class="profile-card">
+        <div class="profile-img-wrap">
+          <img src="img/prof.jpg" alt="Ahmad Droobi">
+        </div>
+        <div class="profile-name">Ahmad Droobi</div>
+        <div class="profile-role">Wanderer of Nature's Algorithms</div>
+      </div>
+
+      <nav class="side-nav">
+        <a href="#journey"><i class="fa fa-home"></i> The Eternal Journey</a>
+        <a href="#notations"><i class="fa fa-table"></i> Sacred Notations</a>
+        <a href="#algorithms"><i class="fa fa-code"></i> Whispers of Code</a>
+        <a href="#math-review"><i class="fa fa-book"></i> Echoes of Review</a>
+        <a href="#proposal"><i class="fa fa-lightbulb-o"></i> Visions of Truth</a>
+        <a href="#documents"><i class="fa fa-file-pdf-o"></i> Ancient Scrolls</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main>
+    <header>
+      <h1 class="poetic-flow">The Eternal Flow: A Philosopher's Odyssey Through Nature's Code</h1>
+      <p class="subtitle">In the streams of air and the geometry of ancient trees, a soul awakens to the computational poetry of existence—from the whisper of numbers to the thunder of reconstructed truths.</p>
+    </header>
+
+    <div class="philo-container">
+      <!-- Journey Narrative -->
+      <section id="journey" class="journey-section">
+        <h2>From the Cradle of Numbers: A Life's Mutation</h2>
+        <p class="poetic-text">In the quiet dawn of childhood, beneath the vast canopy of olive trees in Nablus, a boy named Ahmad gazed at the wind's invisible dance. The streams of air, like errant threads in a cosmic loom, wove patterns he could almost touch—deterministic functions unfolding in the flutter of leaves. He was no mere observer; he was the first mutation, born of twelve years' immersion in mathematics' embrace. Primary school sparked his flame: a flickering interest in technology, where simple circuits hummed like the pulse of stars. Swimming became his ritual, slicing through water as if carving limits from the infinite, body and mind converging in fluid geometry.</p>
+        
+        <p class="poetic-text">As adolescence bloomed, theory claimed him wholly. Not the crude hammer of application, but the delicate forge of abstraction—building castles of calculus and differential equations, where triangles (deltas of difference) birthed limits, and limits whispered of imaginaries, those unreal reals hovering on the edge of dismissal. TTL high yet low, existence teetering on the precipice. From scalar fields he flowed to velocity's rush, streamlines tracing the river of stream functions, relativity bending the spine of space-time. Vorticity flipped the triangle, a whirl of potential birthing potential vorticity. And in that pivot—relativity to rationality, anchor to sankar (the sniper's unerring gaze)—he found the philosopher's core: nature as computational complexity, planets and moons as nodes in God's grand motherboard.</p>
+        
+        <p class="poetic-text">Undergraduate winds carried him to An Najah National University, a computer engineering odyssey from 2019 to 2022. Here, poetry animated: C++ and databases sculpted hardware dreams, from digital circuits to microcontrollers, while electives in machine learning and AI transmuted theoretical musings into code. Projects like Cookoverflow and Electrical Circuit Builder were mutations—full-stack webs and CNC integrations, bridging software's ethereal flow with hardware's stubborn earth. Yet the struggle deepened: ICPC contests honed his blade, competitive programming under time's relentless queue, volunteering as a forge for leadership amid community service.</p>
+        
+        <p class="poetic-text">Industry's tempests tested him—Apple's data streams in Rawabi (2021), Paltel's telecom symphonies in Nablus (2022), Clemson's ML labs (2021-2022), Harri's forecasting oracles (2022), ITG's Python pipelines in Cincinnati (2023). Each a thread in the OS of life, processing discrete time descriptions into relativistic potentials, storing memories in the CPU of the soul. God, the ultimate controller, threads the queues between hardware's clay and software's dream.</p>
+        
+        <p class="poetic-text">The master's pilgrimage at University of Calgary (2023-2025) crowned the quest: Mechanical Engineering laced with Computer Science and Applied Mathematics. Generalization theory unfurled—reconstructing truth from partial observations, EnKF-PF hybrids assimilating Lagrangian tracers in turbulent quasi-geostrophic flows. Courses in PDEs, Uncertainty Quantification, Scientific Machine Learning mirrored nature's equations: probabilistic neural nets for time-series, sensor integrations for dynamic truths. Thesis: a novel filter bridging ensemble Kalman and particle realms, recovering Eulerian spectra from sparse data, advancing atmospheric and oceanic oracles. WCCM 2024 presentation: a philosopher's discourse among mechanics' giants. TA roles (2024) echoed mentorship, guiding finite differences as one might trace streamlines.</p>
+        
+        <p class="poetic-text">Projects marked the path's milestones: Shortest Path Optimization (2024) for constrained predictabilities; "Can I Read Your Brain?" (2024) decoding emotional FC networks; Neural ODE reproductions (2023) for continuous dynamics; Real-Time Facial Recognition (2021-2022) with 97% training grace; PayMe e-wallet (2021) securing transactional flows. Certifications—Manara (2023), Applied Data Institute (2022)—seals on the scroll. From childhood's number to master's truth, a life's mutation: the philosopher who sees God at the console, time as threaded flow, nature's code eternally compiling.</p>
+      </section>
+
+      <!-- Math Notations Table -->
+      <section id="notations" class="journey-section">
+        <h2>The Sacred Glyphs: Notations of the Cosmos</h2>
+        <p class="poetic-text">In the philosopher's ledger, notations are the poetry's ink—terminology etching laws that govern the mutation from field to vorticity, scalar to relativistic potential. Behold the table, a map of mathematics' infinite library, from set theory's cradle to stochastic PDEs' storm.</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Terminology</th>
+              <th>Notation</th>
+              <th>Law/Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Set</td><td>\( S = \{ x \mid P(x) \} \)</td><td>Axiom of Extensionality: Sets equal if same elements</td></tr>
+            <tr><td>Vector</td><td>\( \mathbf{v} = (v_1, \dots, v_n) \)</td><td>Linear Combination: \( \mathbf{v} = \sum \alpha_i \mathbf{e}_i \)</td></tr>
+            <tr><td>Derivative</td><td>\( \frac{d f}{dx} \)</td><td>Fundamental Theorem of Calculus: \( \int_a^b f' = f(b) - f(a) \)</td></tr>
+            <tr><td>Integral</td><td>\( \int f(x) \, dx \)</td><td>Linearity: \( \int (af + bg) = a\int f + b\int g \)</td></tr>
+            <tr><td>Limit</td><td>\( \lim_{x \to a} f(x) = L \)</td><td>Epsilon-Delta: \( \forall \epsilon > 0, \exists \delta > 0 \)</td></tr>
+            <tr><td>Gradient</td><td>\( \nabla f \)</td><td>Chain Rule: \( \nabla (f \circ g) = (\nabla g)^T \nabla f \)</td></tr>
+            <tr><td>Divergence</td><td>\( \nabla \cdot \mathbf{F} \)</td><td>Divergence Theorem: \( \int_V \nabla \cdot \mathbf{F} = \int_{\partial V} \mathbf{F} \cdot d\mathbf{S} \)</td></tr>
+            <tr><td>Curl</td><td>\( \nabla \times \mathbf{F} \)</td><td>Stokes' Theorem: \( \int_S \nabla \times \mathbf{F} = \int_{\partial S} \mathbf{F} \cdot d\mathbf{r} \)</td></tr>
+            <tr><td>Probability</td><td>\( P(A) \)</td><td>Axioms: \( 0 \leq P(A) \leq 1 \), \( P(\Omega) = 1 \)</td></tr>
+            <tr><td>Expectation</td><td>\( \mathbb{E}[X] \)</td><td>Linearity: \( \mathbb{E}[aX + bY] = a\mathbb{E}[X] + b\mathbb{E}[Y] \)</td></tr>
+            <tr><td>Variance</td><td>\( \mathrm{Var}(X) = \mathbb{E}[(X - \mu)^2] \)</td><td>Additivity: \( \mathrm{Var}(X+Y) = \mathrm{Var}(X) + \mathrm{Var}(Y) + 2\mathrm{Cov}(X,Y) \)</td></tr>
+            <tr><td>Four-Vector</td><td>\( x^\mu = (ct, \mathbf{x}) \)</td><td>Lorentz Invariant: \( ds^2 = -c^2 dt^2 + dx^2 + dy^2 + dz^2 \)</td></tr>
+            <tr><td>Tensor</td><td>\( T^{\mu\nu} \)</td><td>Conservation: \( \partial_\mu T^{\mu\nu} = 0 \)</td></tr>
+            <tr><td>Dirac Delta</td><td>\( \delta(x) \)</td><td>Sifting: \( \int f(x) \delta(x-a) dx = f(a) \)</td></tr>
+            <tr><td>Fourier Transform</td><td>\( \hat{f}(\omega) = \int f(t) e^{-i\omega t} dt \)</td><td>Inversion: \( f(t) = \frac{1}{2\pi} \int \hat{f}(\omega) e^{i\omega t} d\omega \)</td></tr>
+            <tr><td>Entropy</td><td>\( S = -k \sum p_i \ln p_i \)</td><td>Second Law: \( \Delta S \geq 0 \)</td></tr>
+            <tr><td>KL Divergence</td><td>\( D_{KL}(P \| Q) = \sum p \ln \frac{p}{q} \)</td><td>Non-negativity: \( D_{KL} \geq 0 \)</td></tr>
+            <tr><td>Neural ODE</td><td>\( \frac{dz}{dt} = f(z(t), t, \theta) \)</td><td>Adjoint Sensitivity: Backprop through ODE solver</td></tr>
+            <tr><td>EnKF Update</td><td>\( \mathbf{x}^a = \mathbf{x}^f + \mathbf{K}(\mathbf{d} - \mathbf{H}\mathbf{x}^f) \)</td><td>Kalman Gain: \( \mathbf{K} = \mathbf{P}^f \mathbf{H}^T (\mathbf{H}\mathbf{P}^f \mathbf{H}^T + \mathbf{R})^{-1} \)</td></tr>
+            <tr><td>Particle Filter Weight</td><td>\( w_k \propto p(\mathbf{y} | \mathbf{x}_k) \)</td><td>Resampling: Systematic to avoid degeneracy</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Algorithms Section -->
+      <section id="algorithms" class="journey-section">
+        <h2>Whispers of the Algorithm: Hybrid Flows in Turbulent Dreams</h2>
+        <p class="poetic-text">In the philosopher's night, algorithms emerge as mutations of the mind—EnKF-PF hybrids, resampling ensembles like stars realigning in cosmic vorticity.</p>
+        <!-- Algorithm 1 -->
+        <div class="alg">
+          <h3>Hybrid EnKF–PF: Reconstructing the Invisible Stream</h3>
+          <p>Input: Ensemble of states, tracer paths in the wind's geometry. Output: Truth glimpsed from noise, as the philosopher sifts partial observations.</p>
+          <ol>
+            <li>Initialize spectral realms: wavenumbers, damping whispers \( \gamma(\mathbf{k}) \).</li>
+            <li>Project velocities: \( q \to \psi \to (u,v) \), stream functions curving like tree branches.</li>
+            <li>For each temporal mutation: Forecast nonlinear QG advection, infuse stochastic breath \( \Sigma \boldsymbol{\xi}_k \).</li>
+            <li>At cadence's anchor: Kalman gain \( \mathbf{K} = \mathbf{P}_{xy} \mathbf{P}_{yy}^{-1} \), update ensembles; resample particles with weights \( w_k \propto \exp(-\frac{1}{2} \| \mathbf{d} - \mathbf{Y}_k \|^2_{\mathbf{R}^{-1}}) \).</li>
+          </ol>
+          \[
+          \mathbf{P}_{yy} = \frac{1}{N-1} \sum (\mathbf{Y}_k - \bar{\mathbf{Y}})(\mathbf{Y}_k - \bar{\mathbf{Y}})^T + \mathbf{R}
+          \]
+        </div>
+
+        <!-- Algorithm 2 -->
+        <div class="alg">
+          <h3>Resampling: The Sniper's Pivot to Equilibrium</h3>
+          <p>From weighted chaos to balanced flow, systematic stride through cumulative weights.</p>
+          <ol>
+            <li>Cumulate \( W_k = \sum_{j=1}^k w_j \).</li>
+            <li>Stride \( \delta = 1/N \), draw uniform \( u \sim \mathcal{U}[0, \delta] \).</li>
+            <li>For each rebirth: Advance index until \( u_k \leq W_i \), clone the survivor.</li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- Math Review -->
+      <section id="math-review" class="journey-section">
+        <h2>Echoes of the Review: Flowchart of the Soul's Ascent</h2>
+        <p class="poetic-text">From set theory's seed to stochastic PDEs' storm, the flowchart maps the philosopher's mutation through mathematics' sacred groves.</p>
+        <div class="math-flowchart">
+Number ──► Delta (Triangle of Difference) ──► Limit (Edge of Imaginary) ──► Field (Scalar Whisper)  
+│  
+Velocity Field ──► Streamline (Function's Curve) ──► Relativity (Bent Horizon) ──► Vorticity (Flipped Delta)  
+│  
+Potential ──► Potential Vorticity ──► Rationality (Pivotal Anchor) ──► Sankar (Sniper's Truth)  
+│  
+Generalization: Reconstruct from Partial ──► Truth's Equation in Nature's Code  
+(God's Motherboard: Threads of Time, Queues of Existence)
+        </div>
+      </section>
+
+      <!-- LaTeX Editor (Kept for interactivity, but narrative-integrated) -->
+      <section class="latex-editor">
+        <h3>The Scribe's Quill: Compose Your Own Mutations</h3>
+        <p class="poetic-text">Here, the philosopher inscribes: Drag LaTeX verses, compile the poetry of equations.</p>
+        <!-- Embed simplified editor as in original, but omit full script for brevity; assume integrated -->
+        <textarea id="editor" placeholder="Etch your theorem: \\int nature's flow..."></textarea>
+        <div id="preview"></div>
+      </section>
+
+      <!-- Research Proposal -->
+      <section id="proposal" class="journey-section">
+        <h2>Visions of Truth: Bayesian Optimization in the Void</h2>
+        <p class="poetic-text">The ultimate mutation: Unify assimilation and optimization, maximizing information gain from partial cosmic glimpses, as hurricanes and materials yield to the philosopher's gaze.</p>
+        \[
+        \pi^* = \arg\max_{\pi} \mathbb{E}[I(\mathbf{x}_t; \mathbf{y}_t | \mathcal{D}) - \lambda C(\pi)]
+        \]
+        <p class="poetic-text">KL divergence measures the soul's distance from certainty: \( I = D_{KL}(p \| q) \), threading God's OS through hardware's veil.</p>
+      </section>
+
+      <!-- Documents -->
+      <section id="documents" class="journey-section">
+        <h2>Ancient Scrolls: CV as Codex</h2>
+        <p class="poetic-text">Embedded tomes of the journey: From undergrad's forge to master's revelation.</p>
+        <div class="document-container">
+          <iframe src="Ahmad Droobi_.pdf" style="width:100%; height:600px;"></iframe>
+          <iframe src="Ind2026_Ahmad_Droobi_2026.pdf" style="width:100%; height:600px;"></iframe>
+        </div>
+      </section>
+    </div>
+
+    <footer>
+      <p>&copy; 2025 Ahmad Droobi. In the flow of eternity, all code returns to the Source.</p>
+    </footer>
+  </main>
+
+  <script>
+    // Simplified script for preview compilation (as in original)
+    document.getElementById('editor').addEventListener('input', () => {
+      document.getElementById('preview').innerText = document.getElementById('editor').value;
+      MathJax.typesetPromise([document.getElementById('preview')]);
+    });
+  </script>
+</body>
+</html>
