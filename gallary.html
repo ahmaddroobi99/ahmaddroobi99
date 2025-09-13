@@ -427,6 +427,26 @@
         transform: translateY(20%) scale(1.28);
       }
     }
+
+    /* Add Scroll-Driven Story Panels */
+    .story-panels {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .story-panels .panel {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    .story-panels .panel.active {
+      opacity: 1;
+    }
   </style>
 </head>
 <body>
@@ -533,6 +553,22 @@
       </div>
     </div>
   </aside>
+
+  <!-- Add Scroll-Driven Story Panels -->
+  <div class="story-panels">
+    <div class="panel active" style="background-image: url('gallery/Photo_1.jpg');">
+      <h2>Chapter 1: Beginnings</h2>
+      <p>Explore the roots of our journey.</p>
+    </div>
+    <div class="panel" style="background-image: url('gallery/Photo_2.jpg');">
+      <h2>Chapter 2: Growth</h2>
+      <p>Witness the evolution of ideas.</p>
+    </div>
+    <div class="panel" style="background-image: url('gallery/Photo_3.jpg');">
+      <h2>Chapter 3: Innovation</h2>
+      <p>Discover groundbreaking moments.</p>
+    </div>
+  </div>
 
   <script>
   /* ---------- CONFIG ---------- */
@@ -737,6 +773,23 @@
 
     sidebar.addEventListener('mouseout', () => {
       sidebar.style.transform = 'translateX(-250px)';
+    });
+  });
+
+  /* ---------- STORY PANELS ---------- */
+  const panels = document.querySelectorAll('.story-panels .panel');
+  let currentPanel = 0;
+
+  window.addEventListener('scroll', () => {
+    const scrollPosition = window.scrollY;
+    const panelHeight = window.innerHeight;
+
+    panels.forEach((panel, index) => {
+      if (scrollPosition >= index * panelHeight && scrollPosition < (index + 1) * panelHeight) {
+        panel.classList.add('active');
+      } else {
+        panel.classList.remove('active');
+      }
     });
   });
   </script>

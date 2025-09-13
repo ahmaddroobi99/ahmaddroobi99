@@ -213,6 +213,290 @@
     .right-panel:hover {
       transform: translateX(0);
     }
+
+    /* LaTeX Editor Styling */
+    .latex-editor {
+      margin: 40px 0;
+      padding: 20px;
+      background: #f9f9f9;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .latex-editor h3 {
+      margin: 0 0 20px;
+      font-size: 1.5em;
+      color: #333;
+    }
+
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .toolbar .btn {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .toolbar .btn:hover {
+      background: #007bff;
+      color: white;
+    }
+
+    .workspace {
+      display: flex;
+      gap: 20px;
+    }
+
+    .editor-wrap, .preview-wrap {
+      flex: 1;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .editor-header {
+      background: #f4f4f4;
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+      font-weight: bold;
+    }
+
+    #editor {
+      width: 100%;
+      height: 300px;
+      border: none;
+      padding: 10px;
+      font-family: monospace;
+      font-size: 14px;
+    }
+
+    #preview {
+      padding: 10px;
+      font-size: 14px;
+      color: #333;
+    }
+
+    /* Enhanced Table Interaction Design */
+    .concepts-table {
+      position: relative;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      margin: 30px 0;
+      overflow: hidden;
+    }
+
+    .concepts-table:hover {
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+      transform: translateY(-2px);
+    }
+
+    .concepts-table table {
+      margin: 0;
+      border: none;
+    }
+
+    .concepts-table th {
+      background: linear-gradient(135deg, #001f3f, #003366);
+      color: white;
+      font-size: 1.1em;
+      padding: 15px;
+      border: none;
+    }
+
+    .concepts-table td {
+      padding: 12px 15px;
+      border: none;
+      border-bottom: 1px solid #eee;
+      transition: background-color 0.3s ease;
+    }
+
+    .concepts-table tr:hover td {
+      background-color: #f8f9ff;
+    }
+
+    .concepts-table caption {
+      background: linear-gradient(135deg, #003366, #001f3f);
+      color: white;
+      padding: 15px;
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+
+    .concepts-controls {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      padding: 15px;
+      background: #f8f9ff;
+    }
+
+    .concept-btn {
+      padding: 8px 15px;
+      border: none;
+      border-radius: 6px;
+      background: #003366;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .concept-btn:hover {
+      background: #001f3f;
+      transform: translateY(-1px);
+    }
+
+    .concept-details {
+      height: 0;
+      overflow: hidden;
+      transition: height 0.3s ease;
+      background: #f8f9ff;
+      padding: 0 15px;
+    }
+
+    /* Math Flowchart Styles */
+    .math-flowchart {
+      background: white;
+      border: 2px solid #ddd;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px 0;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      font-family: monospace;
+      white-space: pre;
+      overflow-x: auto;
+      text-align: center;
+    }
+
+    .math-flowchart .box {
+      background: #000;
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: 4px;
+      display: inline-block;
+      margin: 2px;
+    }
+
+    .math-flowchart .arrow {
+      color: #333;
+      font-weight: bold;
+    }
+
+    .math-review {
+      padding: 30px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      margin: 30px 0;
+    }
+
+    .navigation-card {
+      background: linear-gradient(135deg, #f8f9ff 0%, #fff 100%);
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+      border: 1px solid #eef3f8;
+      transition: all 0.3s ease;
+    }
+
+    .navigation-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-link {
+      display: block;
+      padding: 12px 15px;
+      margin: 8px 0;
+      background: white;
+      border-radius: 6px;
+      color: #003366;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: 1px solid #eef3f8;
+    }
+
+    .nav-link:hover {
+      background: #f8f9ff;
+      color: #001f3f;
+      transform: translateX(5px);
+    }
+
+    .nav-preview {
+      margin-top: 20px;
+      padding: 15px;
+      background: #f8f9ff;
+      border-radius: 6px;
+      font-style: italic;
+      color: #666;
+    }
+
+    /* Research Proposal Styles */
+    .kenburns-type {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      margin: 30px 0;
+      background: white;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .kenburns-type .section {
+      padding: 30px;
+      transform-origin: center;
+      animation: kenburns 20s ease-in-out infinite alternate;
+      transition: opacity 0.5s ease;
+    }
+
+    .kenburns-type .section:hover {
+      animation-play-state: paused;
+    }
+
+    .kenburns-type .math {
+      overflow-x: auto;
+      padding: 15px;
+      background: #f8f9ff;
+      border-radius: 8px;
+      margin: 15px 0;
+    }
+
+    @keyframes kenburns {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.02) translate(-0.5%, -0.5%);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .type-on {
+      overflow: hidden;
+      border-right: 2px solid #003366;
+      white-space: nowrap;
+      animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+      margin: 20px 0;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: #003366 }
+    }
   </style>
 </head>
 <body>
@@ -249,69 +533,83 @@
 
     <h1>Opposites of Fundamental Concepts</h1>
 
-    <table>
-      <caption>Concepts and Their Opposites</caption>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Original Concept</th>
-          <th>Opposite Concept</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>1</td><td>Special Relativity</td><td>Galilean Relativity</td></tr>
-        <tr><td>2</td><td>Spacetime Geometry</td><td>Euclidean Space</td></tr>
-        <tr><td>3</td><td>Lorentz Transformation</td><td>Galilean Transformation</td></tr>
-        <tr><td>4</td><td>Minkowski Spacetime</td><td>Newtonian Absolute Space</td></tr>
-        <tr><td>5</td><td>Relativistic Kinematics</td><td>Classical Kinematics</td></tr>
-        <tr><td>6</td><td>Four-Velocity \( \mathbf{u} \)</td><td>Three-Velocity \( \mathbf{v} \)</td></tr>
-        <tr><td>7</td><td>Energy Momentum Tensor \( T^{\mu\nu} \)</td><td>Massless Field</td></tr>
-        <tr><td>8</td><td>Quantum Mechanics</td><td>Classical Mechanics</td></tr>
-        <tr><td>9</td><td>Quantum Fields</td><td>Classical Fields</td></tr>
-        <tr><td>10</td><td>Gauge Theory</td><td>Global Symmetry Theory</td></tr>
-        <tr><td>11</td><td>Field Theory</td><td>Point Particle Mechanics</td></tr>
-        <tr><td>12</td><td>Electrodynamics</td><td>Magnetostatics</td></tr>
-        <tr><td>13</td><td>Potential</td><td>Kinetic Energy</td></tr>
-        <tr><td>14</td><td>Classical Mechanics</td><td>Quantum Mechanics</td></tr>
-        <tr><td>15</td><td>Thermodynamic Equilibrium</td><td>Non-equilibrium Thermodynamics</td></tr>
-        <tr><td>16</td><td>Statistical Mechanics</td><td>Deterministic Mechanics</td></tr>
-        <tr><td>17</td><td>Partition Function</td><td>Microstate Counting</td></tr>
-        <tr><td>18</td><td>Microcanonical Ensemble</td><td>Open System Ensemble</td></tr>
-        <tr><td>19</td><td>Canonical Ensemble</td><td>Microcanonical Ensemble</td></tr>
-        <tr><td>20</td><td>Grand Canonical Ensemble</td><td>Closed System Ensemble</td></tr>
-        <tr><td>21</td><td>Entropy</td><td>Negentropy</td></tr>
-        <tr><td>22</td><td>Information Theory</td><td>Deterministic Signaling</td></tr>
-        <tr><td>23</td><td>Shannon Entropy</td><td>Deterministic Information</td></tr>
-        <tr><td>24</td><td>Mutual Information</td><td>Independence</td></tr>
-        <tr><td>25</td><td>Channel Capacity</td><td>Channel Noise</td></tr>
-        <tr><td>26</td><td>Uncertainty Quantification</td><td>Deterministic Prediction</td></tr>
-        <tr><td>27</td><td>Random Variables</td><td>Deterministic Variables</td></tr>
-        <tr><td>28</td><td>Probability Density</td><td>Dirac Delta Function</td></tr>
-        <tr><td>29</td><td>Probability</td><td>Certainty</td></tr>
-        <tr><td>30</td><td>Expected Value</td><td>Realized Value</td></tr>
-        <tr><td>31</td><td>Variance</td><td>Determinism</td></tr>
-        <tr><td>32</td><td>Bayesian Inference</td><td>Frequentist Inference</td></tr>
-        <tr><td>33</td><td>Prior Probability</td><td>Posterior Probability</td></tr>
-        <tr><td>34</td><td>Posterior Probability</td><td>Prior Probability</td></tr>
-        <tr><td>35</td><td>Decision Theory</td><td>Random Choice</td></tr>
-        <tr><td>36</td><td>Utility Function</td><td>Disutility Function</td></tr>
-        <tr><td>37</td><td>Expected Utility</td><td>Actual Outcome</td></tr>
-        <tr><td>38</td><td>Optimisation</td><td>Random Walk</td></tr>
-        <tr><td>39</td><td>Game Theory</td><td>Single-agent Decision</td></tr>
-        <tr><td>40</td><td>Nash Equilibrium</td><td>Dominant Strategy</td></tr>
-        <tr><td>41</td><td>Evolutionary Dynamics</td><td>Static Equilibrium</td></tr>
-        <tr><td>42</td><td>Complex Systems</td><td>Simple Systems</td></tr>
-        <tr><td>43</td><td>Emergence</td><td>Reductionism</td></tr>
-        <tr><td>44</td><td>Chaos Theory</td><td>Linear Dynamics</td></tr>
-        <tr><td>45</td><td>Fractals</td><td>Euclidean Geometry</td></tr>
-        <tr><td>46</td><td>Network Theory</td><td>Isolated Nodes</td></tr>
-        <tr><td>47</td><td>Graph Theory</td><td>Set Theory</td></tr>
-        <tr><td>48</td><td>Computability</td><td>Uncomputability</td></tr>
-        <tr><td>49</td><td>Modal Logic</td><td>Propositional Logic</td></tr>
-        <tr><td>50</td><td>Necessity</td><td>Contingency</td></tr>
-        <tr><td>51</td><td>Possibility</td><td>Impossibility</td></tr>
-      </tbody>
-    </table>
+    <!-- Enhanced Concepts Table -->
+    <div class="concepts-table">
+      <div class="concepts-controls">
+        <button class="concept-btn" id="toggleDetails">Show Details</button>
+        <button class="concept-btn" id="exportPDF">Export PDF</button>
+      </div>
+      <table>
+        <caption>Concepts and Their Opposites</caption>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Original Concept</th>
+            <th>Opposite Concept</th>
+          </tr>
+        </thead>
+            <tbody>
+              <tr><td>1</td><td>Special Relativity</td><td>Galilean Relativity</td></tr>
+              <tr><td>2</td><td>Spacetime Geometry</td><td>Euclidean Space</td></tr>
+              <tr><td>3</td><td>Lorentz Transformation</td><td>Galilean Transformation</td></tr>
+              <tr><td>4</td><td>Minkowski Spacetime</td><td>Newtonian Absolute Space</td></tr>
+              <tr><td>5</td><td>Relativistic Kinematics</td><td>Classical Kinematics</td></tr>
+              <tr><td>6</td><td>Four-Velocity \( \mathbf{u} \)</td><td>Three-Velocity \( \mathbf{v} \)</td></tr>
+              <tr><td>7</td><td>Energy Momentum Tensor \( T^{\mu\nu} \)</td><td>Massless Field</td></tr>
+              <tr><td>8</td><td>Quantum Mechanics</td><td>Classical Mechanics</td></tr>
+              <tr><td>9</td><td>Quantum Fields</td><td>Classical Fields</td></tr>
+              <tr><td>10</td><td>Gauge Theory</td><td>Global Symmetry Theory</td></tr>
+              <tr><td>11</td><td>Field Theory</td><td>Point Particle Mechanics</td></tr>
+              <tr><td>12</td><td>Electrodynamics</td><td>Magnetostatics</td></tr>
+              <tr><td>13</td><td>Potential</td><td>Kinetic Energy</td></tr>
+              <tr><td>14</td><td>Classical Mechanics</td><td>Quantum Mechanics</td></tr>
+              <tr><td>15</td><td>Thermodynamic Equilibrium</td><td>Non-equilibrium Thermodynamics</td></tr>
+              <tr><td>16</td><td>Statistical Mechanics</td><td>Deterministic Mechanics</td></tr>
+              <tr><td>17</td><td>Partition Function</td><td>Microstate Counting</td></tr>
+              <tr><td>18</td><td>Microcanonical Ensemble</td><td>Open System Ensemble</td></tr>
+              <tr><td>19</td><td>Canonical Ensemble</td><td>Microcanonical Ensemble</td></tr>
+              <tr><td>20</td><td>Grand Canonical Ensemble</td><td>Closed System Ensemble</td></tr>
+              <tr><td>21</td><td>Entropy</td><td>Negentropy</td></tr>
+              <tr><td>22</td><td>Information Theory</td><td>Deterministic Signaling</td></tr>
+              <tr><td>23</td><td>Shannon Entropy</td><td>Deterministic Information</td></tr>
+              <tr><td>24</td><td>Mutual Information</td><td>Independence</td></tr>
+              <tr><td>25</td><td>Channel Capacity</td><td>Channel Noise</td></tr>
+              <tr><td>26</td><td>Uncertainty Quantification</td><td>Deterministic Prediction</td></tr>
+              <tr><td>27</td><td>Random Variables</td><td>Deterministic Variables</td></tr>
+              <tr><td>28</td><td>Probability Density</td><td>Dirac Delta Function</td></tr>
+              <tr><td>29</td><td>Probability</td><td>Certainty</td></tr>
+              <tr><td>30</td><td>Expected Value</td><td>Realized Value</td></tr>
+              <tr><td>31</td><td>Variance</td><td>Determinism</td></tr>
+              <tr><td>32</td><td>Bayesian Inference</td><td>Frequentist Inference</td></tr>
+              <tr><td>33</td><td>Prior Probability</td><td>Posterior Probability</td></tr>
+              <tr><td>34</td><td>Posterior Probability</td><td>Prior Probability</td></tr>
+              <tr><td>35</td><td>Decision Theory</td><td>Random Choice</td></tr>
+              <tr><td>36</td><td>Utility Function</td><td>Disutility Function</td></tr>
+              <tr><td>37</td><td>Expected Utility</td><td>Actual Outcome</td></tr>
+              <tr><td>38</td><td>Optimisation</td><td>Random Walk</td></tr>
+              <tr><td>39</td><td>Game Theory</td><td>Single-agent Decision</td></tr>
+              <tr><td>40</td><td>Nash Equilibrium</td><td>Dominant Strategy</td></tr>
+              <tr><td>41</td><td>Evolutionary Dynamics</td><td>Static Equilibrium</td></tr>
+              <tr><td>42</td><td>Complex Systems</td><td>Simple Systems</td></tr>
+              <tr><td>43</td><td>Emergence</td><td>Reductionism</td></tr>
+              <tr><td>44</td><td>Chaos Theory</td><td>Linear Dynamics</td></tr>
+              <tr><td>45</td><td>Fractals</td><td>Euclidean Geometry</td></tr>
+              <tr><td>46</td><td>Network Theory</td><td>Isolated Nodes</td></tr>
+              <tr><td>47</td><td>Graph Theory</td><td>Set Theory</td></tr>
+              <tr><td>48</td><td>Computability</td><td>Uncomputability</td></tr>
+              <tr><td>49</td><td>Modal Logic</td><td>Propositional Logic</td></tr>
+              <tr><td>50</td><td>Necessity</td><td>Contingency</td></tr>
+              <tr><td>51</td><td>Possibility</td><td>Impossibility</td></tr>
+            </tbody>
+          </table>
+      <div class="concept-details" id="conceptDetails">
+        <div class="concept-content">
+          <h3>Additional Information</h3>
+          <p>Click on any row to see detailed explanations and mathematical formulations.</p>
+          <div id="selectedConcept"></div>
+        </div>
+      </div>
+    </div>
 
     <section>
       <h2>Conceptual Notes</h2>
@@ -468,6 +766,119 @@
       </section>
     </section>
 
+    <!-- LaTeX Editor Section -->
+    <section class="latex-editor">
+      <div class="main-content">
+        <h3 class="widget-title">Drag-and-Drop LaTeX Compiler</h3>
+
+        <!-- Controls -->
+        <section class="toolbar">
+          <div class="left">
+            <button id="btnInline" class="btn sm" title="Wrap selection with $…$">Inline</button>
+            <button id="btnDisplay" class="btn sm" title="Wrap selection with \[ … \]">Display</button>
+            <button id="btnCompile" class="btn sm primary">Compile</button>
+            <button id="btnClear" class="btn sm ghost">Clear</button>
+          </div>
+          <div class="right">
+            <input id="fileInput" type="file" accept=".tex,.txt" hidden>
+            <button id="btnOpen" class="btn sm">Open .tex</button>
+            <button id="btnDownload" class="btn sm">Download .tex</button>
+          </div>
+        </section>
+
+        <!-- Workspace: Editor / Preview -->
+        <section class="workspace">
+          <div class="editor-wrap" id="dropZone" aria-label="Drag & drop .tex here">
+            <div class="editor-header">
+              <strong>Editor</strong>
+              <span class="hint">Drag & drop .tex — autosaves to browser</span>
+            </div>
+            <textarea id="editor" spellcheck="false" placeholder="% Type LaTeX. Use palette buttons to insert symbols at the cursor."></textarea>
+          </div>
+          <div class="preview-wrap">
+            <div class="editor-header">
+              <strong>Preview</strong>
+              <span class="hint">Rendered output updates automatically</span>
+            </div>
+            <div class="preview" id="preview"></div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <!-- Mathematics Review Section -->
+    <section class="math-review">
+      <header>
+        <h1>Mathematics Review Journey</h1>
+        <p>A comprehensive guide from high school to MSc-level mathematics with LaTeX debugging support.</p>
+      </header>
+
+      <!-- Added Image: Math Flowchart in the Introduction -->
+      <div class="math-flowchart">
+        <div style="font-size: 12px; line-height: 1.2;">
+          Foundational Axis<br/>
+          Set Theory & Logic ───► Abstract Algebra (Group, Ring, Field Theory)<br/>
+          │<br/>
+          Linear Algebra & Matrix Theory ───► Differential Equations (ODE, PDE, Nonlinear)<br/>
+          │<br/>
+          Graph Theory & Discrete Mathematics ───► Sampling Theory & Numerical Analysis<br/>
+          │<br/>
+          Number Theory ───► Statistics & Probability Theory ───► Stochastic Processes ───► Stochastic PDEs<br/>
+          │<br/>
+          Numerical Solver
+        </div>
+        <p style="margin-top: 10px; font-size: 14px; color: #555;">This flowchart illustrates the foundational branches of mathematics, guiding the review journey from core axioms to advanced applications.</p>
+      </div>
+      
+      <div class="navigation-card">
+        <h3>Quick Access</h3>
+        <a href="math_review.html#high-school" class="nav-link">High School Mathematics</a>
+        <a href="math_review.html#undergraduate" class="nav-link">Undergraduate Mathematics</a>
+        <a href="math_review.html#graduate" class="nav-link">Graduate Mathematics (MSc)</a>
+        <div class="nav-preview">
+          <div class="preview-content">
+            Click a section to explore mathematical concepts and LaTeX examples
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Research Proposal Section with Ken Burns Effect -->
+    <section class="research-proposal">
+      <header>
+        <h1>Research Proposal: Information-Theoretic Bayesian Optimization</h1>
+        <p>A comprehensive proposal on unifying Bayesian Optimization and Data Assimilation for complex systems.</p>
+      </header>
+
+      <div class="kenburns-type">
+        <div class="section">
+          <h2 class="type-on">The Scientific Challenge</h2>
+          <p>Many critical scientific challenges—like predicting hurricane paths, optimizing climate models, or designing new materials—involve understanding incredibly complex, high-dimensional systems. We can build sophisticated simulations of these systems, but they are often computationally monstrous, requiring days of supercomputer time for a single run.</p>
+          
+          <div class="math">
+            <h3>Core Optimization Problem</h3>
+            \[
+            \boldsymbol{\pi}^* = \argmax_{\boldsymbol{\pi} \in \Pi} \mathbb{E}_{\boldsymbol{\pi}}[I(\mathbf{x}_t; \mathbf{y}_t | \mathcal{D}_{1:t-1}) - \lambda C(\boldsymbol{\pi})]
+            \]
+          </div>
+        </div>
+      </div>
+
+      <div class="kenburns-type">
+        <div class="section">
+          <h2 class="type-on">Information-Theoretic Framework</h2>
+          <p>The core innovation lies in formulating a joint optimization-assimilation problem that maximizes information gain while respecting physical constraints.</p>
+          
+          <div class="math">
+            <h3>Information Gain Metric</h3>
+            \[
+            I(\mathbf{x}; \mathbf{y} | \mathcal{D}) = \text{KL}(p(\mathbf{x}, \mathbf{y} | \mathcal{D}) \| p(\mathbf{x} | \mathcal{D})p(\mathbf{y} | \mathcal{D}))
+            \]
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section>
       <header>
         <h1>Scientific Documents</h1>
@@ -510,6 +921,124 @@
         container.querySelector('iframe').style.transform = 'rotateY(0deg)';
       });
     });
+
+    // Enhanced Table Interactions
+    const conceptsTable = document.querySelector('.concepts-table');
+    const conceptDetails = document.getElementById('conceptDetails');
+    const toggleDetailsBtn = document.getElementById('toggleDetails');
+    const selectedConcept = document.getElementById('selectedConcept');
+    let detailsVisible = false;
+
+    // Toggle details panel
+    toggleDetailsBtn.addEventListener('click', () => {
+      detailsVisible = !detailsVisible;
+      conceptDetails.style.height = detailsVisible ? '200px' : '0';
+      toggleDetailsBtn.textContent = detailsVisible ? 'Hide Details' : 'Show Details';
+    });
+
+    // Row click handler for details
+    document.querySelectorAll('.concepts-table tbody tr').forEach(row => {
+      row.addEventListener('click', () => {
+        const cells = row.cells;
+        const concept = cells[1].textContent;
+        const opposite = cells[2].textContent;
+        
+        selectedConcept.innerHTML = `
+          <h4>${concept} vs ${opposite}</h4>
+          <p>Relationship between ${concept} and ${opposite} demonstrates the duality in physical theories.</p>
+          <div class="math-block">
+            <!-- Add relevant mathematical equations here -->
+          </div>
+        `;
+        
+        if (!detailsVisible) {
+          toggleDetailsBtn.click();
+        }
+      });
+    });
+
+    // Export to PDF functionality
+    document.getElementById('exportPDF').addEventListener('click', () => {
+      // Add PDF export logic here
+      alert('PDF export functionality will be implemented soon.');
+    });
+
+    // LaTeX Editor Script
+    const editor = document.getElementById('editor');
+    const preview = document.getElementById('preview');
+
+    // Compile LaTeX to HTML
+    document.getElementById('btnCompile').addEventListener('click', () => {
+      const latex = editor.value;
+      const html = latex2html(latex);
+      preview.innerHTML = html;
+      MathJax.typesetPromise([preview]).then(() => {
+        console.log('MathJax has re-rendered the preview.');
+      });
+    });
+
+    // Clear editor and preview
+    document.getElementById('btnClear').addEventListener('click', () => {
+      editor.value = '';
+      preview.innerHTML = '';
+    });
+
+    // Open .tex file
+    document.getElementById('btnOpen').addEventListener('click', () => {
+      document.getElementById('fileInput').click();
+    });
+
+    // Handle file selection
+    document.getElementById('fileInput').addEventListener('change', (event) => {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          editor.value = e.target.result;
+          // Auto-compile on file open
+          const html = latex2html(editor.value);
+          preview.innerHTML = html;
+          MathJax.typesetPromise([preview]).then(() => {
+            console.log('MathJax has re-rendered the preview.');
+          });
+        };
+        reader.readAsText(file);
+      }
+    });
+
+    // Download .tex file
+    document.getElementById('btnDownload').addEventListener('click', () => {
+      const blob = new Blob([editor.value], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'document.tex';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+
+    // LaTeX to HTML conversion function
+    function latex2html(latex) {
+      // Basic replacement for LaTeX commands to HTML
+      return latex
+        .replace(/\\section\{(.+?)\}/g, '<h2>$1</h2>')
+        .replace(/\\subsection\{(.+?)\}/g, '<h3>$1</h3>')
+        .replace(/\\emph\{(.+?)\}/g, '<em>$1</em>')
+        .replace(/\\textbf\{(.+?)\}/g, '<strong>$1</strong>')
+        .replace(/\\begin\{itemize\}/g, '<ul>')
+        .replace(/\\end\{itemize\}/g, '</ul>')
+        .replace(/\\item/g, '<li>')
+        .replace(/\\begin\{enumerate\}/g, '<ol>')
+        .replace(/\\end\{enumerate\}/g, '</ol>')
+        .replace(/\\dfrac\{(.+?)\}\{(.+?)\}/g, '<div class="math-block">\\[ \\frac{$1}{$2} \\]</div>')
+        .replace(/\\frac\{(.+?)\}\{(.+?)\}/g, '<div class="math-block">\\[ \\frac{$1}{$2} \\]</div>')
+        .replace(/\\left\(/g, '(')
+        .replace(/\\right\)/g, ')')
+        .replace(/\\\[/g, '<div class="math-block">\\[')
+        .replace(/\\\]/g, '\\]</div>');
+    }
   </script>
 </body>
 
