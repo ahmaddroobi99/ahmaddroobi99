@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Scientific Repository | Ahmad Droobi</title>
 
+  <meta name="description" content="Scientific repository and mathematics review: articles, algorithms, LaTeX tools, and flipbook documents by Ahmad Droobi."/>
+  <link rel="icon" href="img/licensed-image.ico" />
+  <link rel="prefetch" href="math_review.html" as="document" />
   <!-- MathJax (kept) -->
   <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
@@ -17,8 +20,10 @@
       --ink:#0e1726; --muted:#6b7280; --brand:#003366; --brand2:#001f3f;
       --bg:#f6f8ff; --surface:#fff; --chip:#eef3f8; --accent:#0ea5e9;
     }
+    @keyframes fadeInPage{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+    @media (prefers-reduced-motion: reduce){ body{animation:none !important} }
     *{box-sizing:border-box}
-    body{font-family:Arial,system-ui,sans-serif;margin:0;padding:0;line-height:1.6;color:var(--ink);background:var(--bg)}
+    body{font-family:Arial,system-ui,sans-serif;margin:0;padding:0;line-height:1.6;color:var(--ink);background:var(--bg);animation:fadeInPage .35s ease-out both}
     a{color:var(--brand);text-decoration:none}
     a:focus,button:focus,input:focus{outline:2px solid #2563eb;outline-offset:2px}
     .container{display:flex}
@@ -171,7 +176,7 @@
 
       <nav class="side-nav">
         <a href="index.html"><i class="fa fa-home"></i> Home</a>
-        <a href="repository.html"><i class="fa fa-book"></i> Repository</a>
+        <a href="repository.html" aria-current="page"><i class="fa fa-book"></i> Repository</a>
         <a href="gallary.html"><i class="fa fa-image"></i> Gallery</a>
         <a href="publications.html"><i class="fa fa-file-text"></i> Publications</a>
         <a href="education.html"><i class="fa fa-graduation-cap"></i> Education</a>
@@ -476,7 +481,7 @@ Numerical Solver & HPC
 
       <div class="navigation-card">
         <h3>Quick Access</h3>
-        <a href="math_review.html#undergraduate" class="nav-link"><i class="fa fa-up-right-from-square"></i> Linear Algebra Review (full page)</a>
+        <a href="math_review.html#linear-algebra" class="nav-link"><i class="fa fa-up-right-from-square"></i> Linear Algebra Review (full page)</a>
         <a href="#lib" class="nav-link">Articles Library (dynamic)</a>
         <a href="#high-school" class="nav-link">High School Mathematics</a>
         <a href="#undergraduate" class="nav-link">Undergraduate Mathematics</a>
@@ -539,10 +544,10 @@ Numerical Solver & HPC
 
       <div class="flipbook" id="flipbook">
         <div class="sheet left" id="sheet-left">
-          <iframe id="fb-left" title="Flipbook Left Page" src="files/FTF.pdf#view=FitH"></iframe>
+          <iframe id="fb-left" title="Flipbook Left Page" src="files/FTF.pdf#view=FitH" loading="lazy"></iframe>
         </div>
         <div class="sheet right" id="sheet-right">
-          <iframe id="fb-right" title="Flipbook Right Page" src="files/time_behavior.pdf#view=FitH"></iframe>
+          <iframe id="fb-right" title="Flipbook Right Page" src="files/time_behavior.pdf#view=FitH" loading="lazy"></iframe>
         </div>
         <div class="nav">
           <button id="fb-prev" aria-label="Previous"><i class="fa fa-chevron-left"></i></button>
@@ -558,7 +563,7 @@ Numerical Solver & HPC
           <p style="padding:10px"><a href="files/FTF.pdf" download>Download FTF Document (PDF)</a></p>
           <div class="viewer">
             <div class="pdf-container">
-              <iframe src="files/FTF.pdf#view=FitH" title="FTF Document"></iframe>
+              <iframe src="files/FTF.pdf#view=FitH" title="FTF Document" loading="lazy"></iframe>
             </div>
           </div>
         </div>
@@ -568,7 +573,7 @@ Numerical Solver & HPC
           <p style="padding:10px"><a href="files/time_behavior.pdf" download>Download Time Behavior Document (PDF)</a></p>
           <div class="viewer">
             <div class="pdf-container">
-              <iframe src="files/time_behavior.pdf#view=FitH" title="Time Behavior Document"></iframe>
+              <iframe src="files/time_behavior.pdf#view=FitH" title="Time Behavior Document" loading="lazy"></iframe>
             </div>
           </div>
         </div>
