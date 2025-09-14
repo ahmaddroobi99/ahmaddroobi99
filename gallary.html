@@ -4,471 +4,201 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Ahmad Droobi | Photos</title>
-
-  <!-- Fonts / Icons -->
+  <meta name="description" content="Photo gallery — fast masonry grid with animated hover, lightbox, filters, and keyboard nav." />
+  <link rel="icon" href="img/licensed-image.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Material+Symbols+Rounded:FILL@0..1,GRAD@0..200,opsz@20..48,wght@300..700&display=swap" rel="stylesheet" />
 
   <style>
     :root{
-      --bg:#0f0f0f; --surface:#171717; --text:#e6e6e6; --muted:#a1a1aa;
-      --brand:#8ab4f8; --chip:#262626; --accent:#8c1515;
-      --colw:280px; --gap:12px;
+      /* Theme */
+      --bg: #0b1220;                  /* deep navy */
+      --bg2:#0f1a33;
+      --surface:#0f172a;              /* slate-navy card */
+      --text:#e6e6e6;
+      --muted:#a1a1aa;
+      --brand:#8ab4f8;
+      --chip:#111827;
+      --accent:#8c1515;
+
+      /* Layout */
+      --colw:280px;
+      --gap:14px;
+
+      /* Optional hero background image (set to url('img/hero.jpg') if you want) */
+      --bg-img: none;
     }
     @media (prefers-color-scheme: light){
-      :root{ --bg:#fafafa; --surface:#ffffff; --text:#1f2937; --muted:#6b7280; --brand:#1a73e8; --chip:#f3f4f6; }
+      :root{ --bg:#f7fafc; --bg2:#e9eef6; --surface:#ffffff; --text:#1f2937; --muted:#6b7280; --brand:#1a73e8; --chip:#f3f4f6; }
     }
+
+    /* Base */
     *{box-sizing:border-box}
     html,body{height:100%}
-    body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased}
+    body{
+      margin:0;
+      background:
+        radial-gradient(1200px 600px at 70% -10%, rgba(138,180,248,.18), transparent 60%),
+        radial-gradient(900px 500px at 10% 110%, rgba(140,21,21,.12), transparent 60%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+      color:var(--text);
+      font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;
+      -webkit-font-smoothing:antialiased;
+      position:relative;
+      overflow-x:hidden;
+    }
+    /* Optional background image overlay */
+    body::before{
+      content:"";
+      position:fixed; inset:0;
+      background: var(--bg-img) center/cover no-repeat;
+      opacity:.12; pointer-events:none; filter:saturate(1.1) contrast(1.05);
+    }
 
-    /* Top App Bar */
-    .appbar{position:sticky;top:0;z-index:20;background:var(--surface);display:flex;align-items:center;gap:14px;padding:10px 16px;border-bottom:1px solid rgba(255,255,255,.06)}
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+    @media (prefers-reduced-motion: reduce){ *{animation-duration:0s!important; transition:none!important; scroll-behavior:auto!important} }
+
+    /* Icons */
+    .icon{font-family:"Material Symbols Rounded";font-variation-settings:"FILL" 0,"wght" 600,"opsz" 24;vertical-align:middle;font-size:20px}
+
+    /* App bar */
+    .appbar{
+      position:sticky; top:0; z-index:20;
+      background: color-mix(in srgb, var(--surface) 88%, transparent);
+      backdrop-filter: blur(8px);
+      display:flex; align-items:center; gap:14px; padding:10px 16px;
+      border-bottom:1px solid rgba(255,255,255,.06)
+    }
     .logo{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.2px}
     .logo-badge{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#4285f4,#34a853 55%,#fbbc05 85%,#ea4335);box-shadow:0 0 0 2px rgba(255,255,255,.06) inset}
-    .search{flex:1;display:flex;align-items:center;gap:10px;background:var(--chip);padding:10px 12px;border-radius:999px}
+    .search{flex:1;display:flex;align-items:center;gap:10px;background:var(--chip);padding:10px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.08)}
     .search input{flex:1;border:0;outline:0;background:transparent;color:var(--text);font-size:14px}
-    .kv{display:flex;align-items:center;gap:8px}
-    .btn {
-      background: linear-gradient(90deg, #6aa3ff, #64d2ff);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      padding: 10px 16px;
-      font-size: 14px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      text-transform: none;
+    .btn{
+      background: linear-gradient(90deg, #3b82f6, #06b6d4);
+      color:#fff;border:1px solid rgba(255,255,255,.08);
+      border-radius:10px;padding:10px 16px;font-size:14px;font-weight:700;cursor:pointer;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease; display:inline-flex; align-items:center; gap:8px;
+      box-shadow:0 6px 16px rgba(0,0,0,.22)
     }
-
-    .btn:hover {
-      background: linear-gradient(90deg, #64d2ff, #6aa3ff);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      transform: translateY(-2px);
-    }
-
-    .btn .icon {
-      font-size: 18px;
-      color: white;
-    }
-    .icon{font-family:"Material Symbols Rounded";font-variation-settings:"FILL" 0,"wght" 600,"opsz" 24;vertical-align:middle;font-size:20px}
+    .btn:hover{transform:translateY(-2px); box-shadow:0 10px 24px rgba(0,0,0,.28)}
     .avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#003366,#8c1515)}
 
-    /* Shell */
-    .shell{display:grid;grid-template-columns:280px 1fr;gap:16px;max-width:1600px;margin:0 auto;padding:18px}
+    /* Layout shell */
+    .shell{display:grid;grid-template-columns:280px 1fr;gap:18px;max-width:1600px;margin:0 auto;padding:18px;animation:fadeInUp .35s ease-out both}
     @media (max-width:1080px){.shell{grid-template-columns:1fr}}
 
     /* Left rail */
-    .rail{display:flex;flex-direction:column;gap:10px}
-    .rail .card{background:var(--surface);border:1px solid rgba(255,255,255,.06);border-radius:14px}
-    .rail .card h3{margin:0;padding:14px 14px 6px;font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
-    .rail .list{padding:6px}
-    .rail .list a {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 12px;
-      text-decoration: none;
-      color: var(--text);
-      background: var(--chip);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 8px;
-      transition: all 0.3s ease;
-      font-size: 14px;
-    }
+    .rail{display:flex;flex-direction:column;gap:14px}
+    .card{background:var(--surface);border:1px solid rgba(255,255,255,.06);border-radius:14px;box-shadow:0 10px 25px rgba(2,6,23,.12)}
+    .card h3{margin:0;padding:14px 14px 6px;font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+    .chips{display:flex;flex-wrap:wrap;gap:10px;margin:4px 0 12px;padding:0 10px 12px}
+    .chip{background:var(--chip);color:var(--text);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:7px 13px;font-size:13px;cursor:pointer;transition:background .2s ease, transform .2s ease, box-shadow .2s ease}
+    .chip:hover{background:color-mix(in srgb, var(--chip) 70%, white 5%); transform:translateY(-1px)}
+    .chip.active{background:#3b82f6;color:#fff;border-color:#3b82f6}
+    .list{padding:8px 8px 12px;display:grid;gap:8px}
+    .list a{display:flex;align-items:center;gap:10px;padding:10px 12px;text-decoration:none;color:var(--text);background:var(--chip);border:1px solid rgba(255,255,255,.1);border-radius:8px;transition:all .25s ease;font-size:14px}
+    .list a:hover{background:color-mix(in srgb, var(--chip) 75%, white 6%); transform:translateY(-2px)}
 
-    .rail .list a:hover {
-      background: var(--surface);
-      border-color: rgba(255, 255, 255, 0.2);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .rail .list a .icon {
-      font-size: 18px;
-      color: var(--text);
-    }
-
-    /* Chips */
-    .chips{display:flex;flex-wrap:wrap;gap:10px;margin:4px 0 12px;padding:0 8px 10px}
-    .chip {
-      background: #f0f0f0;
-      color: #333;
-      border: 1px solid #ddd;
-      border-radius: 16px;
-      padding: 6px 12px;
-      font-size: 13px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .chip:hover {
-      background: #e0e0e0;
-      border-color: #ccc;
-    }
-
-    .chip.active {
-      background: #6aa3ff;
-      color: white;
-      border-color: #6aa3ff;
-    }
-
-    /* Masonry (CSS columns) */
+    /* Masonry using CSS columns */
     .photos{column-width:var(--colw); column-gap:var(--gap)}
     @media (max-width:1200px){.photos{--colw:240px}}
     @media (max-width:900px){.photos{--colw:200px}}
     @media (max-width:640px){.photos{--colw:160px}}
 
-    .item{break-inside:avoid;display:block;margin:0 0 var(--gap);position:relative;border-radius:12px;overflow:hidden;background:#000;box-shadow:0 1px 0 rgba(255,255,255,.04)}
-    .thumb{width:100%;display:block;height:auto;opacity:0;transition:opacity .28s ease}
+    /* Photo card */
+    .item{
+      break-inside:avoid; display:block; margin:0 0 var(--gap); position:relative; border-radius:14px; overflow:hidden; background:#000;
+      border:1px solid rgba(255,255,255,.06); transform:translateZ(0); will-change:transform, filter;
+      box-shadow:0 1px 0 rgba(255,255,255,.04);
+    }
+    .thumb{
+      width:100%; display:block; height:auto; opacity:0; transform:scale(1.01);
+      transition: opacity .35s ease, transform .35s ease, filter .35s ease;
+    }
     .item.loaded .thumb{opacity:1}
 
-    /* Hover overlay */
-    .overlay{position:absolute;inset:0;display:flex;align-items:flex-start;justify-content:space-between;padding:8px;opacity:0;transition:opacity .15s ease;pointer-events:none}
-    .item:hover .overlay{opacity:1}
-    .select{pointer-events:auto}
-    .circle{width:22px;height:22px;border-radius:50%;border:2px solid #fff;background:rgba(0,0,0,.35)}
-    .item.selected .circle{background:#1a73e8;border-color:#1a73e8}
-    .quick{display:flex;gap:6px}
-    .quick .qbtn{pointer-events:auto;background:rgba(0,0,0,.35);backdrop-filter:blur(6px);border-radius:8px;padding:6px;display:flex}
+    /* Hover animation: zoom + slight tilt + glow + sheen */
+    .item::after{
+      content:""; position:absolute; inset:0;
+      background: radial-gradient(800px 400px at 80% -10%, rgba(138,180,248,.18), transparent 60%);
+      opacity:0; transition:opacity .35s ease;
+      pointer-events:none;
+    }
+    .item .cap{
+      position:absolute; left:10px; bottom:10px;
+      background: rgba(15,23,42,.48); backdrop-filter: blur(6px);
+      color:#f8fafc; font-size:12px; padding:6px 10px; border-radius:10px; border:1px solid rgba(255,255,255,.12);
+      transform: translateY(6px); opacity:0; transition: transform .28s ease, opacity .28s ease;
+    }
+    .item:hover .thumb{
+      transform: scale(1.06) rotate(.35deg);
+      filter: saturate(1.15) contrast(1.05);
+    }
+    .item:hover::after{opacity:1}
+    .item:hover .cap{transform: translateY(0); opacity:1}
 
-    /* Selection bar */
-    .selectbar{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;background:var(--surface);border:1px solid rgba(255,255,255,.08);border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.35);display:none;align-items:center;gap:10px;padding:10px 12px;z-index:25}
-    .selectbar.show{display:flex}
+    /* Sheen sweep */
+    .item::before{
+      content:""; position:absolute; top:0; left:-120%; height:100%; width:45%;
+      background: linear-gradient(75deg, transparent, rgba(255,255,255,.14), transparent);
+      transform: skewX(-18deg);
+      opacity:0; pointer-events:none;
+    }
+    .item:hover::before{
+      animation: sheen 750ms ease forwards;
+      opacity:1;
+    }
+    @keyframes sheen{to{left:140%}}
+
+    /* Selection (kept but visually subtle) */
+    .item.selected{outline:2px solid #3b82f6; outline-offset:0}
+    .overlay{position:absolute; inset:0; display:flex; align-items:flex-start; justify-content:space-between; padding:8px; opacity:0; transition:opacity .15s ease; pointer-events:none}
+    .item:hover .overlay{opacity:1}
+    .circle{width:22px;height:22px;border-radius:50%;border:2px solid #fff;background:rgba(0,0,0,.35); pointer-events:auto}
+    .item.selected .circle{background:#1a73e8;border-color:#1a73e8}
 
     /* Lightbox */
-    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.96);display:none;align-items:center;justify-content:center;z-index:30}
+    .lightbox{position:fixed; inset:0; background:rgba(3,6,23,.96); display:none; align-items:center; justify-content:center; z-index:30}
     .lightbox.open{display:flex}
-    .lb-img{max-width:92vw;max-height:88vh;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,.6)}
-    .lb-nav{position:fixed;top:50%;transform:translateY(-50%);display:flex;align-items:center;gap:10px;color:#fff}
+    .lb-img{max-width:92vw; max-height:88vh; border-radius:10px; box-shadow:0 20px 60px rgba(0,0,0,.6)}
+    .lb-top{position:fixed; top:16px; left:16px; right:16px; display:flex; justify-content:space-between; align-items:center; color:#fff}
+    .lb-btn{background:rgba(255,255,255,.1); padding:10px; border-radius:999px; cursor:pointer; border:1px solid rgba(255,255,255,.15)}
+    .lb-nav{position:fixed; top:50%; transform:translateY(-50%); color:#fff}
     .lb-prev{left:24px}.lb-next{right:24px}
-    .lb-btn{background:rgba(255,255,255,.1);padding:10px;border-radius:999px;cursor:pointer}
-    .lb-top{position:fixed;top:16px;left:16px;right:16px;display:flex;justify-content:space-between;align-items:center;color:#fff}
 
-    /* Example of an image with a modernized button */
-    .image-container {
-      position: relative;
-      display: inline-block;
-      border-radius: 8px;
-      overflow: hidden;
-    }
+    /* Selection bar (kept minimal) */
+    .selectbar{position:fixed; left:50%; transform:translateX(-50%); bottom:18px; background:var(--surface); border:1px solid rgba(255,255,255,.08); border-radius:14px; box-shadow:0 10px 30px rgba(0,0,0,.35); display:none; align-items:center; gap:10px; padding:10px 12px; z-index:25}
+    .selectbar.show{display:flex}
 
-    .image-btn {
-      position: absolute;
-      bottom: 10px;
-      right: 10px;
-      background: rgba(0, 0, 0, 0.6);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      padding: 8px 12px;
-      font-size: 12px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .image-btn:hover {
-      background: rgba(0, 0, 0, 0.8);
-      transform: scale(1.1);
-    }
-
-    /* Sidebar */
-    .sidebar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      width: 280px;
-      background: var(--surface);
-      padding: 18px;
-      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      z-index: 20;
-      transform: translateX(-250px);
-      transition: transform 0.3s ease-in-out;
-    }
-
-    .sidebar:hover {
-      transform: translateX(0);
-    }
-
-    .sidebar a {
-      opacity: 0;
-      transition: opacity 0.3s ease-in-out;
-    }
-
-    .sidebar:hover a {
-      opacity: 1;
-    }
-
-    .sidebar__inner {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .profile-card {
-      background: var(--chip);
-      border-radius: 12px;
-      padding: 16px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .profile-img-wrap {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      overflow: hidden;
-      flex-shrink: 0;
-    }
-
-    .profile-img-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .profile-name {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--text);
-    }
-
-    .profile-role {
-      font-size: 14px;
-      color: var(--muted);
-    }
-
-    .side-nav {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .side-nav a {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 12px;
-      text-decoration: none;
-      color: var(--text);
-      background: var(--chip);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 8px;
-      transition: all 0.3s ease;
-      font-size: 14px;
-    }
-
-    .side-nav a:hover {
-      background: var(--surface);
-      border-color: rgba(255, 255, 255, 0.2);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .side-nav a .icon {
-      font-size: 18px;
-      color: var(--text);
-    }
-
-    .social-row {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      font-size: 18px;
-    }
-
-    .social-row a {
-      color: var(--text);
-      transition: color 0.3s ease;
-    }
-
-    .social-row a:hover {
-      color: var(--brand);
-    }
-
-    /* Scroll-Driven Story Panels */
-    .story {
-      height: calc(100vh * 3);
-      scroll-snap-type: y mandatory;
-      overflow-y: auto;
-      perspective: 1200px;
-    }
-    .scene {
-      position: sticky;
-      top: 0;
-      height: 100vh;
-      display: grid;
-      place-items: center;
-      transform-style: preserve-3d;
-      animation: sceneIn 1 both;
-      will-change: transform, opacity, filter;
-    }
-    .scene img {
-      width: min(100%, 1200px);
-      height: auto;
-      border-radius: 16px;
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
-    }
-    .scene figcaption {
-      position: absolute;
-      bottom: 8vh;
-      left: 6vw;
-      padding: 0.6rem 1rem;
-      backdrop-filter: blur(10px);
-      color: #fff;
-      font: 600 1.1rem/1.2 system-ui;
-      letter-spacing: 0.02em;
-      border-radius: 10px;
-      background: rgba(0, 0, 0, 0.6);
-      transform: translateY(12px);
-      opacity: 0;
-      animation: captionIn 1 both;
-    }
-    @keyframes sceneIn {
-      0% {
-        opacity: 0;
-        transform: translateZ(-200px) rotateX(8deg) scale(0.96);
-        filter: saturate(0.7) brightness(0.7);
-      }
-      100% {
-        opacity: 1;
-        transform: translateZ(0) rotateX(0deg) scale(1);
-        filter: none;
-      }
-    }
-    @keyframes captionIn {
-      from {
-        opacity: 0;
-        transform: translateY(18px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* Ken Burns Effect */
-    .kenburns {
-      position: relative;
-      overflow: hidden;
-      border-radius: 16px;
-      aspect-ratio: 16/9;
-    }
-    .kenburns img {
-      width: 120%;
-      height: 120%;
-      object-fit: cover;
-      transform: translate(-10%, -10%) scale(1.08);
-      animation: kb 12s ease-in-out both;
-    }
-    @keyframes kb {
-      0% {
-        transform: translate(-6%, -4%) scale(1.08);
-      }
-      60% {
-        transform: translate(0%, 0%) scale(1.14);
-      }
-      100% {
-        transform: translate(4%, 2%) scale(1.2);
-      }
-    }
-
-    /* Parallax Depth Stack */
-    .depth {
-      position: relative;
-      height: 100vh;
-      overflow: hidden;
-      perspective: 1000px;
-    }
-    .depth img {
-      position: absolute;
-      inset: 0;
-      object-fit: cover;
-    }
-    .bg {
-      animation: z1 1 both;
-    }
-    .mid {
-      animation: z2 1 both;
-    }
-    .fg {
-      animation: z3 1 both;
-    }
-    @keyframes z1 {
-      from {
-        transform: translateY(-6%) scale(1.05);
-      }
-      to {
-        transform: translateY(6%) scale(1.12);
-      }
-    }
-    @keyframes z2 {
-      from {
-        transform: translateY(-12%) scale(1.08);
-      }
-      to {
-        transform: translateY(12%) scale(1.18);
-      }
-    }
-    @keyframes z3 {
-      from {
-        transform: translateY(-20%) scale(1.12);
-      }
-      to {
-        transform: translateY(20%) scale(1.28);
-      }
-    }
-
-    /* Add Scroll-Driven Story Panels */
-    .story-panels {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .story-panels .panel {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      opacity: 0;
-      transition: opacity 0.5s ease-in-out;
-    }
-
-    .story-panels .panel.active {
-      opacity: 1;
-    }
+    /* Accessibility */
+    .skip-link{position:absolute;top:-40px;left:0;background:#000;color:#fff;padding:8px 12px;z-index:1000;border-radius:0 0 4px 0;transition:top .2s ease}
+    .skip-link:focus{top:0}
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
   <!-- App Bar -->
   <header class="appbar">
     <div class="logo"><span class="logo-badge" aria-hidden></span><span>Photos</span></div>
     <div class="search" role="search">
       <span class="icon">search</span>
-      <input id="searchInput" placeholder="Search your photos (name, tag)…" autocomplete="off" />
+      <input id="searchInput" placeholder="Search (name, tag)..." autocomplete="off" />
       <span id="clearSearch" class="icon" style="cursor:pointer;display:none">close</span>
     </div>
-    <div class="kv">
+    <div style="display:flex;align-items:center;gap:10px">
       <button id="densityBtn" class="btn" title="Toggle density"><span class="icon">density_small</span> Density</button>
-      <button class="btn" title="Upload (wire action)"><span class="icon">upload</span> Upload</button>
+      <!-- Hidden “backend/demo” actions by request -->
+      <!-- <button class="btn"><span class="icon">upload</span> Upload</button> -->
       <div class="avatar" title="Account"></div>
     </div>
   </header>
 
-  <main class="shell">
+  <main class="shell" id="main-content">
     <!-- Left rail -->
     <aside class="rail">
-      <div class="card">
+      <section class="card">
         <h3>Filters</h3>
         <div class="chips" id="chips">
           <button class="chip active" data-chip="all">All</button>
@@ -478,17 +208,18 @@
           <button class="chip" data-chip="academic">Academic</button>
           <button class="chip" data-chip="travel">Travel</button>
         </div>
-      </div>
-      <div class="card">
+      </section>
+
+      <section class="card">
         <h3>Collections</h3>
         <div class="list">
           <a href="#" id="collection-all"><span class="icon">photo_library</span> All Photos</a>
           <a href="#" id="collection-favorites"><span class="icon">favorite</span> Favorites</a>
-          <a href="#" id="collection-people"><span class="icon">people_alt</span> People</a>
+          <a href="#" id="collection-people"><span class="icon">group</span> People</a>
           <a href="#" id="collection-places"><span class="icon">location_on</span> Places</a>
           <a href="#" id="collection-albums"><span class="icon">event</span> Albums</a>
         </div>
-      </div>
+      </section>
     </aside>
 
     <!-- Stream -->
@@ -502,8 +233,8 @@
     <span class="icon">check_circle</span>
     <span id="selCount">0 selected</span>
     <button id="clearSel" class="btn"><span class="icon">close</span>Clear</button>
-    <button class="btn"><span class="icon">download</span>Download</button>
-    <button class="btn"><span class="icon">share</span>Share</button>
+    <button id="selectAll" class="btn"><span class="icon">done_all</span>Select All</button>
+    <button id="btnSlide" class="btn"><span class="icon">play_arrow</span>Slideshow</button>
   </div>
 
   <!-- Lightbox -->
@@ -524,58 +255,12 @@
     <button id="lbNext" class="lb-btn lb-nav lb-next" title="Next (→)"><span class="icon">chevron_right</span></button>
   </div>
 
-  <!-- Sidebar -->
-  <aside class="sidebar" id="leftSidebar" aria-label="Site navigation">
-    <div class="sidebar__inner">
-      <div class="profile-card">
-        <div class="profile-img-wrap">
-          <img src="img/prof.jpg" alt="Ahmad Droobi">
-        </div>
-        <div class="profile-name">Ahmad Droobi</div>
-        <div class="profile-role">Computational Applied Mathematics</div>
-      </div>
-
-      <nav class="side-nav" role="navigation">
-        <a href="index.html"><i class="fa fa-home"></i> <span>Home</span></a>
-        <a href="education.html"><i class="fa fa-graduation-cap"></i> <span>Education</span></a>
-        <a href="publications.html"><i class="fa fa-file"></i> <span>Publications</span></a>
-        <a href="experience.html"><i class="fa fa-suitcase"></i> <span>Experience</span></a>
-        <a href="advising.html"><i class="fa fa-users"></i> <span>Advising</span></a>
-        <a href="awards.html"><i class="fa fa-star"></i> <span>Awards</span></a>
-        <a href="gallery.html"><i class="fa fa-picture-o"></i> <span>Gallery</span></a>
-        <a href="repository.html"><i class="fa fa-folder"></i> <span>Repository</span></a>
-      </nav>
-
-      <div class="social-row" aria-label="Social links">
-        <a href="https://github.com/ahmaddroobi99" target="_blank" title="GitHub"><i class="fa fa-github"></i></a>
-        <a href="https://www.linkedin.com/in/droobi/" target="_blank" title="LinkedIn"><i class="fa fa-linkedin"></i></a>
-        <a href="https://scholar.google.com/citations?hl=en&user=H-3pF00AAAAJ&view_op=list_works&sortby=pubdate" target="_blank" title="Google Scholar"><i class="ai ai-google-scholar"></i></a>
-      </div>
-    </div>
-  </aside>
-
-  <!-- Add Scroll-Driven Story Panels -->
-  <div class="story-panels">
-    <div class="panel active" style="background-image: url('gallery/Photo_1.jpg');">
-      <h2>Chapter 1: Beginnings</h2>
-      <p>Explore the roots of our journey.</p>
-    </div>
-    <div class="panel" style="background-image: url('gallery/Photo_2.jpg');">
-      <h2>Chapter 2: Growth</h2>
-      <p>Witness the evolution of ideas.</p>
-    </div>
-    <div class="panel" style="background-image: url('gallery/Photo_3.jpg');">
-      <h2>Chapter 3: Innovation</h2>
-      <p>Discover groundbreaking moments.</p>
-    </div>
-  </div>
-
   <script>
   /* ---------- CONFIG ---------- */
-  const BASE = "gallery/";      // image folder
-  const EXT  = ".jpg";          // default extension
+  const BASE = "gallery/";     // image folder
+  const EXT  = ".jpg";         // default extension
 
-  // Map your filenames into categories (from your screenshot)
+  // Tag your filenames
   const DATA = {
     nature:  ["Photo_6","Photo_7","Photo_16","Photo_24","Photo_26","Photo_41","Photo_47","Photo_48","Photo_54"],
     events:  ["Photo_10","Photo_11","Photo_12","Photo_13","Photo_27","Photo_42","Photo_43","Photo_44"],
@@ -583,8 +268,6 @@
     academic:["Photo_12","Photo_29","Photo_30","Photo_41","Photo_43","Photo_44","Photo_47"],
     travel:  ["Photo_6","Photo_7","Photo_41","Photo_47","Photo_48","Photo_58"],
   };
-
-  /* ---------- BUILD FLAT VIEW ---------- */
   const toSrc = (name)=> `${BASE}${name}${EXT}`;
   const ALL = Object.entries(DATA).flatMap(([tag, files]) =>
     files.map(f => ({ src: toSrc(f), name: f, tag }))
@@ -595,7 +278,8 @@
   let density = 1;                 // toggles column width
   let selection = new Set();
   let view = [];                   // filtered list
-  let lbIndex = -1;                // lightbox index over "view"
+  let lbIndex = -1;                // lightbox index
+  let slideshowTimer = null;
 
   /* ---------- ELEMENTS ---------- */
   const photosEl   = document.getElementById('photos');
@@ -605,7 +289,7 @@
   const searchInput= document.getElementById('searchInput');
   const clearSearch= document.getElementById('clearSearch');
 
-  /* ---------- LAZY LOAD OBSERVER ---------- */
+  /* ---------- OBSERVER (lazy + reveal) ---------- */
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -613,7 +297,6 @@
         if (img && img.dataset.src) {
           img.src = img.dataset.src;
           img.onload = () => e.target.classList.add('loaded');
-          // jpg→png fallback
           img.onerror = () => {
             if (!img.dataset.triedPng){
               img.dataset.triedPng = "1";
@@ -644,21 +327,24 @@
       img.className = 'thumb'; img.alt = it.name;
       img.loading = 'lazy'; img.decoding='async';
       img.dataset.src = it.src;
-      a.appendChild(img);
 
-      // Hover overlay
+      // caption
+      const cap = document.createElement('div');
+      cap.className = 'cap';
+      cap.textContent = `${it.name.replace('Photo_','Photo ')} · ${it.tag}`;
+
+      // overlay select handle
       const overlay = document.createElement('div'); overlay.className='overlay';
-      const left = document.createElement('div'); left.className='select';
       const circle = document.createElement('div'); circle.className='circle';
-      left.appendChild(circle);
-      const right = document.createElement('div'); right.className='quick';
-      right.innerHTML = `<div class="qbtn" title="Info"><span class="icon">info</span></div>
-                         <div class="qbtn" title="Favorite"><span class="icon">favorite</span></div>`;
-      overlay.appendChild(left); overlay.appendChild(right); a.appendChild(overlay);
+      circle.addEventListener('click', (ev)=>{ ev.stopPropagation(); ev.preventDefault(); toggleSelect(it.src, a); });
+      overlay.appendChild(circle);
 
-      // Click handlers
+      a.appendChild(img);
+      a.appendChild(cap);
+      a.appendChild(overlay);
+
+      // clicks
       a.addEventListener('click', (ev)=>{ ev.preventDefault(); openLightbox(i); });
-      circle.addEventListener('click', (ev)=>{ ev.stopPropagation(); toggleSelect(it.src, a); });
 
       frag.appendChild(a);
       io.observe(a);
@@ -686,26 +372,33 @@
     selectbar.classList.remove('show');
     selCount.textContent = '0 selected';
   });
+  document.getElementById('selectAll').addEventListener('click', ()=>{
+    selection.clear();
+    document.querySelectorAll('.item').forEach(node=>{
+      const img = node.querySelector('img.thumb');
+      const key = img ? (img.src || img.dataset.src) : null;
+      node.classList.add('selected');
+      if (key) selection.add(key);
+    });
+    selCount.textContent = `${selection.size} selected`;
+    selectbar.classList.add('show');
+  });
 
-  /* ---------- FILTER CHIPS ---------- */
+  /* ---------- FILTERS & SEARCH ---------- */
   document.getElementById('chips').addEventListener('click', (e)=>{
     const btn = e.target.closest('.chip'); if(!btn) return;
     document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
     btn.classList.add('active'); filter = btn.dataset.chip; refresh();
   });
-
-  /* ---------- SEARCH ---------- */
   searchInput.addEventListener('input', ()=>{
     clearSearch.style.display = searchInput.value ? 'inline-block' : 'none';
     refresh();
   });
-  clearSearch.addEventListener('click', ()=>{
-    searchInput.value=''; clearSearch.style.display='none'; refresh();
-  });
+  clearSearch.addEventListener('click', ()=>{ searchInput.value=''; clearSearch.style.display='none'; refresh(); });
 
-  /* ---------- DENSITY TOGGLE ---------- */
+  /* ---------- DENSITY ---------- */
   document.getElementById('densityBtn').addEventListener('click', ()=>{
-    density = density === 1 ? 0.85 : 1;
+    density = density === 1 ? 0.86 : 1;
     const base = Math.round(280 * density);
     document.documentElement.style.setProperty('--colw', base + 'px');
   });
@@ -723,7 +416,11 @@
     lbImg.src = it.src; lbMeta.textContent = `${it.name} · ${it.tag}`;
     lb.classList.add('open');
   }
-  function closeLightbox(){ lb.classList.remove('open'); lbImg.removeAttribute('src'); }
+  function closeLightbox(){
+    lb.classList.remove('open');
+    lbImg.removeAttribute('src');
+    if (slideshowTimer) { clearInterval(slideshowTimer); slideshowTimer = null; document.getElementById('btnSlide').innerHTML = '<span class="icon">play_arrow</span>Slideshow'; }
+  }
   function nav(step){
     if(!view.length) return;
     lbIndex = (lbIndex + step + view.length) % view.length;
@@ -732,6 +429,17 @@
   lbPrev.addEventListener('click', ()=>nav(-1));
   lbNext.addEventListener('click', ()=>nav(1));
   lbClose.addEventListener('click', closeLightbox);
+  document.getElementById('btnSlide').addEventListener('click', ()=>{
+    if (slideshowTimer){
+      clearInterval(slideshowTimer); slideshowTimer = null;
+      document.getElementById('btnSlide').innerHTML = '<span class="icon">play_arrow</span>Slideshow';
+    } else {
+      if (!view.length) return;
+      if (!lb.classList.contains('open')) openLightbox(0);
+      document.getElementById('btnSlide').innerHTML = '<span class="icon">pause</span>Stop';
+      slideshowTimer = setInterval(()=> nav(1), 2600);
+    }
+  });
   lb.addEventListener('click', (e)=>{ if(e.target===lb) closeLightbox(); });
   document.addEventListener('keydown', (e)=>{
     if(!lb.classList.contains('open')) return;
@@ -743,55 +451,8 @@
   /* ---------- BOOT ---------- */
   refresh();
 
-  // Example backend integration for left panel
-  const collections = {
-    all: "All Photos",
-    favorites: "Favorites",
-    people: "People",
-    places: "Places",
-    albums: "Albums",
-  };
-
-  document.querySelectorAll(".list a").forEach((link) => {
-    link.addEventListener("click", (e) => {
-      e.preventDefault();
-      const id = link.id.replace("collection-", "");
-      console.log(`Fetching data for ${collections[id]}...`);
-      // Simulate backend call
-      setTimeout(() => {
-        alert(`Data for ${collections[id]} loaded successfully!`);
-      }, 1000);
-    });
-  });
-
-  document.addEventListener('DOMContentLoaded', () => {
-    const sidebar = document.querySelector('.sidebar');
-
-    sidebar.addEventListener('mouseover', () => {
-      sidebar.style.transform = 'translateX(0)';
-    });
-
-    sidebar.addEventListener('mouseout', () => {
-      sidebar.style.transform = 'translateX(-250px)';
-    });
-  });
-
-  /* ---------- STORY PANELS ---------- */
-  const panels = document.querySelectorAll('.story-panels .panel');
-  let currentPanel = 0;
-
-  window.addEventListener('scroll', () => {
-    const scrollPosition = window.scrollY;
-    const panelHeight = window.innerHeight;
-
-    panels.forEach((panel, index) => {
-      if (scrollPosition >= index * panelHeight && scrollPosition < (index + 1) * panelHeight) {
-        panel.classList.add('active');
-      } else {
-        panel.classList.remove('active');
-      }
-    });
-  });
+  // Soft-disable “Collections” demo actions (no alerts)
+  document.querySelectorAll(".list a").forEach((link) => link.addEventListener("click", (e)=> e.preventDefault()));
   </script>
 </body>
 </html>
