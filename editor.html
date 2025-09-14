@@ -200,6 +200,52 @@
     .pulse {
       animation: pulse 2s infinite;
     }
+
+    /* Adjust button styles to make them wider and improve dark mode toggle appearance */
+    .key {
+      grid-column: span 2; /* Make buttons wider */
+    }
+
+    #btnDarkMode {
+      background: radial-gradient(120% 140% at 50% 10%, var(--key-top), var(--key));
+      color: var(--ink);
+      border: 1px solid rgba(255, 255, 255, .08);
+      border-radius: 12px;
+      box-shadow: 0 1px 0 rgba(255, 255, 255, .08) inset, 0 .5px 0 rgba(255, 255, 255, .15), 0 6px 18px rgba(0, 0, 0, .22);
+      cursor: pointer;
+      user-select: none;
+      outline: none;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 12px 14px;
+    }
+
+    #btnDarkMode.active {
+      background: radial-gradient(120% 140% at 50% 10%, #6bb2ff, #3a7be6); /* Active state for toggle */
+      color: #0b1220;
+      box-shadow: 0 1px 0 rgba(255, 255, 255, .45) inset, 0 8px 24px rgba(74, 144, 255, .5);
+    }
+
+    /* Add dark mode toggle animation */
+    @keyframes toggleDarkMode {
+      0% { transform: rotate(0deg); opacity: 0.5; }
+      50% { transform: rotate(180deg); opacity: 1; }
+      100% { transform: rotate(360deg); opacity: 0.5; }
+    }
+
+    #btnDarkMode.active span {
+      animation: toggleDarkMode 0.6s ease-in-out;
+    }
+
+    body.dark-mode {
+      background-color: #121212;
+      color: #ffffff;
+    }
+
+    body.dark-mode .btn {
+      background: radial-gradient(120% 140% at 50% 10%, #6bb2ff, #3a7be6);
+      color: #0b1220;
+    }
   </style>
 </head>
 <body>
@@ -227,6 +273,9 @@
             <span class="material-symbols-rounded">help</span>
             Help
           </a>
+          <button id="btnDarkMode" class="btn" title="Toggle dark mode">
+            <span class="material-symbols-rounded">wb_sunny</span>
+          </button>
         </div>
       </header>
 
@@ -406,14 +455,17 @@
     };
 
     const QUICK_KEYS = [
-      {g:'(', m:'('}, {g:')', m:')'}, {g:'[', m:'['}, {g:']', m:']'}, {g:'{ }', m:'{}'},
-      {g:'^', m:'^{ }'}, {g:'_', m:'_{ }'}, {g:'\\frac{ }{ }', m:'\\frac{ }{ }', wide:true},
-      {g:'\\sqrt{ }', m:'\\sqrt{ }', wide:true}, {g:'\\sum', m:'\\sum'}, {g:'\\int', m:'\\int'},
-      {g:'\\to', m:'\\to'}, {g:'\\Rightarrow', m:'\\Rightarrow'}, {g:'\\mapsto', m:'\\mapsto'},
-      {g:'\\begin{align}', m:'\\begin{align}\n\n\\end{align}', tall:true, wide:true},
-      {g:'\\begin{bmatrix}', m:'\\begin{bmatrix}\n\\end{bmatrix}', wide:true},
-      {g:'\\begin{cases}', m:'\\begin{cases}\n\\end{cases}', wide:true},
-      {g:'\\mathbb{}', m:'\\mathbb{}'}, {g:'\\mathbf{}', m:'\\mathbf{}'},
+      { label: 'Fraction', macro: '\\frac{}{}', tooltip: 'Insert a fraction (Ctrl+F)' },
+      { label: 'Matrix', macro: '\\begin{bmatrix}\n\\end{bmatrix}', tooltip: 'Insert a matrix (Ctrl+M)' },
+      { label: 'Cases', macro: '\\begin{cases}\n\\end{cases}', tooltip: 'Insert cases (Ctrl+C)' },
+      { label: 'Align', macro: '\\begin{align}\n\\end{align}', tooltip: 'Insert align environment (Ctrl+A)' },
+      { label: 'Bold', macro: '\\mathbf{}', tooltip: 'Make text bold (Ctrl+B)' },
+      { label: 'Square Root', macro: '\\sqrt{}', tooltip: 'Insert square root (Ctrl+R)' },
+      { label: 'Summation', macro: '\\sum', tooltip: 'Insert summation symbol (Ctrl+S)' },
+      { label: 'Integral', macro: '\\int', tooltip: 'Insert integral symbol (Ctrl+I)' },
+      { label: 'Arrow', macro: '\\rightarrow', tooltip: 'Insert right arrow (Ctrl+T)' },
+      { label: 'Subscript', macro: '_{}', tooltip: 'Insert subscript (Ctrl+Shift+S)' },
+      { label: 'Superscript', macro: '^{}', tooltip: 'Insert superscript (Ctrl+Shift+P)' }
     ];
 
     // ===================== Elements =====================
@@ -500,7 +552,7 @@
 
       // Quick keys
       const qk = document.getElementById('quickKeys');
-      QUICK_KEYS.forEach(k => makeKey(qk, k.g, k.m, k));
+      QUICK_KEYS.forEach(k => makeKey(qk, k.label, k.macro, k));
 
       // Palettes
       const groups = [ ['pal-greek','greek'], ['pal-ops','operators'], ['pal-arrows','arrows'], ['pal-sets','sets'], ['pal-decor','decor'], ['pal-fonts','fonts'] ];
@@ -596,6 +648,19 @@
 
     // Initial compile
     compile();
+
+    // Ensure consistent dark mode toggle functionality and styling
+    const darkModeButton = document.createElement('button');
+    darkModeButton.id = 'btnDarkMode';
+    darkModeButton.className = 'btn';
+    darkModeButton.innerHTML = '<span class="material-symbols-rounded">wb_sunny</span>';
+    darkModeButton.title = 'Toggle dark mode';
+    darkModeButton.onclick = () => {
+      document.body.classList.toggle('dark-mode');
+      darkModeButton.classList.toggle('active');
+    };
+
+    document.querySelector('.top-actions').appendChild(darkModeButton);
   </script>
 </body>
   <style>
@@ -633,6 +698,48 @@
       --accent: #4f9cff;
       --key-top: rgba(255,255,255,.6);
       --key: rgba(255,255,255,.3);  
+    }
+
+    /* Ensure consistent styling and functionality for dark mode toggle */
+    #btnDarkMode {
+      background: radial-gradient(120% 140% at 50% 10%, var(--key-top), var(--key));
+      color: var(--ink);
+      border: 1px solid rgba(255, 255, 255, .08);
+      border-radius: 12px;
+      box-shadow: 0 1px 0 rgba(255, 255, 255, .08) inset, 0 .5px 0 rgba(255, 255, 255, .15), 0 6px 18px rgba(0, 0, 0, .22);
+      cursor: pointer;
+      user-select: none;
+      outline: none;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 12px 14px;
+    }
+
+    #btnDarkMode.active {
+      background: radial-gradient(120% 140% at 50% 10%, #6bb2ff, #3a7be6); /* Active state for toggle */
+      color: #0b1220;
+      box-shadow: 0 1px 0 rgba(255, 255, 255, .45) inset, 0 8px 24px rgba(74, 144, 255, .5);
+    }
+
+    /* Add dark mode toggle animation */
+    @keyframes toggleDarkMode {
+      0% { transform: rotate(0deg); opacity: 0.5; }
+      50% { transform: rotate(180deg); opacity: 1; }
+      100% { transform: rotate(360deg); opacity: 0.5; }
+    }
+
+    #btnDarkMode.active span {
+      animation: toggleDarkMode 0.6s ease-in-out;
+    }
+
+    body.dark-mode {
+      background-color: #121212;
+      color: #ffffff;
+    }
+
+    body.dark-mode .btn {
+      background: radial-gradient(120% 140% at 50% 10%, #6bb2ff, #3a7be6);
+      color: #0b1220;
     }
   </style>
 </html>
