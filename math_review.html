@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mathematics Review | High School to MSc - Linear Journey Edition</title>
+  <meta name="description" content="Linear mathematics review journey from high school fundamentals to MSc topics, with LaTeX examples and modern 2025 notation." />
+  <link rel="icon" type="image/x-icon" href="img/licensed-image.ico" />
   <script type="text/javascript" async
     src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
   </script>
@@ -22,6 +24,23 @@
       color: var(--text);
       margin: 0;
       padding: 0;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: #000;
+      color: #fff;
+      padding: 8px 12px;
+      z-index: 1000;
+      border-radius: 0 0 4px 0;
+      transition: top 0.2s ease;
+    }
+    .skip-link:focus { top: 0; }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
     }
 
     .container {
@@ -191,7 +210,8 @@
   </style>
 </head>
 <body>
-  <div class="container">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <div class="container" id="main-content">
     <div class="math-section">
       <div class="section-header">
         <h1>Mathematics Review Journey - Linear Flow</h1>
@@ -371,7 +391,7 @@
           </div>
         </div>
 
-        <div class="concept-card">
+        <div class="concept-card" id="linear-algebra">
           <span class="difficulty intermediate">Intermediate</span>
           <h3>Step 6: Matrix Theory (Linear Algebra)</h3>
           <p>Detailed Explanation: Vectors, matrices, eigenvalues, SVD, transformations. Linear groups from groups; adjacency matrices from graphs. Latest Notation: Singular Value Decomposition \(A = U \Sigma V^*\) (quantum 2025 extensions via tensor networks).</p>
@@ -518,9 +538,9 @@
 
   <!-- Progress Navigation -->
   <div class="progress-nav">
-    <div class="progress-dot" data-section="high-school"></div>
-    <div class="progress-dot" data-section="undergraduate"></div>
-    <div class="progress-dot" data-section="graduate"></div>
+    <div class="progress-dot" data-section="high-school" role="button" tabindex="0" aria-label="Jump to High School section"></div>
+    <div class="progress-dot" data-section="undergraduate" role="button" tabindex="0" aria-label="Jump to Undergraduate section"></div>
+    <div class="progress-dot" data-section="graduate" role="button" tabindex="0" aria-label="Jump to Graduate section"></div>
   </div>
 
   <!-- Debug Panel -->
@@ -552,24 +572,25 @@
       });
     });
 
-    // Smooth scroll to section
+    // Smooth scroll to section + keyboard support
     dots.forEach(dot => {
-      dot.addEventListener('click', () => {
+      const go = () => {
         const section = document.getElementById(dot.dataset.section);
         section.scrollIntoView({ behavior: 'smooth' });
+      };
+      dot.addEventListener('click', go);
+      dot.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); }
       });
     });
 
-    // LaTeX Debug Helper
+    // LaTeX Debug Helper (MathJax v3 compatible)
     window.addEventListener('load', () => {
-      MathJax.Hub.Queue(function() {
+      const finalize = () => {
         const debugPanel = document.getElementById('debugPanel');
         const debugOutput = document.getElementById('debugOutput');
-        
-        // Check for common LaTeX errors
         document.querySelectorAll('.math-block').forEach(block => {
           try {
-            // Validate LaTeX syntax
             const latex = block.textContent;
             if (latex.includes('\\begin{') && !latex.includes('\\end{')) {
               throw new Error('Missing \\end{} tag');
@@ -579,7 +600,12 @@
             debugPanel.classList.add('show');
           }
         });
-      });
+      };
+      if (window.MathJax && MathJax.typesetPromise) {
+        MathJax.typesetPromise().then(finalize).catch(finalize);
+      } else {
+        finalize();
+      }
     });
   </script>
 </body>
