@@ -7,6 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Fonts + existing stack -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/font-awesome.css">
@@ -106,9 +108,25 @@
     .card + .card{ margin-top:12px; }
 
     .copyright-text{ color:var(--muted); }
+
+    /* Accessible skip link */
+    .skip-link {
+      position:absolute;
+      top:-40px;
+      left:10px;
+      background:#ffffff;
+      color:#0f172a;
+      padding:8px 12px;
+      border-radius:8px;
+      box-shadow:0 10px 25px rgba(2,6,23,.12);
+      transition:top .2s ease;
+      z-index:1100;
+    }
+    .skip-link:focus { top:10px; }
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#publications">Skip to main content</a>
 
   <!-- Mobile toggle -->
   <button class="mobile-toggle visible-xs visible-sm" aria-label="Open menu"><i class="fa fa-bars"></i></button>
@@ -125,19 +143,19 @@
       <nav class="side-nav" role="navigation">
         <a href="index.html"><i class="fa fa-home"></i><span>Home</span></a>
         <a href="education.html"><i class="fa fa-graduation-cap"></i><span>Education</span></a>
-        <a href="publications.html"><i class="fa fa-file"></i><span>Publications</span></a>
+        <a href="publications.html" aria-current="page"><i class="fa fa-file"></i><span>Publications</span></a>
         <a href="experience.html"><i class="fa fa-suitcase"></i><span>Experience</span></a>
         <a href="advising.html"><i class="fa fa-users"></i><span>Advising</span></a>
         <a href="awards.html"><i class="fa fa-star"></i><span>Awards</span></a>
         <a href="gallary.html"><i class="fa fa-picture-o"></i><span>Gallery</span></a>
-        <a href="repository.html"><i class="fa fa-folder"></i><span>repository</span></a>
+        <a href="repository.html"><i class="fa fa-folder"></i><span>Repository</span></a>
       </nav>
 
       <!-- Horizontal socials -->
       <div class="social-row" aria-label="Social links">
-        <a href="https://github.com/ahmaddroobi99" target="_blank" title="GitHub"><i class="fa fa-github"></i></a>
-        <a href="https://www.linkedin.com/in/droobi/" target="_blank" title="LinkedIn"><i class="fa fa-linkedin"></i></a>
-        <a href="https://scholar.google.com/citations?hl=en&user=H-3pF00AAAAJ&view_op=list_works&sortby=pubdate" target="_blank" title="Google Scholar"><i class="ai ai-google-scholar"></i></a>
+        <a href="https://github.com/ahmaddroobi99" target="_blank" rel="noopener noreferrer" title="GitHub"><i class="fa fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/droobi/" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i class="fa fa-linkedin"></i></a>
+        <a href="https://scholar.google.com/citations?hl=en&user=H-3pF00AAAAJ&view_op=list_works&sortby=pubdate" target="_blank" rel="noopener noreferrer" title="Google Scholar"><i class="ai ai-google-scholar"></i></a>
       </div>
     </div>
   </aside>
@@ -156,17 +174,17 @@
               <li class="pub-item">
                 <strong>Data-Driven Filtering Techniques for Turbulent Flow Models (A Lagrangian Data Assimilation Approach)</strong>
                 <div class="pub-meta"><em>A. Droobi</em> · 2025</div>
-                <a href="https://ucalgary.scholaris.ca" target="_blank">ucalgary.scholaris.ca</a>
+                <a href="https://ucalgary.scholaris.ca" target="_blank" rel="noopener noreferrer">ucalgary.scholaris.ca</a>
               </li>
               <li class="pub-item">
                 <strong>Simple Electric Circuit Builder (SECB)</strong>
                 <div class="pub-meta"><em>A. Droobi</em> · 2023</div>
-                <a href="https://www.researchgate.net/publication" target="_blank">ResearchGate</a>
+                <a href="https://www.researchgate.net/publication" target="_blank" rel="noopener noreferrer">ResearchGate</a>
               </li>
               <li class="pub-item">
                 <strong>CookOverflow</strong>
                 <div class="pub-meta"><em>A. Droobi, MND Shaqour, Ataa</em> · 2022</div>
-                <a href="https://repository.najah.edu/items/3a8b9d6c-9c1e-4308-8f5a-e5f7fec1af25" target="_blank">repository.najah.edu</a>
+                <a href="https://repository.najah.edu/items/3a8b9d6c-9c1e-4308-8f5a-e5f7fec1af25" target="_blank" rel="noopener noreferrer">repository.najah.edu</a>
               </li>
             </ul>
           </div>
@@ -177,12 +195,12 @@
             <div class="card">
               <h5>Data-Driven Filtering Techniques for Turbulent Flow Models</h5>
               <p><strong>Description:</strong> A Lagrangian Data Assimilation Approach.</p>
-              <p><strong>Source:</strong> <a href="https://ucalgary.scholaris.ca" target="_blank">ucalgary.scholaris.ca</a></p>
+              <p><strong>Source:</strong> <a href="https://ucalgary.scholaris.ca" target="_blank" rel="noopener noreferrer">ucalgary.scholaris.ca</a></p>
             </div>
             <div class="card">
               <h5>Simple Electric Circuit Builder (SECB)</h5>
               <p><strong>Description:</strong> A tool for building simple electric circuits.</p>
-              <p><strong>Source:</strong> <a href="https://www.researchgate.net/publication" target="_blank">ResearchGate</a></p>
+              <p><strong>Source:</strong> <a href="https://www.researchgate.net/publication" target="_blank" rel="noopener noreferrer">ResearchGate</a></p>
             </div>
           </div>
 
@@ -379,13 +397,13 @@
       <p class="pub-meta">${esc(p.dates)} ${p.org ? " • " + esc(p.org) : ""}</p>
       ${p.assoc ? `<p><em>${esc(p.assoc)}</em></p>` : ""}
       ${p.summary ? `<p>${esc(p.summary)}</p>` : ""}
-      ${p.linkHref ? `<p><a href="${esc(p.linkHref)}" target="_blank">${esc(p.linkText || "View project")}</a></p>` : ""}
+      ${p.linkHref ? `<p><a href="${esc(p.linkHref)}" target="_blank" rel="noopener noreferrer">${esc(p.linkText || "View project")}</a></p>` : ""}
     `;
     frag.appendChild(card);
   });
   mount.appendChild(frag);
 })();
-</script>
+  </script>
 
 </body>
 </html>

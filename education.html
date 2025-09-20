@@ -7,6 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Fonts + existing stack -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/font-awesome.css">
@@ -142,11 +144,9 @@
       background-color: #218838;
     }
 
-    /* Add hover effect for images */
-    img:hover {
-      transform: scale(1.1);
-      transition: transform 0.3s ease;
-    }
+    /* Image hover scale (normalized) */
+    .life-item-img img { transition: transform 0.3s ease; }
+    .life-item-img img:hover { transform: scale(1.06); }
 
     /* Add text animation */
     @keyframes slideIn {
@@ -156,9 +156,25 @@
     .text-slide {
       animation: slideIn 1.5s ease-in-out;
     }
+
+    /* Accessible skip link */
+    .skip-link {
+      position:absolute;
+      top:-40px;
+      left:10px;
+      background:#ffffff;
+      color:#0f172a;
+      padding:8px 12px;
+      border-radius:8px;
+      box-shadow:0 10px 25px rgba(2,6,23,.12);
+      transition:top .2s ease;
+      z-index:1100;
+    }
+    .skip-link:focus { top:10px; }
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#education">Skip to main content</a>
 
   <!-- Mobile toggle -->
   <button class="mobile-toggle visible-xs visible-sm" aria-label="Open menu"><i class="fa fa-bars"></i></button>
@@ -174,20 +190,20 @@
 
       <nav class="side-nav" role="navigation">
         <a href="index.html"><i class="fa fa-home"></i><span>Home</span></a>
-        <a href="education.html"><i class="fa fa-graduation-cap"></i><span>Education</span></a>
+        <a href="education.html" aria-current="page"><i class="fa fa-graduation-cap"></i><span>Education</span></a>
         <a href="publications.html"><i class="fa fa-file"></i><span>Publications</span></a>
         <a href="experience.html"><i class="fa fa-suitcase"></i><span>Experience</span></a>
         <a href="advising.html"><i class="fa fa-users"></i><span>Advising</span></a>
         <a href="awards.html"><i class="fa fa-star"></i><span>Awards</span></a>
         <a href="gallary.html"><i class="fa fa-picture-o"></i><span>Gallery</span></a>
-        <a href="repository.html"><i class="fa fa-folder"></i><span>repository</span></a>
+        <a href="repository.html"><i class="fa fa-folder"></i><span>Repository</span></a>
       </nav>
 
       <!-- Horizontal socials -->
       <div class="social-row" aria-label="Social links">
-        <a href="https://github.com/ahmaddroobi99" target="_blank" title="GitHub"><i class="fa fa-github"></i></a>
-        <a href="https://www.linkedin.com/in/droobi/" target="_blank" title="LinkedIn"><i class="fa fa-linkedin"></i></a>
-        <a href="https://scholar.google.com/citations?hl=en&user=H-3pF00AAAAJ&view_op=list_works&sortby=pubdate" target="_blank" title="Google Scholar"><i class="ai ai-google-scholar"></i></a>
+        <a href="https://github.com/ahmaddroobi99" target="_blank" rel="noopener noreferrer" title="GitHub"><i class="fa fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/droobi/" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i class="fa fa-linkedin"></i></a>
+        <a href="https://scholar.google.com/citations?hl=en&user=H-3pF00AAAAJ&view_op=list_works&sortby=pubdate" target="_blank" rel="noopener noreferrer" title="Google Scholar"><i class="ai ai-google-scholar"></i></a>
       </div>
     </div>
   </aside>
@@ -217,7 +233,7 @@
                     <ul>
                       <li>Research in <b>uncertainty quantification, extreme event analysis and prediction, ML for dynamical systems, Bayesian regression</b>.</li>
                       <li>MS/PhD Program.</li>
-                      <li>Member of <a target="_blank" href="https://profiles.ucalgary.ca/mustafa-mohamad">Prof. Mustafa Mohamad’s Research Team</a>.</li>
+                      <li>Member of <a target="_blank" rel="noopener noreferrer" href="https://profiles.ucalgary.ca/mustafa-mohamad">Prof. Mustafa Mohamad’s Research Team</a>.</li>
                     </ul>
                   </div>
                 </div>
@@ -238,11 +254,11 @@
                     <br>
                     <b>"I didn't invest much time here."</b>
                     <ul>
-                      <li>Undergraduate thesis with <a href="https://staff.najah.edu/en/profiles/3034/" target="_blank">Raed Qadi</a> and <a href="https://staff.najah.edu/en/profiles/3132/" target="_blank">Mona Demadi</a>.</li>
+                      <li>Undergraduate thesis with <a href="https://staff.najah.edu/en/profiles/3034/" target="_blank" rel="noopener noreferrer">Raed Qadi</a> and <a href="https://staff.najah.edu/en/profiles/3132/" target="_blank" rel="noopener noreferrer">Mona Demadi</a>.</li>
                       <li>Software capstone: CookOverflow.</li>
                       <li>Hardware capstone: Electrical Circuit Builder (P&amp;P CNC).</li>
-                      <li><a target="_blank" href="https://www.najah.edu/en/about/nnu-offices/finance-department/scholarships-and-grants/">50% Tuition Fees Scholarship</a> from Honor Faculty.</li>
-                      <li><a target="_blank" href="https://www.thesadaqah.foundation/">The Hebba &amp; Ishaq Sadaqah Foundation</a> scholarship.</li>
+                      <li><a target="_blank" rel="noopener noreferrer" href="https://www.najah.edu/en/about/nnu-offices/finance-department/scholarships-and-grants/">50% Tuition Fees Scholarship</a> from Honor Faculty.</li>
+                      <li><a target="_blank" rel="noopener noreferrer" href="https://www.thesadaqah.foundation/">The Hebba &amp; Ishaq Sadaqah Foundation</a> scholarship.</li>
                       <li>Palestine Presidential Scholarship.</li>
                       <li><b>PCPC — Palestinian Collegiate Programming Contest:</b> 2021, 2022.</li>
                     </ul>

@@ -8,6 +8,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Fonts + Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Merriweather:wght@300;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/font-awesome.css" />
   <link rel="stylesheet" href="css/academicons.css" />
@@ -261,10 +263,47 @@
       .reveal{opacity:1; transform:none}
       .profile-img{animation:none}
     }
+
+    /* Accessible skip link */
+    .skip-link {
+      position:absolute;
+      top:-40px;
+      left:10px;
+      background:#ffffff;
+      color:#0b1220;
+      padding:8px 12px;
+      border-radius:8px;
+      box-shadow:var(--shadow);
+      transition:top .2s ease;
+      z-index:1000;
+    }
+    .skip-link:focus {
+      top:10px;
+    }
+
+    /* Global UX enhancements */
+    html { scroll-behavior: smooth; }
+
+    .side-nav a[aria-current="page"]{
+      background:rgba(255,255,255,.16);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.20);
+      font-weight:700;
+    }
+
+    .to-top{
+      position:fixed; right:18px; bottom:18px; width:48px; height:48px;
+      border-radius:12px; border:1px solid rgba(255,255,255,.16);
+      background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
+      color:#fff; display:none; align-items:center; justify-content:center;
+      box-shadow:var(--shadow); z-index:70;
+    }
+    .to-top.visible{display:inline-flex}
+    .to-top i{font-size:18px}
   </style>
 </head>
 
 <body>
+  <a class="skip-link" href="#top">Skip to main content</a>
   <!-- Mobile toggle -->
   <button class="mobile-toggle visible-xs visible-sm" aria-label="Open menu"><i class="fa fa-bars"></i></button>
 
@@ -278,10 +317,11 @@
       </div>
 
       <nav class="side-nav" role="navigation">
-        <a href="#top"><i class="fa fa-home"></i><span>Home</span></a>
+        <a href="#top" aria-current="page"><i class="fa fa-home"></i><span>Home</span></a>
         <a href="#focus"><i class="fa fa-cubes"></i><span>Focus Areas</span></a>
         <a href="#work"><i class="fa fa-rocket"></i><span>Featured Work</span></a>
         <a href="#about"><i class="fa fa-user"></i><span>About</span></a>
+        <a href="#contact"><i class="fa fa-envelope"></i><span>Contact</span></a>
         <a href="education.html"><i class="fa fa-graduation-cap"></i><span>Education</span></a>
         <a href="publications.html"><i class="fa fa-file"></i><span>Publications</span></a>
         <a href="experience.html"><i class="fa fa-suitcase"></i><span>Experience</span></a>
@@ -292,9 +332,9 @@
       </nav>
 
       <div class="social-row" aria-label="Social links">
-        <a href="https://github.com/ahmaddroobi99" target="_blank" title="GitHub"><i class="fa fa-github"></i></a>
-        <a href="https://www.linkedin.com/in/droobi/" target="_blank" title="LinkedIn"><i class="fa fa-linkedin"></i></a>
-        <a href="https://scholar.google.com/citations?hl=en&user=H-3pF00AAAAJ&view_op=list_works&sortby=pubdate" target="_blank" title="Google Scholar"><i class="ai ai-google-scholar"></i></a>
+        <a href="https://github.com/ahmaddroobi99" target="_blank" rel="noopener noreferrer" title="GitHub"><i class="fa fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/droobi/" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i class="fa fa-linkedin"></i></a>
+        <a href="https://scholar.google.com/citations?hl=en&user=H-3pF00AAAAJ&view_op=list_works&sortby=pubdate" target="_blank" rel="noopener noreferrer" title="Google Scholar"><i class="ai ai-google-scholar"></i></a>
       </div>
     </div>
   </aside>
@@ -320,8 +360,8 @@
             <span class="chip">HPC-ready Python/MATLAB</span>
           </div>
           <div class="cta-row">
-            <a class="btn" href="files/Ahmad_Droobi_CV_2026.pdf" target="_blank"><i class="fa fa-file"></i> Curriculum Vitae</a>
-            <a class="btn secondary" href="https://hdl.handle.net/1880/122341" target="_blank"><i class="fa fa-university"></i> Master’s Thesis</a>
+            <a class="btn" href="files/Ahmad_Droobi_CV_2026.pdf" target="_blank" rel="noopener noreferrer"><i class="fa fa-file"></i> Curriculum Vitae</a>
+            <a class="btn secondary" href="https://hdl.handle.net/1880/122341" target="_blank" rel="noopener noreferrer"><i class="fa fa-university"></i> Master’s Thesis</a>
           </div>
         </div>
 
@@ -363,7 +403,7 @@
       <div class="container">
         <h2>Featured Work</h2>
         <div class="tiles">
-          <a class="tile reveal" href="https://hdl.handle.net/1880/122341" target="_blank" aria-label="Thesis">
+          <a class="tile reveal" href="https://hdl.handle.net/1880/122341" target="_blank" rel="noopener noreferrer" aria-label="Thesis">
             <img src="img/ccc.png" alt="" />
             <div class="overlay"></div>
             <div class="label"><b>Data-Driven Filtering for Turbulent Flow Models</b><span>Hybrid EnKF–PF • QG • Tracer spectra</span></div>
@@ -384,7 +424,7 @@
         <div class="about">
           <div class="card copy reveal">
             <p>I completed the MSc in Mechanical Engineering (Computational Applied Mathematics) at the University of Calgary,
-               working in the <a href="https://profiles.ucalgary.ca/mustafa-mohamad" target="_blank">Predictive & Intelligent Systems Lab</a>.
+               working in the <a href="https://profiles.ucalgary.ca/mustafa-mohamad" target="_blank" rel="noopener noreferrer">Predictive & Intelligent Systems Lab</a>.
                My research deploys Bayesian inference and SciML to reconstruct turbulent, stochastic flow fields.</p>
             <p>Core areas: state/parameter estimation, UQ, and data assimilation with sparse, noisy Lagrangian observations.
                My thesis develops a hybrid EnKF–PF to reconstruct quasi-geostrophic flows and recover Eulerian energy spectra
@@ -405,7 +445,7 @@
             </div>
             <div style="margin-top:14px">
               <a class="btn secondary" href="publications.html"><i class="fa fa-file"></i> Publications</a>
-              <a class="btn" href="files/Ahmad_Droobi_CV_2026.pdf" target="_blank"><i class="fa fa-file-text-o"></i> CV (PDF)</a>
+              <a class="btn" href="files/Ahmad_Droobi_CV_2026.pdf" target="_blank" rel="noopener noreferrer"><i class="fa fa-file-text-o"></i> CV (PDF)</a>
             </div>
           </div>
         </div>
@@ -417,10 +457,43 @@
       </div>
     </section>
 
+    <!-- Contact -->
+    <section class="section" id="contact">
+      <div class="container">
+        <h2>Contact</h2>
+        <div class="about">
+          <div class="card reveal copy">
+            <p>For collaboration, opportunities, or questions about my work, reach out via email or connect on LinkedIn. I’m open to research discussions around Scientific ML, UQ, and Lagrangian DA.</p>
+            <div class="cta-row">
+              <a class="btn" href="mailto:ahmad.droobi@ucalgary.ca"><i class="fa fa-envelope"></i> Email</a>
+              <a class="btn secondary" href="https://www.linkedin.com/in/droobi/" target="_blank" rel="noopener noreferrer"><i class="fa fa-linkedin"></i> LinkedIn</a>
+              <a class="btn secondary" href="publications.html"><i class="fa fa-file"></i> Publications</a>
+            </div>
+          </div>
+          <div class="card reveal">
+            <h3 style="margin-top:0">Quick Links</h3>
+            <div class="interests" style="margin-top:8px">
+              <span class="interest">Digital Twins</span>
+              <span class="interest">Bayesian Inference</span>
+              <span class="interest">Tracer Modeling</span>
+              <span class="interest">Kalman/Particle Filters</span>
+              <span class="interest">Spectral Diagnostics</span>
+            </div>
+            <div style="margin-top:14px">
+              <a class="btn" href="files/Ahmad_Droobi_CV_2026.pdf" target="_blank" rel="noopener noreferrer"><i class="fa fa-file-text-o"></i> CV (PDF)</a>
+              <a class="btn secondary" href="#work"><i class="fa fa-rocket"></i> Featured Work</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <footer>
       © 1999–2025 Ahmad Droobi
     </footer>
   </main>
+
+  <button id="toTop" class="to-top" aria-label="Scroll to top"><i class="fa fa-arrow-up"></i></button>
 
   <!-- ========== INTERACTIONS (Vanilla JS) ========== -->
   <script>
@@ -460,6 +533,23 @@
         });
       },{threshold:.12});
       items.forEach(el=> io.observe(el));
+    })();
+
+    // Back-to-top button
+    (function(){
+      const btn = document.getElementById('toTop');
+      if(!btn) return;
+      const showAt = 280;
+      const onScroll = () => {
+        if (window.scrollY > showAt) btn.classList.add('visible');
+        else btn.classList.remove('visible');
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      btn.addEventListener('click', () => {
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+      });
+      onScroll();
     })();
   </script>
 </body>

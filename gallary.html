@@ -6,41 +6,43 @@
   <title>Ahmad Droobi | Photos</title>
   <meta name="description" content="Photo gallery — fast masonry grid with animated hover, lightbox, filters, and keyboard nav." />
   <link rel="icon" href="img/licensed-image.ico" />
+
+  <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Material+Symbols+Rounded:FILL@0..1,GRAD@0..200,opsz@20..48,wght@300..700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Merriweather:wght@300;700&family=Material+Symbols+Rounded:FILL@0..1,GRAD@0..200,opsz@20..48,wght@300..700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/font-awesome.css" />
+  <link rel="stylesheet" href="css/academicons.css" />
 
   <style>
     :root{
-      /* Theme */
-      --bg: #0b1220;                  /* deep navy */
-      --bg2:#0f1a33;
-      --surface:#0f172a;              /* slate-navy card */
-      --text:#e6e6e6;
-      --muted:#a1a1aa;
-      --brand:#8ab4f8;
-      --chip:#111827;
-      --accent:#8c1515;
+      /* Brand + Sidebar */
+      --sidebar-w:264px;
+      --brand-1:#0e2a4a;  /* lighter navy gradient start */
+      --brand-2:#1f3e6b;  /* lighter navy gradient end */
 
-      /* Layout */
-      --colw:280px;
-      --gap:14px;
+      /* Theme (lighter navy, not too dark) */
+      --bg:#0e1b2e;           /* canvas, lighter navy */
+      --bg2:#183253;          /* secondary canvas */
+      --surface:#122744;      /* card surface */
+      --text:#e9eff7;         /* main text */
+      --muted:#b7c4d4;        /* secondary text */
+      --brand:#75a7ff;        /* accents */
+      --chip:#0f2038;         /* chips base */
+      --accent:#8c1515;       /* accent (kept) */
 
-      /* Optional hero background image (set to url('img/hero.jpg') if you want) */
-      --bg-img: none;
-    }
-    @media (prefers-color-scheme: light){
-      :root{ --bg:#f7fafc; --bg2:#e9eef6; --surface:#ffffff; --text:#1f2937; --muted:#6b7280; --brand:#1a73e8; --chip:#f3f4f6; }
+      --shadow:0 12px 28px rgba(3, 7, 18, .28);
     }
 
     /* Base */
     *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
     html,body{height:100%}
     body{
       margin:0;
       background:
-        radial-gradient(1200px 600px at 70% -10%, rgba(138,180,248,.18), transparent 60%),
-        radial-gradient(900px 500px at 10% 110%, rgba(140,21,21,.12), transparent 60%),
+        radial-gradient(1200px 600px at 70% -10%, rgba(117,167,255,.18), transparent 60%),
+        radial-gradient(900px 500px at 10% 110%, rgba(140,21,21,.10), transparent 60%),
         linear-gradient(180deg, var(--bg), var(--bg2));
       color:var(--text);
       font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;
@@ -51,9 +53,10 @@
     /* Optional background image overlay */
     body::before{
       content:"";
-      position:fixed; inset:0;
-      background: var(--bg-img) center/cover no-repeat;
-      opacity:.12; pointer-events:none; filter:saturate(1.1) contrast(1.05);
+      position:fixed; inset:0; pointer-events:none;
+      background: none;
+      opacity:.10;
+      filter:saturate(1.05) contrast(1.02);
     }
 
     @keyframes fadeInUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
@@ -61,6 +64,49 @@
 
     /* Icons */
     .icon{font-family:"Material Symbols Rounded";font-variation-settings:"FILL" 0,"wght" 600,"opsz" 24;vertical-align:middle;font-size:20px}
+
+    /* Site Sidebar (left panel) */
+    .sidebar{
+      position:fixed; top:0; left:0; height:100vh; width:var(--sidebar-w);
+      background:linear-gradient(180deg,var(--brand-1),var(--brand-2)); color:#fff;
+      transform:translateX(-180px); transition:transform .45s cubic-bezier(.2,.8,.2,1);
+      border-right:1px solid rgba(255,255,255,.08); box-shadow:var(--shadow); z-index:1050;
+      backdrop-filter:saturate(140%) blur(2px);
+    }
+    .sidebar:hover,.sidebar.is-open{ transform:translateX(0); }
+    .sidebar__inner{ display:flex; flex-direction:column; height:100%; gap:14px; padding:18px; }
+    .profile-card{
+      display:flex; flex-direction:column; align-items:center; text-align:center;
+      background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.04));
+      border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:14px;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.12);
+    }
+    .profile-img-wrap{ width:112px; height:112px; border-radius:999px; overflow:hidden; box-shadow:0 10px 25px rgba(0,0,0,.25); transform:translateZ(0); animation:floatY 6s ease-in-out infinite; }
+    .profile-img-wrap img{ width:100%; height:100%; object-fit:cover; }
+    @keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+    .profile-name{ font-weight:800; font-size:18px; margin-top:10px; }
+    .profile-role{ font-size:12px; color:#e5e7eb; opacity:.9; }
+
+    .side-nav{ display:flex; flex-direction:column; gap:6px; margin-top:6px; }
+    .side-nav a{ display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:12px; color:#e5e7eb; text-decoration:none; transition:background .2s, transform .2s; position:relative; overflow:hidden; }
+    .side-nav a i{ width:18px; text-align:center; }
+    .side-nav a::after{ content:""; position:absolute; inset:0; background:linear-gradient(90deg,transparent,rgba(255,255,255,.14),transparent); transform:translateX(-120%); transition:transform .6s ease; }
+    .side-nav a:hover{ background:rgba(255,255,255,.10); transform:translateX(3px); }
+    .side-nav a:hover::after{ transform:translateX(120%); }
+    .side-nav a[aria-current="page"]{ background:rgba(255,255,255,.18); box-shadow:inset 0 0 0 1px rgba(255,255,255,.22); font-weight:700; }
+
+    .social-row{ margin-top:auto; display:flex; justify-content:center; gap:14px; }
+    .social-row a{ width:38px; height:38px; display:inline-flex; align-items:center; justify-content:center; border-radius:999px; background:rgba(255,255,255,.10); color:#fff; text-decoration:none; transition:transform .2s, background .2s; }
+    .social-row a:hover{ transform:translateY(-3px) scale(1.06); background:rgba(255,255,255,.18); }
+
+    /* Layout push for content */
+    @media(min-width:992px){ .with-sidebar{ margin-left:calc(var(--sidebar-w) - 180px); } }
+    @media(max-width:991px){
+      .sidebar{ transform:translateX(-100%); }
+      .sidebar.is-open{ transform:translateX(0); }
+      .with-sidebar{ margin-left:0; }
+      .mobile-toggle{ position:fixed; top:14px; left:14px; z-index:1100; width:42px; height:42px; border:none; border-radius:10px; background:#fff; color:#0f172a; box-shadow:var(--shadow); }
+    }
 
     /* App bar */
     .appbar{
@@ -72,17 +118,17 @@
     }
     .logo{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.2px}
     .logo-badge{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#4285f4,#34a853 55%,#fbbc05 85%,#ea4335);box-shadow:0 0 0 2px rgba(255,255,255,.06) inset}
-    .search{flex:1;display:flex;align-items:center;gap:10px;background:var(--chip);padding:10px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.08)}
+    .search{flex:1;display:flex;align-items:center;gap:10px;background:var(--chip);padding:10px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.10)}
     .search input{flex:1;border:0;outline:0;background:transparent;color:var(--text);font-size:14px}
     .btn{
-      background: linear-gradient(90deg, #3b82f6, #06b6d4);
-      color:#fff;border:1px solid rgba(255,255,255,.08);
+      background: linear-gradient(90deg, #5d8df6, #1fb6d4);
+      color:#fff;border:1px solid rgba(255,255,255,.10);
       border-radius:10px;padding:10px 16px;font-size:14px;font-weight:700;cursor:pointer;
       transition: transform .2s ease, box-shadow .2s ease, background .2s ease; display:inline-flex; align-items:center; gap:8px;
-      box-shadow:0 6px 16px rgba(0,0,0,.22)
+      box-shadow:0 6px 16px rgba(0,0,0,.18)
     }
-    .btn:hover{transform:translateY(-2px); box-shadow:0 10px 24px rgba(0,0,0,.28)}
-    .avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#003366,#8c1515)}
+    .btn:hover{transform:translateY(-2px); box-shadow:0 10px 24px rgba(0,0,0,.24)}
+    .avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#274a7a,#8c1515)}
 
     /* Layout shell */
     .shell{display:grid;grid-template-columns:280px 1fr;gap:18px;max-width:1600px;margin:0 auto;padding:18px;animation:fadeInUp .35s ease-out both}
@@ -90,143 +136,147 @@
 
     /* Left rail */
     .rail{display:flex;flex-direction:column;gap:14px}
-    .card{background:var(--surface);border:1px solid rgba(255,255,255,.06);border-radius:14px;box-shadow:0 10px 25px rgba(2,6,23,.12)}
+    .card{background:var(--surface);border:1px solid rgba(255,255,255,.10);border-radius:14px;box-shadow:var(--shadow)}
     .card h3{margin:0;padding:14px 14px 6px;font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
     .chips{display:flex;flex-wrap:wrap;gap:10px;margin:4px 0 12px;padding:0 10px 12px}
-    .chip{background:var(--chip);color:var(--text);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:7px 13px;font-size:13px;cursor:pointer;transition:background .2s ease, transform .2s ease, box-shadow .2s ease}
-    .chip:hover{background:color-mix(in srgb, var(--chip) 70%, white 5%); transform:translateY(-1px)}
-    .chip.active{background:#3b82f6;color:#fff;border-color:#3b82f6}
+    .chip{background:var(--chip);color:var(--text);border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:7px 13px;font-size:13px;cursor:pointer;transition:background .2s ease, transform .2s ease, box-shadow .2s ease}
+    .chip:hover{background:color-mix(in srgb, var(--chip) 70%, white 6%); transform:translateY(-1px)}
+    .chip.active{background:#5d8df6;color:#fff;border-color:#5d8df6}
     .list{padding:8px 8px 12px;display:grid;gap:8px}
-    .list a{display:flex;align-items:center;gap:10px;padding:10px 12px;text-decoration:none;color:var(--text);background:var(--chip);border:1px solid rgba(255,255,255,.1);border-radius:8px;transition:all .25s ease;font-size:14px}
-    .list a:hover{background:color-mix(in srgb, var(--chip) 75%, white 6%); transform:translateY(-2px)}
+    .list a{display:flex;align-items:center;gap:10px;padding:10px 12px;text-decoration:none;color:var(--text);background:var(--chip);border:1px solid rgba(255,255,255,.12);border-radius:8px;transition:all .25s ease;font-size:14px}
+    .list a:hover{background:color-mix(in srgb, var(--chip) 75%, white 8%); transform:translateY(-2px)}
 
     /* Masonry using CSS columns */
-    .photos{column-width:var(--colw); column-gap:var(--gap)}
-    @media (max-width:1200px){.photos{--colw:240px}}
-    @media (max-width:900px){.photos{--colw:200px}}
-    @media (max-width:640px){.photos{--colw:160px}}
+    .photos{column-width:280px; column-gap:14px}
+    @media (max-width:1200px){.photos{column-width:240px}}
+    @media (max-width:900px){.photos{column-width:200px}}
+    @media (max-width:640px){.photos{column-width:160px}}
 
     /* Photo card */
-    .item{
-      break-inside:avoid; display:block; margin:0 0 var(--gap); position:relative; border-radius:14px; overflow:hidden; background:#000;
-      border:1px solid rgba(255,255,255,.06); transform:translateZ(0); will-change:transform, filter;
-      box-shadow:0 1px 0 rgba(255,255,255,.04);
-    }
-    .thumb{
-      width:100%; display:block; height:auto; opacity:0; transform:scale(1.01);
-      transition: opacity .35s ease, transform .35s ease, filter .35s ease;
-    }
+    .item{ break-inside:avoid; display:block; margin:0 0 14px; position:relative; border-radius:14px; overflow:hidden; background:#000; border:1px solid rgba(255,255,255,.10); transform:translateZ(0); will-change:transform, filter; box-shadow:0 1px 0 rgba(255,255,255,.06); }
+    .thumb{ width:100%; display:block; height:auto; opacity:0; transform:scale(1.01); transition: opacity .35s ease, transform .35s ease, filter .35s ease; }
     .item.loaded .thumb{opacity:1}
 
     /* Hover animation: zoom + slight tilt + glow + sheen */
-    .item::after{
-      content:""; position:absolute; inset:0;
-      background: radial-gradient(800px 400px at 80% -10%, rgba(138,180,248,.18), transparent 60%);
-      opacity:0; transition:opacity .35s ease;
-      pointer-events:none;
-    }
-    .item .cap{
-      position:absolute; left:10px; bottom:10px;
-      background: rgba(15,23,42,.48); backdrop-filter: blur(6px);
-      color:#f8fafc; font-size:12px; padding:6px 10px; border-radius:10px; border:1px solid rgba(255,255,255,.12);
-      transform: translateY(6px); opacity:0; transition: transform .28s ease, opacity .28s ease;
-    }
-    .item:hover .thumb{
-      transform: scale(1.06) rotate(.35deg);
-      filter: saturate(1.15) contrast(1.05);
-    }
+    .item::after{ content:""; position:absolute; inset:0; background: radial-gradient(800px 400px at 80% -10%, rgba(117,167,255,.18), transparent 60%); opacity:0; transition:opacity .35s ease; pointer-events:none; }
+    .item .cap{ position:absolute; left:10px; bottom:10px; background: rgba(18,39,68,.48); backdrop-filter: blur(6px); color:#f8fafc; font-size:12px; padding:6px 10px; border-radius:10px; border:1px solid rgba(255,255,255,.14); transform: translateY(6px); opacity:0; transition: transform .28s ease, opacity .28s ease; }
+    .item:hover .thumb{ transform: scale(1.06) rotate(.35deg); filter: saturate(1.10) contrast(1.04); }
     .item:hover::after{opacity:1}
     .item:hover .cap{transform: translateY(0); opacity:1}
 
     /* Sheen sweep */
-    .item::before{
-      content:""; position:absolute; top:0; left:-120%; height:100%; width:45%;
-      background: linear-gradient(75deg, transparent, rgba(255,255,255,.14), transparent);
-      transform: skewX(-18deg);
-      opacity:0; pointer-events:none;
-    }
-    .item:hover::before{
-      animation: sheen 750ms ease forwards;
-      opacity:1;
-    }
+    .item::before{ content:""; position:absolute; top:0; left:-120%; height:100%; width:45%; background: linear-gradient(75deg, transparent, rgba(255,255,255,.14), transparent); transform: skewX(-18deg); opacity:0; pointer-events:none; }
+    .item:hover::before{ animation: sheen 750ms ease forwards; opacity:1; }
     @keyframes sheen{to{left:140%}}
 
-    /* Selection (kept but visually subtle) */
-    .item.selected{outline:2px solid #3b82f6; outline-offset:0}
+    /* Selection */
+    .item.selected{outline:2px solid #5d8df6; outline-offset:0}
     .overlay{position:absolute; inset:0; display:flex; align-items:flex-start; justify-content:space-between; padding:8px; opacity:0; transition:opacity .15s ease; pointer-events:none}
     .item:hover .overlay{opacity:1}
     .circle{width:22px;height:22px;border-radius:50%;border:2px solid #fff;background:rgba(0,0,0,.35); pointer-events:auto}
-    .item.selected .circle{background:#1a73e8;border-color:#1a73e8}
+    .item.selected .circle{background:#5d8df6;border-color:#5d8df6}
 
     /* Lightbox */
-    .lightbox{position:fixed; inset:0; background:rgba(3,6,23,.96); display:none; align-items:center; justify-content:center; z-index:30}
+    .lightbox{position:fixed; inset:0; background:rgba(6,14,28,.96); display:none; align-items:center; justify-content:center; z-index:1030}
     .lightbox.open{display:flex}
     .lb-img{max-width:92vw; max-height:88vh; border-radius:10px; box-shadow:0 20px 60px rgba(0,0,0,.6)}
     .lb-top{position:fixed; top:16px; left:16px; right:16px; display:flex; justify-content:space-between; align-items:center; color:#fff}
-    .lb-btn{background:rgba(255,255,255,.1); padding:10px; border-radius:999px; cursor:pointer; border:1px solid rgba(255,255,255,.15)}
+    .lb-btn{background:rgba(255,255,255,.12); padding:10px; border-radius:999px; cursor:pointer; border:1px solid rgba(255,255,255,.18)}
     .lb-nav{position:fixed; top:50%; transform:translateY(-50%); color:#fff}
     .lb-prev{left:24px}.lb-next{right:24px}
 
-    /* Selection bar (kept minimal) */
-    .selectbar{position:fixed; left:50%; transform:translateX(-50%); bottom:18px; background:var(--surface); border:1px solid rgba(255,255,255,.08); border-radius:14px; box-shadow:0 10px 30px rgba(0,0,0,.35); display:none; align-items:center; gap:10px; padding:10px 12px; z-index:25}
+    /* Selection bar */
+    .selectbar{position:fixed; left:50%; transform:translateX(-50%); bottom:18px; background:var(--surface); border:1px solid rgba(255,255,255,.12); border-radius:14px; box-shadow:0 10px 30px rgba(0,0,0,.35); display:none; align-items:center; gap:10px; padding:10px 12px; z-index:25}
     .selectbar.show{display:flex}
 
     /* Accessibility */
-    .skip-link{position:absolute;top:-40px;left:0;background:#000;color:#fff;padding:8px 12px;z-index:1000;border-radius:0 0 4px 0;transition:top .2s ease}
+    .skip-link{position:absolute;top:-40px;left:0;background:#fff;color:#0f172a;padding:8px 12px;z-index:1200;border-radius:0 0 6px 0;box-shadow:var(--shadow);transition:top .2s ease}
     .skip-link:focus{top:0}
   </style>
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to content</a>
 
-  <!-- App Bar -->
-  <header class="appbar">
-    <div class="logo"><span class="logo-badge" aria-hidden></span><span>Photos</span></div>
-    <div class="search" role="search">
-      <span class="icon">search</span>
-      <input id="searchInput" placeholder="Search (name, tag)..." autocomplete="off" />
-      <span id="clearSearch" class="icon" style="cursor:pointer;display:none">close</span>
+  <!-- Mobile toggle for sidebar -->
+  <button class="mobile-toggle visible-xs visible-sm" aria-label="Open menu"><i class="fa fa-bars"></i></button>
+
+  <!-- LEFT SIDEBAR (Site navigation) -->
+  <aside class="sidebar" id="leftSidebar" aria-label="Site navigation">
+    <div class="sidebar__inner">
+      <div class="profile-card">
+        <div class="profile-img-wrap"><img src="img/prof.jpg" alt="Ahmad Droobi"></div>
+        <div class="profile-name">Ahmad Droobi</div>
+        <div class="profile-role">Computational Applied Mathematics</div>
+      </div>
+
+      <nav class="side-nav" role="navigation">
+        <a href="index.html"><i class="fa fa-home"></i><span>Home</span></a>
+        <a href="education.html"><i class="fa fa-graduation-cap"></i><span>Education</span></a>
+        <a href="publications.html"><i class="fa fa-file"></i><span>Publications</span></a>
+        <a href="experience.html"><i class="fa fa-suitcase"></i><span>Experience</span></a>
+        <a href="advising.html"><i class="fa fa-users"></i><span>Advising</span></a>
+        <a href="awards.html"><i class="fa fa-star"></i><span>Awards</span></a>
+        <a href="gallary.html" aria-current="page"><i class="fa fa-picture-o"></i><span>Gallery</span></a>
+        <a href="repository.html"><i class="fa fa-folder"></i><span>Repository</span></a>
+      </nav>
+
+      <div class="social-row" aria-label="Social links">
+        <a href="https://github.com/ahmaddroobi99" target="_blank" rel="noopener noreferrer" title="GitHub"><i class="fa fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/droobi/" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i class="fa fa-linkedin"></i></a>
+        <a href="https://scholar.google.com/citations?hl=en&user=H-3pF00AAAAJ&view_op=list_works&sortby=pubdate" target="_blank" rel="noopener noreferrer" title="Google Scholar"><i class="ai ai-google-scholar"></i></a>
+      </div>
     </div>
-    <div style="display:flex;align-items:center;gap:10px">
-      <button id="densityBtn" class="btn" title="Toggle density"><span class="icon">density_small</span> Density</button>
-      <!-- Hidden “backend/demo” actions by request -->
-      <!-- <button class="btn"><span class="icon">upload</span> Upload</button> -->
-      <div class="avatar" title="Account"></div>
-    </div>
-  </header>
+  </aside>
 
-  <main class="shell" id="main-content">
-    <!-- Left rail -->
-    <aside class="rail">
-      <section class="card">
-        <h3>Filters</h3>
-        <div class="chips" id="chips">
-          <button class="chip active" data-chip="all">All</button>
-          <button class="chip" data-chip="nature">Nature</button>
-          <button class="chip" data-chip="events">Events</button>
-          <button class="chip" data-chip="personal">Personal</button>
-          <button class="chip" data-chip="academic">Academic</button>
-          <button class="chip" data-chip="travel">Travel</button>
-        </div>
+  <!-- MAIN CONTENT WITH SIDEBAR OFFSET -->
+  <div class="with-sidebar">
+    <!-- App Bar -->
+    <header class="appbar">
+      <div class="logo"><span class="logo-badge" aria-hidden="true"></span><span>Photos</span></div>
+      <div class="search" role="search">
+        <span class="icon">search</span>
+        <input id="searchInput" placeholder="Search (name, tag)..." autocomplete="off" />
+        <span id="clearSearch" class="icon" style="cursor:pointer;display:none">close</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <button id="densityBtn" class="btn" title="Toggle density"><span class="icon">density_small</span> Density</button>
+        <div class="avatar" title="Account"></div>
+      </div>
+    </header>
+
+    <main class="shell" id="main-content">
+      <!-- Left rail -->
+      <aside class="rail">
+        <section class="card">
+          <h3>Filters</h3>
+          <div class="chips" id="chips">
+            <button class="chip active" data-chip="all">All</button>
+            <button class="chip" data-chip="nature">Nature</button>
+            <button class="chip" data-chip="events">Events</button>
+            <button class="chip" data-chip="personal">Personal</button>
+            <button class="chip" data-chip="academic">Academic</button>
+            <button class="chip" data-chip="travel">Travel</button>
+          </div>
+        </section>
+
+        <section class="card">
+          <h3>Collections</h3>
+          <div class="list">
+            <a href="#" id="collection-all"><span class="icon">photo_library</span> All Photos</a>
+            <a href="#" id="collection-favorites"><span class="icon">favorite</span> Favorites</a>
+            <a href="#" id="collection-people"><span class="icon">group</span> People</a>
+            <a href="#" id="collection-places"><span class="icon">location_on</span> Places</a>
+            <a href="#" id="collection-albums"><span class="icon">event</span> Albums</a>
+          </div>
+        </section>
+      </aside>
+
+      <!-- Stream -->
+      <section>
+        <div class="photos" id="photos"></div>
       </section>
-
-      <section class="card">
-        <h3>Collections</h3>
-        <div class="list">
-          <a href="#" id="collection-all"><span class="icon">photo_library</span> All Photos</a>
-          <a href="#" id="collection-favorites"><span class="icon">favorite</span> Favorites</a>
-          <a href="#" id="collection-people"><span class="icon">group</span> People</a>
-          <a href="#" id="collection-places"><span class="icon">location_on</span> Places</a>
-          <a href="#" id="collection-albums"><span class="icon">event</span> Albums</a>
-        </div>
-      </section>
-    </aside>
-
-    <!-- Stream -->
-    <section>
-      <div class="photos" id="photos"></div>
-    </section>
-  </main>
+    </main>
+  </div>
 
   <!-- Selection bar -->
   <div id="selectbar" class="selectbar" role="status" aria-live="polite">
@@ -398,9 +448,11 @@
 
   /* ---------- DENSITY ---------- */
   document.getElementById('densityBtn').addEventListener('click', ()=>{
-    density = density === 1 ? 0.86 : 1;
+    density = density === 1 ? 0.88 : 1;
     const base = Math.round(280 * density);
+    document.querySelector(':root').style.setProperty('scroll-behavior', 'auto'); // avoid abrupt jump
     document.documentElement.style.setProperty('--colw', base + 'px');
+    setTimeout(()=> document.querySelector(':root').style.setProperty('scroll-behavior', 'smooth'), 50);
   });
 
   /* ---------- LIGHTBOX ---------- */
@@ -453,6 +505,17 @@
 
   // Soft-disable “Collections” demo actions (no alerts)
   document.querySelectorAll(".list a").forEach((link) => link.addEventListener("click", (e)=> e.preventDefault()));
+
+  // Sidebar behavior (same as other pages)
+  (function(){
+    const sidebar = document.getElementById('leftSidebar');
+    const btn = document.querySelector('.mobile-toggle');
+    if(btn){ btn.addEventListener('click', ()=> sidebar.classList.toggle('is-open')); }
+    if(window.matchMedia('(min-width: 992px)').matches){
+      setTimeout(()=> sidebar.classList.add('is-open'), 400);
+      setTimeout(()=> sidebar.classList.remove('is-open'), 1800);
+    }
+  })();
   </script>
 </body>
 </html>
