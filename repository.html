@@ -1,942 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Scientific Repository | Ahmad Droobi</title>
-
-  <meta name="description" content="Scientific repository and mathematics review: articles, algorithms, LaTeX tools, and flipbook documents by Ahmad Droobi."/>
-  <link rel="icon" href="img/licensed-image.ico" />
-  <link rel="prefetch" href="math_review.html" as="document" />
-  <!-- MathJax (kept) -->
-  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-  <!-- Icons (your markup uses .fa) -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scientific Repository</title>
   <style>
-    /* ====== Base (kept + small polish) ====== */
-    :root{
-      --ink:#0e1726; --muted:#6b7280; --brand:#003366; --brand2:#001f3f;
-      --bg:#f6f8ff; --surface:#fff; --chip:#eef3f8; --accent:#0ea5e9;
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
     }
-    @keyframes fadeInPage{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
-    @media (prefers-reduced-motion: reduce){ body{animation:none !important} }
-    *{box-sizing:border-box}
-    body{font-family:Arial,system-ui,sans-serif;margin:0;padding:0;line-height:1.6;color:var(--ink);background:var(--bg);animation:fadeInPage .35s ease-out both}
-    a{color:var(--brand);text-decoration:none}
-    a:focus,button:focus,input:focus{outline:2px solid #2563eb;outline-offset:2px}
-    .container{display:flex}
 
-    /* ====== Sidebar (kept) ====== */
-    .sidebar{
-      position:fixed;top:0;left:0;width:264px;height:100vh;
-      background:linear-gradient(180deg,var(--brand2),var(--brand));
-      color:#fff;z-index:1050;box-shadow:0 10px 25px rgba(2,6,23,.12);
-      transform:translateX(-250px);transition:transform .3s ease-in-out;
+    header {
+      text-align: center;
+      margin-bottom: 20px;
     }
-    .sidebar:hover{transform:translateX(0)}
-    .sidebar__inner{display:flex;flex-direction:column;height:100%;padding:18px;gap:14px}
-    .profile-card{display:flex;flex-direction:column;align-items:center;text-align:center;background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.04));border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:14px}
-    .profile-img-wrap{width:112px;height:112px;border-radius:999px;overflow:hidden;box-shadow:0 10px 25px rgba(0,0,0,.25)}
-    .profile-img-wrap img{width:100%;height:100%;object-fit:cover}
-    .profile-name{font-weight:700;font-size:18px;margin-top:10px}
-    .profile-role{font-size:12px;color:#e5e7eb;opacity:.9}
-    .side-nav{margin-top:4px;display:flex;flex-direction:column;gap:6px}
-    .side-nav a{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;color:#e5e7eb;transition:background .2s,transform .2s}
-    .side-nav a:hover{background:rgba(255,255,255,.1);transform:translateX(3px)}
 
-    /* ====== Main ====== */
-    main{margin-left:270px;padding:20px;flex:1}
-    header{background:#f4f4f4;padding:10px 20px;border-radius:8px;margin-bottom:20px}
-    h1{margin:0 0 10px;font-size:1.8em}
-    p{margin:0;color:#555}
-    footer{background:#f4f4f4;padding:10px 20px;border-radius:8px;margin-top:20px;text-align:center}
+    header h1 {
+      font-size: 3rem;
+      color: #ffffff;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
 
-    /* ====== Table (kept) ====== */
-    table{width:100%;border-collapse:collapse;margin:20px 0}
-    th,td{border:1px solid #ddd;padding:8px;text-align:left}
-    th{background:#007bff;color:#fff;font-weight:bold}
-    h2,h3{color:#333}
-    .alg{border:1px solid #ddd;padding:16px;margin:16px 0;background:#fff;border-radius:8px}
-    .alg__head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-    .alg__chip{background:#007bff;color:#fff;padding:4px 8px;border-radius:16px;font-size:.9em}
-    .alg__title{margin:0;font-size:1.3em}
-    .alg__body{margin-top:16px}
-    .alg__io{font-weight:bold;margin-bottom:16px}
-    .steps{counter-reset:step}
-    .step{margin:8px 0;padding-left:20px;position:relative}
-    .step:before{content:counter(step);counter-increment:step;position:absolute;left:0;top:0;color:#555}
-    .sub{margin-left:20px}
-    .note{font-style:italic;color:#555}
-    .code{background:#f4f4f4;padding:2px 4px;border-radius:4px;font-family:monospace}
-    .math-block{margin:16px 0}
+    .hero__bg {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      overflow: hidden;
+    }
 
-    /* ====== PDF Cards (kept with polish) ====== */
-    .document-container{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between}
-    .document{flex:1 1 calc(50% - 20px);background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,.08);transition:transform .3s,box-shadow .3s}
-    .document:hover{transform:translateY(-4px);box-shadow:0 10px 20px rgba(0,0,0,.12)}
-    .document h2{background:#007bff;color:#fff;margin:0;padding:10px;text-align:center}
-    .viewer{position:relative;padding:10px;background:#f9f9f9}
-    .pdf-container{position:relative;perspective:1000px;margin:20px 0}
-    .pdf-container iframe{transition:transform .6s;transform-origin:center right;box-shadow:0 4px 8px rgba(0,0,0,.2);border-radius:8px;border:0;width:100%;height:600px}
-    .pdf-container:hover iframe{transform:rotateY(-10deg)}
+    .hero__bg img {
+      position: absolute;
+      width: 120%;
+      left: -10%;
+      top: -5%;
+      filter: saturate(120%) contrast(110%) brightness(90%);
+      transform: translateX(0);
+      animation: slideBackground 15s linear infinite;
+    }
 
-    /* ====== Concepts Table (kept) ====== */
-    .concepts-table{position:relative;background:#fff;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,.1);transition:all .3s ease;margin:30px 0;overflow:hidden}
-    .concepts-table:hover{box-shadow:0 8px 30px rgba(0,0,0,.15);transform:translateY(-2px)}
-    .concepts-table table{margin:0;border:none}
-    .concepts-table th{background:linear-gradient(135deg,var(--brand2),var(--brand));color:#fff;font-size:1.05em;padding:15px;border:none}
-    .concepts-table td{padding:12px 15px;border:none;border-bottom:1px solid #eee;transition:background-color .3s}
-    .concepts-table tr:hover td{background:#f8f9ff}
-    .concepts-table caption{background:linear-gradient(135deg,var(--brand),var(--brand2));color:white;padding:15px;font-size:1.1em;font-weight:bold}
-    .concepts-controls{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-end;padding:15px;background:#f8f9ff}
-    .concept-btn{padding:8px 15px;border:none;border-radius:6px;background:#003366;color:#fff;cursor:pointer;transition:all .2s}
-    .concept-btn:hover{background:#001f3f;transform:translateY(-1px)}
-    .concept-details{height:0;overflow:hidden;transition:height .3s ease;background:#f8f9ff;padding:0 15px}
+    @keyframes slideBackground {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-15%);
+      }
+    }
 
-    /* ====== Math Flowchart (kept) ====== */
-    .math-flowchart{background:#fff;border:2px solid #ddd;border-radius:12px;padding:20px;margin:20px 0;box-shadow:0 4px 20px rgba(0,0,0,.1);font-family:monospace;white-space:pre;overflow-x:auto;text-align:center}
+    .cards-container {
+      display: flex;
+      gap: 30px;
+    }
 
-    /* ====== Navigation card (kept) ====== */
-    .math-review{padding:30px;background:#fff;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,.1);margin:30px 0}
-    .navigation-card{background:linear-gradient(135deg,#f8f9ff 0%,#fff 100%);border-radius:8px;padding:20px;margin:20px 0;border:1px solid #eef3f8;transition:all .3s}
-    .navigation-card:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.1)}
-    .nav-link{display:block;padding:12px 15px;margin:8px 0;background:#fff;border-radius:6px;color:#003366;border:1px solid #eef3f8;transition:all .2s}
-    .nav-link:hover{background:#f8f9ff;color:#001f3f;transform:translateX(5px)}
-    .nav-preview{margin-top:20px;padding:15px;background:#f8f9ff;border-radius:6px;font-style:italic;color:#666}
+    .flip-container {
+      perspective: 1000px;
+      width: 400px;
+      height: 300px;
+    }
 
-    /* ====== Ken Burns sections (kept) ====== */
-    .kenburns-type{position:relative;overflow:hidden;border-radius:12px;margin:30px 0;background:#fff;box-shadow:0 4px 20px rgba(0,0,0,.1)}
-    .kenburns-type .section{padding:30px;transform-origin:center;animation:kenburns 20s ease-in-out infinite alternate;transition:opacity .5s}
-    .kenburns-type .section:hover{animation-play-state:paused}
-    .kenburns-type .math{overflow-x:auto;padding:15px;background:#f8f9ff;border-radius:8px;margin:15px 0}
-    @keyframes kenburns{0%{transform:scale(1)}50%{transform:scale(1.02) translate(-.5%,-.5%)}100%{transform:scale(1)}}
-    .type-on{overflow:hidden;border-right:2px solid var(--brand);white-space:nowrap;animation:typing 3.5s steps(40,end),blink .75s step-end infinite;margin:20px 0}
-    @keyframes typing{from{width:0}to{width:100%}}
-    @keyframes blink{from,to{border-color:transparent}50%{border-color:var(--brand)}}
+    .flipper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.8s;
+    }
 
-    /* ====== LaTeX Editor (kept + enhanced) ====== */
-    .latex-editor{margin:40px 0;padding:20px;background:#f9f9f9;border-radius:8px;box-shadow:0 4px 8px rgba(0,0,0,.1)}
-    .latex-editor h3{margin:0 0 20px;font-size:1.5em;color:#333}
-    .toolbar{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:20px}
-    .toolbar .btn{padding:10px 15px;border:none;border-radius:6px;cursor:pointer;transition:background .2s}
-    .toolbar .btn:hover{background:#007bff;color:#fff}
-    .workspace{display:flex;flex-wrap:wrap;gap:20px}
-    .editor-wrap,.preview-wrap{flex:1 1 420px;background:#fff;border:1px solid #ddd;border-radius:8px;overflow:hidden}
-    .editor-header{background:#f4f4f4;padding:10px;border-bottom:1px solid #ddd;font-weight:bold;display:flex;justify-content:space-between;align-items:center}
-    #editor{width:100%;height:300px;border:0;padding:10px;font-family:monospace;font-size:14px}
-    #preview{padding:10px;font-size:14px;color:#333;min-height:300px}
+    .flip-container:hover .flipper {
+      transform: rotateY(180deg);
+    }
 
-    /* ====== Right Panel (kept but now used) ====== */
-    .right-panel{position:fixed;top:0;right:0;width:264px;height:100vh;background:linear-gradient(180deg,var(--brand2),var(--brand));color:#fff;z-index:1050;box-shadow:0 10px 25px rgba(2,6,23,.12);transform:translateX(250px);transition:transform .3s}
-    .right-panel:hover{transform:translateX(0)}
-    .rp__inner{padding:18px}
-    .rp__title{margin:0 0 8px;font-size:1.1rem;font-weight:700}
-    .rp__hint{font-size:.9rem;opacity:.9}
+    .front, .back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 30px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
 
-    /* ====== New: Flipbook Viewer ====== */
-    .flipbook{position:relative;margin:20px 0;background:#111;height:560px;border-radius:12px;overflow:hidden;box-shadow:0 8px 26px rgba(0,0,0,.25)}
-    .flipbook .sheet{position:absolute;top:0;bottom:0;width:50%;background:#222;transform-origin:left center;transition:transform .7s ease, box-shadow .7s ease}
-    .flipbook .sheet.right{left:50%;transform-origin:right center}
-    .flipbook iframe{width:100%;height:100%;border:0;background:#fff}
-    .flipbook .nav{position:absolute;top:50%;transform:translateY(-50%);width:100%;display:flex;justify-content:space-between;padding:0 10px;pointer-events:none}
-    .flipbook .nav button{pointer-events:auto;border:none;border-radius:999px;padding:10px 14px;background:#ffffffdd}
-    .flipbook .caption{position:absolute;bottom:8px;left:0;right:0;text-align:center;color:#fff;font-size:.9rem;opacity:.9}
-    .hidden{display:none}
+    .front {
+      background: rgba(0, 123, 255, 0.9);
+      color: #fff;
+    }
 
-    /* ====== New: Articles Library ====== */
-    .library{background:#fff;border-radius:12px;padding:18px;margin:24px 0;box-shadow:0 4px 16px rgba(0,0,0,.08)}
-    .lib-controls{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
-    .lib-controls input,.lib-controls select{padding:8px 10px;border:1px solid #e5e7eb;border-radius:8px;background:#fff;min-width:180px}
-    .lib-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
-    .card{background:#fff;border:1px solid #eef3f8;border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:8px;transition:transform .2s,box-shadow .2s}
-    .card:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.08)}
-    .card .meta{font-size:.85rem;color:var(--muted)}
-    .tag{display:inline-block;background:var(--chip);border:1px solid #e5e7eb;color:#334155;padding:2px 8px;border-radius:999px;font-size:.75rem;margin-right:6px}
+    .back {
+      background: rgba(40, 167, 69, 0.9);
+      color: #fff;
+      transform: rotateY(180deg);
+    }
 
-    @media (max-width:960px){
-      main{margin-left:0}
-      .sidebar{transform:none;position:static;height:auto}
-      .right-panel{display:none}
+    .back a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    .back a:hover {
+      color: #ffcc00;
+      text-decoration: underline;
+    }
+
+    .flip-container:hover .front {
+      transform: scale(1.05);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    .flaming-effect {
+      animation: flaming 2s infinite alternate;
+    }
+
+    @keyframes flaming {
+      0% {
+        box-shadow: 0 0 15px rgba(255, 69, 0, 0.8), 0 0 25px rgba(255, 140, 0, 0.6);
+      }
+      50% {
+        box-shadow: 0 0 20px rgba(255, 99, 71, 1), 0 0 30px rgba(255, 165, 0, 0.8);
+      }
+      100% {
+        box-shadow: 0 0 25px rgba(255, 69, 0, 1), 0 0 35px rgba(255, 140, 0, 0.8);
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Left Sidebar (kept) -->
-  <div class="sidebar" aria-label="Left navigation">
-    <div class="sidebar__inner">
-      <div class="profile-card">
-        <div class="profile-img-wrap">
-          <img src="img/prof.jpg" alt="Ahmad Droobi" />
+  <header>
+    <h1>Scientific Repository</h1>
+  </header>
+  <div class="hero__bg">
+    <img src="img/prof.jpg" alt="Background Image">
+  </div>
+  <div class="cards-container">
+    <div class="flip-container">
+      <div class="flipper">
+        <div class="front">
+          <h2>PDF Documents</h2>
         </div>
-        <div class="profile-name">Ahmad Droobi</div>
-        <div class="profile-role">Scientific Researcher</div>
+        <div class="back">
+          <ul>
+            <li><a href="files/Ahmad_Droobi_CV_2026.pdf" target="_blank">Ahmad Droobi CV 2026</a></li>
+            <li><a href="files/Ahmad_project_on_Generalization.pdf" target="_blank">Ahmad Project on Generalization</a></li>
+            <li><a href="files/FTF.pdf" target="_blank">FTF</a></li>
+            <li><a href="files/Math_ML.pdf" target="_blank">Math ML</a></li>
+            <li><a href="files/time_behavior.pdf" target="_blank">Time Behavior</a></li>
+            <li><a href="files/Ahmad Droobi public 2024.pdf" target="_blank">Ahmad Droobi Public 2024</a></li>
+          </ul>
+        </div>
       </div>
-
-      <nav class="side-nav">
-        <a href="index.html"><i class="fa fa-home"></i> Home</a>
-        <a href="repository.html" aria-current="page"><i class="fa fa-book"></i> Repository</a>
-        <a href="gallary.html"><i class="fa fa-image"></i> Gallery</a>
-        <a href="publications.html"><i class="fa fa-file-text"></i> Publications</a>
-        <a href="education.html"><i class="fa fa-graduation-cap"></i> Education</a>
-        <a href="experience.html"><i class="fa fa-briefcase"></i> Experience</a>
-        <a href="awards.html"><i class="fa fa-trophy"></i> Awards</a>
-        <a href="advising.html"><i class="fa fa-users"></i> Advising</a>
-      </nav>
+    </div>
+    <div class="flip-container">
+      <div class="flipper flaming-effect">
+        <div class="front">
+          <h2>Other Directories</h2>
+        </div>
+        <div class="back">
+          <ul>
+            <li><a href="editor.html" target="_blank">Editor</a></li>
+            <li><a href="math_review.html" target="_blank">Math Review</a></li>
+            <li><a href="philosophy.html" target="_blank">Philosophy</a></li>
+            <li><a href="repository_table.html" target="_blank">Repository Table</a></li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
-
-  <!-- Right Panel (now used) -->
-  <aside class="right-panel" aria-label="Quick tips">
-    <div class="rp__inner">
-      <h3 class="rp__title">Student ↔ Teacher Loop</h3>
-      <p class="rp__hint">Each article has “Teach it” notes: a single paragraph you’d tell a younger version of you. Keeps rigor honest.</p>
-      <hr style="border-color:rgba(255,255,255,.2)"/>
-      <p class="rp__hint">Shortcuts: <kbd>Ctrl/Cmd+B</kbd> bold, <kbd>Ctrl/Cmd+I</kbd> inline math, <kbd>Ctrl/Cmd+Shift+M</kbd> display math.</p>
-    </div>
-  </aside>
-
-  <!-- Main -->
-  <main>
-    <header>
-      <h1>Scientific Repository</h1>
-      <p>Personal blog for mathematical education where I learn and teach in one loop.</p>
-    </header>
-
-    <!-- Concepts -->
-    <h1>Opposites of Fundamental Concepts</h1>
-    <div class="concepts-table" id="conceptsRoot">
-      <div class="concepts-controls">
-        <button class="concept-btn" id="toggleDetails">Show Details</button>
-        <button class="concept-btn" id="exportPDF">Export PDF</button>
-        <select class="concept-btn" id="sortConcepts" aria-label="Sort concepts">
-          <option value="index">Sort: Original order</option>
-          <option value="alpha">Sort: Alphabetical</option>
-          <option value="domain">Sort: By domain</option>
-        </select>
-      </div>
-      <table id="conceptsTable" aria-label="Concepts and opposites">
-        <caption>Concepts and Their Opposites</caption>
-        <thead>
-          <tr><th>#</th><th>Original Concept</th><th>Opposite Concept</th></tr>
-        </thead>
-        <tbody>
-          <tr data-domain="relativity"><td>1</td><td>Special Relativity</td><td>Galilean Relativity</td></tr>
-          <tr data-domain="relativity"><td>2</td><td>Spacetime Geometry</td><td>Euclidean Space</td></tr>
-          <tr data-domain="relativity"><td>3</td><td>Lorentz Transformation</td><td>Galilean Transformation</td></tr>
-          <tr data-domain="relativity"><td>4</td><td>Minkowski Spacetime</td><td>Newtonian Absolute Space</td></tr>
-          <tr data-domain="relativity"><td>5</td><td>Relativistic Kinematics</td><td>Classical Kinematics</td></tr>
-          <tr data-domain="mechanics"><td>6</td><td>Four-Velocity \( \mathbf{u} \)</td><td>Three-Velocity \( \mathbf{v} \)</td></tr>
-          <tr data-domain="field"><td>7</td><td>Energy Momentum Tensor \( T^{\mu\nu} \)</td><td>Massless Field</td></tr>
-          <tr data-domain="quantum"><td>8</td><td>Quantum Mechanics</td><td>Classical Mechanics</td></tr>
-          <tr data-domain="quantum"><td>9</td><td>Quantum Fields</td><td>Classical Fields</td></tr>
-          <tr data-domain="gauge"><td>10</td><td>Gauge Theory</td><td>Global Symmetry Theory</td></tr>
-          <tr data-domain="field"><td>11</td><td>Field Theory</td><td>Point Particle Mechanics</td></tr>
-          <tr data-domain="em"><td>12</td><td>Electrodynamics</td><td>Magnetostatics</td></tr>
-          <tr data-domain="energy"><td>13</td><td>Potential</td><td>Kinetic Energy</td></tr>
-          <tr data-domain="mechanics"><td>14</td><td>Classical Mechanics</td><td>Quantum Mechanics</td></tr>
-          <tr data-domain="thermo"><td>15</td><td>Thermodynamic Equilibrium</td><td>Non-equilibrium Thermodynamics</td></tr>
-          <tr data-domain="statsmech"><td>16</td><td>Statistical Mechanics</td><td>Deterministic Mechanics</td></tr>
-          <tr data-domain="statsmech"><td>17</td><td>Partition Function</td><td>Microstate Counting</td></tr>
-          <tr data-domain="statsmech"><td>18</td><td>Microcanonical Ensemble</td><td>Open System Ensemble</td></tr>
-          <tr data-domain="statsmech"><td>19</td><td>Canonical Ensemble</td><td>Microcanonical Ensemble</td></tr>
-          <tr data-domain="statsmech"><td>20</td><td>Grand Canonical Ensemble</td><td>Closed System Ensemble</td></tr>
-          <tr data-domain="info"><td>21</td><td>Entropy</td><td>Negentropy</td></tr>
-          <tr data-domain="info"><td>22</td><td>Information Theory</td><td>Deterministic Signaling</td></tr>
-          <tr data-domain="info"><td>23</td><td>Shannon Entropy</td><td>Deterministic Information</td></tr>
-          <tr data-domain="info"><td>24</td><td>Mutual Information</td><td>Independence</td></tr>
-          <tr data-domain="info"><td>25</td><td>Channel Capacity</td><td>Channel Noise</td></tr>
-          <tr data-domain="uq"><td>26</td><td>Uncertainty Quantification</td><td>Deterministic Prediction</td></tr>
-          <tr data-domain="prob"><td>27</td><td>Random Variables</td><td>Deterministic Variables</td></tr>
-          <tr data-domain="prob"><td>28</td><td>Probability Density</td><td>Dirac Delta Function</td></tr>
-          <tr data-domain="prob"><td>29</td><td>Probability</td><td>Certainty</td></tr>
-          <tr data-domain="prob"><td>30</td><td>Expected Value</td><td>Realized Value</td></tr>
-          <tr data-domain="prob"><td>31</td><td>Variance</td><td>Determinism</td></tr>
-          <tr data-domain="bayes"><td>32</td><td>Bayesian Inference</td><td>Frequentist Inference</td></tr>
-          <tr data-domain="bayes"><td>33</td><td>Prior Probability</td><td>Posterior Probability</td></tr>
-          <tr data-domain="bayes"><td>34</td><td>Posterior Probability</td><td>Prior Probability</td></tr>
-          <tr data-domain="decision"><td>35</td><td>Decision Theory</td><td>Random Choice</td></tr>
-          <tr data-domain="decision"><td>36</td><td>Utility Function</td><td>Disutility Function</td></tr>
-          <tr data-domain="decision"><td>37</td><td>Expected Utility</td><td>Actual Outcome</td></tr>
-          <tr data-domain="opt"><td>38</td><td>Optimisation</td><td>Random Walk</td></tr>
-          <tr data-domain="game"><td>39</td><td>Game Theory</td><td>Single-agent Decision</td></tr>
-          <tr data-domain="game"><td>40</td><td>Nash Equilibrium</td><td>Dominant Strategy</td></tr>
-          <tr data-domain="complex"><td>41</td><td>Evolutionary Dynamics</td><td>Static Equilibrium</td></tr>
-          <tr data-domain="complex"><td>42</td><td>Complex Systems</td><td>Simple Systems</td></tr>
-          <tr data-domain="complex"><td>43</td><td>Emergence</td><td>Reductionism</td></tr>
-          <tr data-domain="dyn"><td>44</td><td>Chaos Theory</td><td>Linear Dynamics</td></tr>
-          <tr data-domain="geom"><td>45</td><td>Fractals</td><td>Euclidean Geometry</td></tr>
-          <tr data-domain="net"><td>46</td><td>Network Theory</td><td>Isolated Nodes</td></tr>
-          <tr data-domain="math"><td>47</td><td>Graph Theory</td><td>Set Theory</td></tr>
-          <tr data-domain="comp"><td>48</td><td>Computability</td><td>Uncomputability</td></tr>
-          <tr data-domain="logic"><td>49</td><td>Modal Logic</td><td>Propositional Logic</td></tr>
-          <tr data-domain="logic"><td>50</td><td>Necessity</td><td>Contingency</td></tr>
-          <tr data-domain="logic"><td>51</td><td>Possibility</td><td>Impossibility</td></tr>
-        </tbody>
-      </table>
-
-      <div class="concept-details" id="conceptDetails">
-        <div class="concept-content">
-          <h3>Additional Information</h3>
-          <p>Click any row for a short explanation and a quick formula comparison.</p>
-          <div id="selectedConcept"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Conceptual Notes (kept, lightly tightened) -->
-    <section aria-labelledby="concept-notes">
-      <h2 id="concept-notes">Conceptual Notes</h2>
-      <h3>Relativity and Spacetime</h3>
-      <ul>
-        <li><strong>Galilean Relativity</strong>: time absolute; space Euclidean.</li>
-        <li><strong>Newtonian Absolute Space</strong>: fixed spatial frame.</li>
-        <li><strong>Three-Velocity</strong>: \( \mathbf{v} \) lacks time component.</li>
-      </ul>
-
-      <h3>Thermodynamics and Information</h3>
-      <ul>
-        <li><strong>Negentropy</strong>: “distance” from maximum entropy.</li>
-        <li><strong>Non-equilibrium</strong>: sustained fluxes; \( \nabla \cdot \mathbf{J}\neq0 \).</li>
-        <li><strong>Deterministic Information</strong>: zero uncertainty signals.</li>
-      </ul>
-
-      <h3>Probability and Decision Theory</h3>
-      <ul>
-        <li><strong>Dirac Delta</strong>: certain outcome \( \delta(x-x_0) \).</li>
-        <li><strong>Frequentist</strong>: probability as long-run frequency.</li>
-        <li><strong>Disutility</strong>: cost-centric \( U(x)\le 0 \).</li>
-      </ul>
-
-      <h3>Complex Systems</h3>
-      <ul>
-        <li><strong>Reductionism</strong>: analyze parts, reassemble whole.</li>
-        <li><strong>Linear Dynamics</strong>: \( y=mx+c \); superposition holds.</li>
-        <li><strong>Static Equilibrium</strong>: no net change in state variables.</li>
-      </ul>
-    </section>
-
-    <!-- Algorithms (kept) -->
-    <section>
-      <header>
-        <h1>Hybrid EnKF–PF Algorithms (HTML)</h1>
-        <p>LaTeX→HTML algorithms rendered with MathJax.</p>
-      </header>
-
-      <!-- Algorithm 1 (kept) -->
-      <section class="alg" id="alg-hybrid">
-        <div class="alg__head">
-          <span class="alg__chip">ALGORITHM</span>
-          <h2 class="alg__title">Hybrid EnKF–PF for Barotropic QG Flow with Lagrangian Tracers</h2>
-        </div>
-        <div class="alg__body">
-          <div class="alg__io">
-            <strong>Input:</strong> \( \{\mathbf{x}_k^0\}_{k=1}^{N} \), velocity field, tracer paths \( \mathbf{X} \), \( \Delta t \), \( \mathbf{R} \)<br/>
-            <strong>Output:</strong> Posterior mean \( \mathbf{m}^a(t) \) at saved times \( t_s \)
-          </div>
-          <ol class="steps">
-            <li class="step"><div>Initialize spectral domain \( \mathbf{k}_x,\mathbf{k}_y,\lVert\mathbf{k}\rVert \); damping \( \gamma(\mathbf{k}) \); noise \( \sigma(\mathbf{k}) \).</div></li>
-            <li class="step"><div>Build \( \mathcal{H}(\mathbf{X}) \) via \( q\to \psi \to (u,v) \).</div></li>
-            <li class="step">
-              <div><strong>For</strong> \( t=1..T \) <strong>do</strong>
-                <div class="sub">
-                  <div class="note"><em>Forecast (all ensemble members)</em></div>
-                  <div class="sub">
-                    <strong>For</strong> \( k=1..N \) <strong>do</strong>
-                    <div class="sub">
-                      <div class="code">\( \psi_k \gets \mathcal{F}^{-1}\!\left[ \hat{q}_k / (\lVert\mathbf{k}\rVert^2 + \mu) \right] \)</div>
-                      <div class="code">Compute nonlinear advection \( \partial q_k/\partial t \) via pseudo-spectral QG.</div>
-                      <div class="code">\( \mathbf{x}_k^{f} \gets \mathbf{x}_k^{f} + \Delta t\, \partial q_k/\partial t + \Sigma \boldsymbol{\xi}_k \)</div>
-                    </div>
-                    <strong>end for</strong>
-                  </div>
-
-                  <div class="note"><em>Analysis on save cadence</em></div>
-                  <div class="sub">
-                    If \( \mathrm{mod}(t,n_{\text{save}})=0 \):
-                    <div class="sub">
-                      <div class="code">Construct observation matrix \( \mathbf{H} \) from tracer locations.</div>
-                      <div class="code">Ingest observed velocities \( \mathbf{d}(t) \) from \( \dot{\mathbf{X}} \).</div>
-                      <div class="code">Predict obs: \( \mathbf{Y}_k=\mathbf{H}\mathbf{x}_k^{f} \).</div>
-                      <div class="math-block">
-                        \[
-                          \mathbf{P}_{yy}=\frac{1}{N-1}\!\sum(\mathbf{Y}_k-\bar{\mathbf{Y}})(\mathbf{Y}_k-\bar{\mathbf{Y}})^\top + \mathbf{R},\quad
-                          \mathbf{P}_{xy}=\frac{1}{N-1}\!\sum(\mathbf{x}_k^{f}-\bar{\mathbf{x}})(\mathbf{Y}_k-\bar{\mathbf{Y}})^\top
-                        \]
-                      </div>
-                      <div class="math-block">\[ \mathbf{K}=\mathbf{P}_{xy}\mathbf{P}_{yy}^{-1} \]</div>
-
-                      <div class="note"><em>EnKF update</em></div>
-                      <div class="sub">
-                        <strong>For</strong> \( k=1..N \) <strong>do</strong>
-                        <div class="code">\( \mathbf{x}_k^{a}\gets \mathbf{x}_k^{f}+\mathbf{K}(\mathbf{d}-\mathbf{Y}_k) \)</div>
-                        <strong>end for</strong>
-                      </div>
-
-                      <div class="note"><em>PF reweight + resample</em></div>
-                      <div class="math-block">
-                        \[
-                          w_k \propto \exp\!\left(-\tfrac{1}{2}(\mathbf{d}-\mathbf{Y}_k)^\top \mathbf{R}^{-1}(\mathbf{d}-\mathbf{Y}_k)\right),
-                          \quad w_k \leftarrow \frac{w_k}{\sum_j w_j}
-                        \]
-                      </div>
-                      <div class="code">Resample \( \{\mathbf{x}_k^{a}\} \leftarrow \mathrm{Resample}(\{\mathbf{x}_k^{a}\},\{w_k\}) \)</div>
-                      <div class="code">Store mean \( \mathbf{m}(t)=\frac{1}{N}\sum_{k=1}^N \mathbf{x}_k^{a} \)</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </li>
-          </ol>
-        </div>
-      </section>
-
-      <!-- Algorithm 2 (kept) -->
-      <section class="alg" id="alg-resampling">
-        <div class="alg__head">
-          <span class="alg__chip">ALGORITHM</span>
-          <h2 class="alg__title">Systematic Resampling of Ensemble Members</h2>
-        </div>
-        <div class="alg__body">
-          <div class="alg__io">
-            <strong>Input:</strong> Weighted ensemble \( \{ \mathbf{x}_k, w_k \}_{k=1}^{N} \)<br/>
-            <strong>Output:</strong> Resampled ensemble \( \{ \tilde{\mathbf{x}}_k \}_{k=1}^{N} \)
-          </div>
-          <ol class="steps">
-            <li class="step"><div>Compute cumulative weights \( W_k=\sum_{j=1}^k w_j \).</div></li>
-            <li class="step"><div>Set stride \( \delta=1/N \).</div></li>
-            <li class="step"><div>Draw \( u\sim \mathcal{U}[0,\delta] \).</div></li>
-            <li class="step"><div>Initialize \( i\leftarrow1 \).</div></li>
-            <li class="step">
-              <div><strong>For</strong> \( k=1..N \) <strong>do</strong>
-                <div class="sub">
-                  <div class="code">\( u_k=u+(k-1)\delta \)</div>
-                  <div class="code">while \( u_k>W_i \): \( i\leftarrow i+1 \)</div>
-                  <div class="code">Set \( \tilde{\mathbf{x}}_k\leftarrow \mathbf{x}_i \)</div>
-                </div>
-                <strong>end for</strong>
-              </div>
-            </li>
-          </ol>
-        </div>
-      </section>
-    </section>
-
-    <!-- LaTeX Editor (kept, now functional) -->
-    <section class="latex-editor" aria-labelledby="latex-compiler">
-      <h3 id="latex-compiler" class="widget-title">Drag-and-Drop LaTeX Compiler</h3>
-
-      <section class="toolbar">
-        <div class="left">
-          <button id="btnInline" class="btn sm" title="Wrap selection with $…$">Inline</button>
-          <button id="btnDisplay" class="btn sm" title="Wrap selection with \\[ … \\]">Display</button>
-          <button id="btnCompile" class="btn sm primary">Compile</button>
-          <button id="btnClear" class="btn sm ghost">Clear</button>
-        </div>
-        <div class="right">
-          <input id="fileInput" type="file" accept=".tex,.txt" hidden>
-          <button id="btnOpen" class="btn sm">Open .tex</button>
-          <button id="btnDownload" class="btn sm">Download .tex</button>
-        </div>
-      </section>
-
-      <section class="workspace">
-        <div class="editor-wrap" id="dropZone" aria-label="Drag & drop .tex here">
-          <div class="editor-header">
-            <strong>Editor</strong>
-            <span class="hint">Drag & drop .tex — autosaves to browser</span>
-          </div>
-          <textarea id="editor" spellcheck="false" placeholder="% Type LaTeX. Use palette buttons to insert symbols at the cursor."></textarea>
-        </div>
-        <div class="preview-wrap">
-          <div class="editor-header">
-            <strong>Preview</strong>
-            <span class="hint">Rendered output updates automatically</span>
-          </div>
-          <div class="preview" id="preview" aria-live="polite"></div>
-        </div>
-      </section>
-    </section>
-
-    <!-- Mathematics Review (coherent order + links kept) -->
-    <section class="math-review" id="math-review">
-      <header>
-        <h1>Mathematics Review Journey</h1>
-        <p>From foundations → linear algebra → calculus/ODE → PDE → probability/statistics → numerical methods → data assimilation.</p>
-      </header>
-
-      <div class="math-flowchart">
-Foundational Axis
-Set Theory & Logic ───► Abstract Algebra (Group, Ring, Field)
-│
-Linear Algebra & Matrix Theory ───► Calculus → ODE → PDE (incl. Spectral)
-│
-Graph Theory & Discrete Math ───► Numerical Analysis & Sampling
-│
-Probability & Statistics ───► Stochastic Processes ───► Data Assimilation
-│
-Numerical Solver & HPC
-      </div>
-
-      <div class="navigation-card">
-        <h3>Quick Access</h3>
-        <a href="math_review.html#linear-algebra" class="nav-link"><i class="fa fa-up-right-from-square"></i> Linear Algebra Review (full page)</a>
-        <a href="#lib" class="nav-link">Articles Library (dynamic)</a>
-        <a href="#high-school" class="nav-link">High School Mathematics</a>
-        <a href="#undergraduate" class="nav-link">Undergraduate Mathematics</a>
-        <a href="#graduate" class="nav-link">Graduate Mathematics (MSc)</a>
-        <div class="nav-preview">
-          <div class="preview-content">Click to explore concepts and LaTeX examples.</div>
-        </div>
-      </div>
-
-      <!-- Anchors you already referenced -->
-      <section id="high-school"><h2>High School Mathematics</h2><p>Algebra, functions, trigonometry, geometry, introductory probability.</p></section>
-      <section id="undergraduate"><h2>Undergraduate Mathematics</h2><p>Linear algebra, real analysis, ODE/PDE, numerical methods, probability/statistics.</p></section>
-      <section id="graduate"><h2>Graduate Mathematics (MSc)</h2><p>Measure/probability, stochastic calculus, spectral PDEs, inverse problems, data assimilation.</p></section>
-    </section>
-
-    <!-- Research Proposal (kept) -->
-    <section class="research-proposal">
-      <header>
-        <h1>Research Proposal: Information-Theoretic Bayesian Optimization</h1>
-        <p>Unifying Bayesian Optimization and Data Assimilation for complex systems.</p>
-      </header>
-
-      <div class="kenburns-type">
-        <div class="section">
-          <h2 class="type-on">The Scientific Challenge</h2>
-          <p>Realistic simulators are expensive; informative experiments are scarce. We select actions that maximize learning under cost constraints.</p>
-          <div class="math">
-            <h3>Core Optimization Problem</h3>
-            \[
-              \boldsymbol{\pi}^*=\arg\max_{\boldsymbol{\pi}\in\Pi}
-              \mathbb{E}_{\boldsymbol{\pi}}\!\left[I(\mathbf{x}_t;\mathbf{y}_t\mid\mathcal{D}_{1:t-1})-\lambda C(\boldsymbol{\pi})\right]
-            \]
-          </div>
-        </div>
-      </div>
-
-      <div class="kenburns-type">
-        <div class="section">
-          <h2 class="type-on">Information-Theoretic Framework</h2>
-          <p>Pose a joint design/assimilation step that directly trades off information gain and feasibility.</p>
-          <div class="math">
-            <h3>Information Gain</h3>
-            \[
-              I(\mathbf{x};\mathbf{y}\mid\mathcal{D})=\mathrm{KL}\!\left(
-              p(\mathbf{x},\mathbf{y}\mid\mathcal{D})\;\big\|\;
-              p(\mathbf{x}\mid\mathcal{D})\,p(\mathbf{y}\mid\mathcal{D})
-              \right)
-            \]
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- NEW: Flipbook Viewer for PDFs -->
-    <section>
-      <header>
-        <h1>Documents — Flipbook & Classic View</h1>
-        <p>Use the flipbook for an immersive read. Classic cards remain below.</p>
-      </header>
-
-      <div class="flipbook" id="flipbook">
-        <div class="sheet left" id="sheet-left">
-          <iframe id="fb-left" title="Flipbook Left Page" src="files/FTF.pdf#view=FitH" loading="lazy"></iframe>
-        </div>
-        <div class="sheet right" id="sheet-right">
-          <iframe id="fb-right" title="Flipbook Right Page" src="files/time_behavior.pdf#view=FitH" loading="lazy"></iframe>
-        </div>
-        <div class="nav">
-          <button id="fb-prev" aria-label="Previous"><i class="fa fa-chevron-left"></i></button>
-          <button id="fb-next" aria-label="Next"><i class="fa fa-chevron-right"></i></button>
-        </div>
-        <div class="caption" id="fb-caption">FTF • Time Behavior</div>
-      </div>
-
-      <!-- Classic (kept) -->
-      <div class="document-container">
-        <div class="document">
-          <h2>FTF Document</h2>
-          <p style="padding:10px"><a href="files/FTF.pdf" download>Download FTF Document (PDF)</a></p>
-          <div class="viewer">
-            <div class="pdf-container">
-              <iframe src="files/FTF.pdf#view=FitH" title="FTF Document" loading="lazy"></iframe>
-            </div>
-          </div>
-        </div>
-
-        <div class="document">
-          <h2>Time Behavior Document</h2>
-          <p style="padding:10px"><a href="files/time_behavior.pdf" download>Download Time Behavior Document (PDF)</a></p>
-          <div class="viewer">
-            <div class="pdf-container">
-              <iframe src="files/time_behavior.pdf#view=FitH" title="Time Behavior Document" loading="lazy"></iframe>
-            </div>
-          </div>
-        </div>
-
-        <!-- New: Ahmad Project on Generalization -->
-        <div class="document">
-          <h2>Ahmad Project on Generalization</h2>
-          <p style="padding:10px"><a href="files/Ahmad_project_on_Generalization.pdf" download>Download Ahmad Project on Generalization (PDF)</a></p>
-          <div class="viewer">
-            <div class="pdf-container">
-              <iframe src="files/Ahmad_project_on_Generalization.pdf#view=FitH" title="Ahmad Project on Generalization" loading="lazy"></iframe>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- NEW: Articles Library (dynamic) -->
-    <section class="library" id="lib" aria-labelledby="lib-title">
-      <h2 id="lib-title">Articles Library</h2>
-      <div class="lib-controls">
-        <input id="q" type="search" placeholder="Search title/summary…" aria-label="Search articles"/>
-        <select id="cat">
-          <option value="">All categories</option>
-          <option>Foundations</option>
-          <option>Linear Algebra</option>
-          <option>PDE / Spectral</option>
-          <option>Probability</option>
-          <option>Data Assimilation</option>
-        </select>
-        <select id="sort">
-          <option value="new">Newest first</option>
-          <option value="old">Oldest first</option>
-          <option value="az">Title A–Z</option>
-          <option value="za">Title Z–A</option>
-        </select>
-        <input id="tag" type="text" placeholder="Filter by tag (e.g., EnKF)" aria-label="Filter by tag"/>
-      </div>
-      <div class="lib-grid" id="lib-grid" role="list"></div>
-    </section>
-
-    <footer>
-      <p>&copy; 2025 Ahmad Droobi. All rights reserved.</p>
-      <p>
-        Quick Access: 
-        <a href="files/ahmad_articles/index.html">Ahmad Articles</a> ·
-        <a href="files/Ahmad_project_on_Generalization.pdf">Generalization Project (PDF)</a>
-      </p>
-    </footer>
-  </main>
-
-  <script>
-    /* ========== PDF hover tilt (kept) ========== */
-    document.querySelectorAll('.pdf-container').forEach(container => {
-      container.addEventListener('mouseover', () => {
-        container.querySelector('iframe').style.transform = 'rotateY(-10deg)';
-      });
-      container.addEventListener('mouseout', () => {
-        container.querySelector('iframe').style.transform = 'rotateY(0deg)';
-      });
-    });
-
-    /* ========== Concepts Interactions (kept + sorting) ========== */
-    const conceptDetails = document.getElementById('conceptDetails');
-    const toggleDetailsBtn = document.getElementById('toggleDetails');
-    const selectedConcept = document.getElementById('selectedConcept');
-    const sortConcepts = document.getElementById('sortConcepts');
-    const conceptsBody = document.querySelector('.concepts-table tbody');
-    let detailsVisible = false;
-
-    toggleDetailsBtn.addEventListener('click', () => {
-      detailsVisible = !detailsVisible;
-      conceptDetails.style.height = detailsVisible ? '220px' : '0';
-      toggleDetailsBtn.textContent = detailsVisible ? 'Hide Details' : 'Show Details';
-    });
-
-    function attachConceptClickHandlers(){
-      document.querySelectorAll('.concepts-table tbody tr').forEach(row => {
-        row.addEventListener('click', () => {
-          const cells = row.cells;
-          const concept = cells[1].textContent.trim();
-          const opposite = cells[2].textContent.trim();
-          selectedConcept.innerHTML = `
-            <h4>${concept} vs ${opposite}</h4>
-            <p><strong>Why “opposites”?</strong> They anchor assumptions. For example, Lorentz vs. Galilean transforms:</p>
-            <div class="math-block">
-            \\[
-              \\text{Lorentz:}\\quad
-              t' = \\gamma\\left(t - \\frac{vx}{c^2}\\right),\\quad
-              x' = \\gamma(x - vt),\\;
-              \\gamma = (1 - v^2/c^2)^{-1/2}
-            \\]
-            \\[
-              \\text{Galilean:}\\quad
-              t'=t,\\quad x' = x - vt
-            \\]
-            </div>
-          `;
-          if (!detailsVisible) toggleDetailsBtn.click();
-          MathJax.typesetPromise([selectedConcept]);
-        });
-      });
-    }
-    attachConceptClickHandlers();
-
-    sortConcepts.addEventListener('change', () => {
-      const rows = Array.from(conceptsBody.querySelectorAll('tr'));
-      const mode = sortConcepts.value;
-      let sorted = rows.slice();
-
-      if (mode === 'alpha'){
-        sorted.sort((a,b)=>a.cells[1].textContent.localeCompare(b.cells[1].textContent));
-      } else if (mode === 'domain'){
-        sorted.sort((a,b)=>{
-          const da=a.dataset.domain||'', db=b.dataset.domain||'';
-          return da===db ? a.cells[1].textContent.localeCompare(b.cells[1].textContent) : da.localeCompare(db);
-        });
-      } else {
-        sorted.sort((a,b)=>parseInt(a.cells[0].textContent)-parseInt(b.cells[0].textContent));
-      }
-      conceptsBody.innerHTML='';
-      sorted.forEach(tr=>conceptsBody.appendChild(tr));
-      attachConceptClickHandlers();
-    });
-
-    document.getElementById('exportPDF').addEventListener('click', () => {
-      alert('Tip: for high-quality export, print this page to PDF (Ctrl/Cmd+P) and enable “Background graphics”. For per-section export, use your browser’s “Save as PDF” after collapsing sections.');
-    });
-
-    /* ========== LaTeX Editor Enhancements ========== */
-    const editor = document.getElementById('editor');
-    const preview = document.getElementById('preview');
-
-    // Autosave
-    const LS_KEY = 'latex-editor-content';
-    editor.value = localStorage.getItem(LS_KEY) || '';
-    editor.addEventListener('input', () => localStorage.setItem(LS_KEY, editor.value));
-
-    // Compile
-    function compileLatex(){
-      const html = latex2html(editor.value);
-      preview.innerHTML = html;
-      MathJax.typesetPromise([preview]);
-    }
-    document.getElementById('btnCompile').addEventListener('click', compileLatex);
-
-    // Clear
-    document.getElementById('btnClear').addEventListener('click', () => {
-      editor.value=''; preview.innerHTML=''; localStorage.removeItem(LS_KEY);
-    });
-
-    // Open/Download
-    document.getElementById('btnOpen').addEventListener('click', () => document.getElementById('fileInput').click());
-    document.getElementById('fileInput').addEventListener('change', (event) => {
-      const file = event.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        editor.value = e.target.result;
-        localStorage.setItem(LS_KEY, editor.value);
-        compileLatex();
-      };
-      reader.readAsText(file);
-    });
-    document.getElementById('btnDownload').addEventListener('click', () => {
-      const blob = new Blob([editor.value], { type: 'text/plain;charset=utf-8' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url; a.download = 'document.tex';
-      document.body.appendChild(a); a.click();
-      document.body.removeChild(a); URL.revokeObjectURL(url);
-    });
-
-    // Selection wrappers
-    function wrapSelection(before, after){
-      const start = editor.selectionStart, end = editor.selectionEnd;
-      const val = editor.value;
-      const sel = val.slice(start,end);
-      const out = val.slice(0,start) + before + sel + after + val.slice(end);
-      editor.value = out; localStorage.setItem(LS_KEY, out);
-      editor.focus();
-      // put cursor around selection
-      editor.selectionStart = start + before.length;
-      editor.selectionEnd = end + before.length;
-    }
-    document.getElementById('btnInline').addEventListener('click', ()=>wrapSelection('$','$'));
-    document.getElementById('btnDisplay').addEventListener('click', ()=>wrapSelection('\\[','\\]'));
-
-    // Shortcuts
-    document.addEventListener('keydown', (e)=>{
-      const mac = navigator.platform.toUpperCase().includes('MAC');
-      const mod = mac ? e.metaKey : e.ctrlKey;
-      if (mod && e.key.toLowerCase()==='i'){ e.preventDefault(); wrapSelection('$','$'); }
-      if (mod && e.shiftKey && e.key.toLowerCase()==='m'){ e.preventDefault(); wrapSelection('\\[','\\]'); }
-      if (mod && e.key.toLowerCase()==='b'){ e.preventDefault(); wrapSelection('\\textbf{','}'); }
-    });
-
-    // Drag & drop
-    const dropZone = document.getElementById('dropZone');
-    ['dragenter','dragover'].forEach(evt=>dropZone.addEventListener(evt,e=>{e.preventDefault();dropZone.style.border='2px dashed #007bff'}));
-    ;['dragleave','drop'].forEach(evt=>dropZone.addEventListener(evt,e=>{e.preventDefault();dropZone.style.border=''}));
-    dropZone.addEventListener('drop',(e)=>{
-      const file = e.dataTransfer.files?.[0]; if(!file) return;
-      const reader=new FileReader();
-      reader.onload = (ev)=>{ editor.value = ev.target.result; localStorage.setItem(LS_KEY, editor.value); compileLatex(); };
-      reader.readAsText(file);
-    });
-
-    // Minimal LaTeX→HTML (kept)
-    function latex2html(latex){
-      return latex
-        .replace(/\\section\{(.+?)\}/g,'<h2>$1</h2>')
-        .replace(/\\subsection\{(.+?)\}/g,'<h3>$1</h3>')
-        .replace(/\\emph\{(.+?)\}/g,'<em>$1</em>')
-        .replace(/\\textbf\{(.+?)\}/g,'<strong>$1</strong>')
-        .replace(/\\begin\{itemize\}/g,'<ul>').replace(/\\end\{itemize\}/g,'</ul>')
-        .replace(/\\begin\{enumerate\}/g,'<ol>').replace(/\\end\{enumerate\}/g,'</ol>')
-        .replace(/\\item/g,'<li>')
-        .replace(/\\dfrac\{(.+?)\}\{(.+?)\}/g,'<div class="math-block">\\\\[ \\\\frac{$1}{$2} \\\\]</div>')
-        .replace(/\\frac\{(.+?)\}\{(.+?)\}/g,'<div class="math-block">\\\\[ \\\\frac{$1}{$2} \\\\]</div>')
-        .replace(/\\left\(/g,'(').replace(/\\right\)/g,')')
-        .replace(/\\\[/g,'<div class="math-block">\\\\[').replace(/\\\]/g,'\\\\]</div>');
-    }
-
-    /* ========== Flipbook (simple doc “page” flipping) ========== */
-    const fbLeft = document.getElementById('fb-left');
-    const fbRight = document.getElementById('fb-right');
-    const fbPrev = document.getElementById('fb-prev');
-    const fbNext = document.getElementById('fb-next');
-    const fbCaption = document.getElementById('fb-caption');
-
-    // Treat each PDF as a “page” in the book
-    const pages = [
-      {title:'FTF', src:'files/FTF.pdf#view=FitH'},
-      {title:'Time Behavior', src:'files/time_behavior.pdf#view=FitH'},
-      {title:'Generalization Project', src:'files/Ahmad_project_on_Generalization.pdf#view=FitH'}
-      // add more docs here as needed
-    ];
-    let pairIndex = 0; // each step moves by two pages: [0,1], [2,3], …
-
-    function renderPair(){
-      const left = pages[pairIndex] || null;
-      const right = pages[pairIndex+1] || null;
-      if (left){ fbLeft.src = left.src; fbLeft.parentElement.classList.remove('hidden'); } else { fbLeft.parentElement.classList.add('hidden'); }
-      if (right){ fbRight.src = right.src; fbRight.parentElement.classList.remove('hidden'); } else { fbRight.parentElement.classList.add('hidden'); }
-      const cap = [left?.title, right?.title].filter(Boolean).join(' • ');
-      fbCaption.textContent = cap || '—';
-    }
-    fbPrev.addEventListener('click', ()=>{ pairIndex = Math.max(0, pairIndex-2); renderPair(); animateSheets(-1); });
-    fbNext.addEventListener('click', ()=>{ pairIndex = Math.min(pages.length-2, pairIndex+2); renderPair(); animateSheets(1); });
-
-    function animateSheets(dir){
-      const leftSheet = document.getElementById('sheet-left');
-      const rightSheet = document.getElementById('sheet-right');
-      if (dir>0){
-        rightSheet.style.transform = 'rotateY(-170deg)';
-        setTimeout(()=>{ rightSheet.style.transform=''; }, 400);
-      }else{
-        leftSheet.style.transform = 'rotateY(170deg)';
-        setTimeout(()=>{ leftSheet.style.transform=''; }, 400);
-      }
-    }
-    renderPair();
-
-    /* ========== Articles Library (dynamic) ========== */
-    const articles = [
-      {
-        id:'found-sets-logic',
-        title:'Foundations: Sets, Logic, Proof',
-        category:'Foundations',
-        tags:['proof','logic'],
-        date:'2025-08-31',
-        summary:'Minimal axioms, inference rules, and proof skeletons you should recall in 5 minutes.',
-        teach:'Prove one tiny lemma daily. Muscle builds.',
-        url:'#high-school'
-      },
-      {
-        id:'lin-alg-spectral',
-        title:'Linear Algebra for Spectral PDEs',
-        category:'Linear Algebra',
-        tags:['eigendecomp','fourier'],
-        date:'2025-09-01',
-        summary:'Diagonalization, orthogonality, and why Fourier modes are the right basis for QG.',
-        teach:'Project onto eigenmodes; dynamics decouple (approximately).',
-        url:'#undergraduate'
-      },
-      {
-        id:'pde-spectral-qg',
-        title:'Spectral Methods for QG',
-        category:'PDE / Spectral',
-        tags:['QG','spectral','RK4'],
-        date:'2025-09-02',
-        summary:'Barotropic QG, pseudo-spectral advection, dealiasing, and ARK/RK schemes.',
-        teach:'Nonlinearity lives in physical space; derivatives love Fourier space.',
-        url:'#graduate'
-      },
-      {
-        id:'prob-stats',
-        title:'Probability to Stochastic Processes',
-        category:'Probability',
-        tags:['entropy','KL','MI'],
-        date:'2025-09-03',
-        summary:'From measure basics to KL/M.I. identities you actually use.',
-        teach:'Always pin your sigma-algebra and conditioning set.',
-        url:'#graduate'
-      },
-      {
-        id:'data-assim',
-        title:'Data Assimilation: EnKF–PF',
-        category:'Data Assimilation',
-        tags:['EnKF','PF','covariance'],
-        date:'2025-09-04',
-        summary:'Hybrid filters, covariance handling, and diagnostics (RMSE, corr, spectra).',
-        teach:'The gain is a geometry: map residuals back to state space.',
-        url:'#alg-hybrid'
-      }
-    ];
-
-    const grid = document.getElementById('lib-grid');
-    const qEl = document.getElementById('q');
-    const catEl = document.getElementById('cat');
-    const sortEl = document.getElementById('sort');
-    const tagEl = document.getElementById('tag');
-
-    function renderLibrary(){
-      const q = qEl.value.trim().toLowerCase();
-      const cat = catEl.value;
-      const tag = tagEl.value.trim().toLowerCase();
-
-      let list = articles.slice();
-      if (q) list = list.filter(a => (a.title+a.summary).toLowerCase().includes(q));
-      if (cat) list = list.filter(a => a.category===cat);
-      if (tag) list = list.filter(a => a.tags.some(t => t.toLowerCase().includes(tag)));
-
-      const mode = sortEl.value;
-      list.sort((a,b)=>{
-        if (mode==='new') return new Date(b.date)-new Date(a.date);
-        if (mode==='old') return new Date(a.date)-new Date(b.date);
-        if (mode==='az') return a.title.localeCompare(b.title);
-        if (mode==='za') return b.title.localeCompare(a.title);
-        return 0;
-      });
-
-      grid.innerHTML='';
-      list.forEach(a=>{
-        const el = document.createElement('article');
-        el.className='card';
-        el.setAttribute('role','listitem');
-        el.innerHTML = `
-          <h3 style="margin:0">${a.title}</h3>
-          <div class="meta">${a.category} • ${new Date(a.date).toLocaleDateString()}</div>
-          <p style="margin:0">${a.summary}</p>
-          <div>${a.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
-          <details><summary><strong>Teach it</strong></summary><p>${a.teach}</p></details>
-          <div>
-            <a href="${a.url}" class="nav-link" style="display:inline-block;margin-top:8px;padding:6px 10px">Open</a>
-          </div>
-        `;
-        grid.appendChild(el);
-      });
-    }
-    [qEl,catEl,sortEl,tagEl].forEach(el=>el.addEventListener('input', renderLibrary));
-    renderLibrary();
-  </script>
 </body>
 </html>
