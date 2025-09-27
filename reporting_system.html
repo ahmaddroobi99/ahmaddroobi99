@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporting System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+            list-style: none;
+        }
+
+        .timeline:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 2px;
+            background: #c5c5c5;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin: 20px 0;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+
+        .timeline-item-content {
+            position: relative;
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .timeline-item-content:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .timeline-item-content h3 {
+            margin: 0 0 10px;
+            font-size: 1.5em;
+        }
+
+        .timeline-item-content p {
+            margin: 0;
+        }
+
+        .timeline-item-content time {
+            display: block;
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #999;
+        }
+
+        .timeline-item-content .tag {
+            display: inline-block;
+            background: #007bff;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 1em;
+            color: #fff;
+            background: #007bff;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #0056b3;
+        }
+
+        .timeline-item-content a {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 15px;
+            background: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background 0.3s ease;
+        }
+
+        .timeline-item-content a:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Reporting System</h1>
+        <p>Welcome to the reporting system. Below is a timeline of reports:</p>
+
+        <ul class="timeline">
+            <li class="timeline-item">
+                <div class="timeline-item-content">
+                    <span class="tag">Mathematics</span>
+                    <h3>Report Title 1</h3>
+                    <p>Description of the report goes here.</p>
+                    <time>September 2025</time>
+                    <a href="files/Math_ML.pdf" target="_blank">View Report</a>
+                </div>
+            </li>
+            <li class="timeline-item">
+                <div class="timeline-item-content">
+                    <span class="tag">Physics</span>
+                    <h3>Report Title 2</h3>
+                    <p>Description of the report goes here.</p>
+                    <time>August 2025</time>
+                    <a href="files/time_behavior.pdf" target="_blank">View Report</a>
+                </div>
+            </li>
+            <!-- Add more timeline items as needed -->
+        </ul>
+
+        <a href="repository.html" class="btn">Back to Repository</a>
+    </div>
+</body>
+</html>
