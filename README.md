@@ -1,50 +1,38 @@
-# Ahmad Droobi's Personal Website
+# Ahmad Droobi Portfolio
 
-This repository contains the source code for Ahmad Droobi's personal website. The website showcases Ahmad's academic achievements, professional experience, publications, and projects. It also includes a gallery and other sections to provide a comprehensive overview of his work and interests.
+Modern React/Vite portfolio for Ahmad Droobi. The site presents professional experience, education, publications, awards, advising, projects, philosophy, gallery, and contact information while preserving the legacy deployed HTML routes through redirects and Vercel SPA rewrites.
 
-## Features
+## Stack
 
-- **Home Page**: Overview of Ahmad's profile and key highlights.
-- **Education**: Details about academic background and degrees.
-- **Publications**: List of research papers and articles.
-- **Projects**: Showcase of completed and ongoing projects.
-- **Experience**: Professional and academic experiences.
-- **Awards**: Recognition and achievements.
-- **Gallery**: A categorized gallery of images.
-- **Responsive Design**: Optimized for both desktop and mobile devices.
+- React with functional components
+- Vite production build
+- React Router route-based pages
+- Lucide icons
+- Global CSS design system with reusable tokens
+- Vercel-compatible routing
 
-## Technologies Used
+## Local Development
 
-- **HTML5**: Structure of the website.
-- **CSS3**: Styling and layout, including responsive design.
-- **JavaScript**: Interactive features and animations.
-- **Bootstrap**: Framework for responsive design.
-- **Font Awesome & Academicons**: Icons for social links and academic references.
+```bash
+npm install
+npm run dev
+```
 
-## Setup Instructions
+Open `http://127.0.0.1:5173`.
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/ahmaddroobi99/time7.git
-   ```
-2. Navigate to the project directory:
-   ```bash
-   cd time7
-   ```
-3. Open `index.html` in your browser to view the website locally.
+## Production Build
 
-## Folder Structure
+```bash
+npm run build
+npm run preview
+```
 
-- `css/`: Stylesheets for the website.
-- `js/`: JavaScript files for interactivity.
-- `img/`: Images used across the website.
-- `gallery/`: Images for the gallery section.
-- `files/`: Additional downloadable files like CVs.
+## Deploy
 
-## License
+The project is ready for Vercel. Push the repository and let Vercel run:
 
-This project is licensed under the MIT License. Feel free to use and modify the code as needed.
+```bash
+npm run build
+```
 
-## Contact
-
-For any inquiries or feedback, please contact Ahmad Droobi at [ahmaddroobi@clemson.edu].
+The output directory is `dist`, and `vercel.json` rewrites all routes to `index.html` so direct visits to React routes work.

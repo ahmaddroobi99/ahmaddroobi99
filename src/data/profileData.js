@@ -10,6 +10,7 @@ export const profile = {
   title: "Software Engineer | AI/ML Developer | LiDAR & Perception Systems",
   tagline: "Building reliable software for data-intensive AI, perception, automation, and intelligent systems.",
   email: "ahmad.droobi@ucalgary.ca",
+  githubUsername: "ahmaddroobi99",
   github: "https://github.com/ahmaddroobi99",
   linkedin: "https://www.linkedin.com/in/droobi/",
   scholar: "https://scholar.google.com/citations?hl=en&user=H-3pF00AAAAJ&view_op=list_works&sortby=pubdate",
@@ -41,28 +42,32 @@ export const publications = [
     meta: "A. Droobi - 2025",
     summary:
       "Built computational filtering workflows for noisy, high-dimensional dynamical systems, with emphasis on state estimation, reproducible experiments, and evaluation discipline.",
-    href: "https://ucalgary.scholaris.ca"
+    href: "https://ucalgary.scholaris.ca",
+    doi: null
   },
   {
     title: "Simple Electric Circuit Builder (SECB)",
     meta: "A. Droobi - 2023",
     summary:
       "Developed an engineering application for circuit-building workflows, connecting software interfaces with automation and hardware-oriented problem solving.",
-    href: "https://www.researchgate.net/publication"
+    href: "https://www.researchgate.net/publication",
+    doi: null
   },
   {
     title: "CookOverflow",
     meta: "A. Droobi, MND Shaqour, Ataa - 2022",
     summary:
       "Built a structured application as a capstone project, focusing on data organization, user workflow design, and maintainable software architecture.",
-    href: "https://repository.najah.edu/items/3a8b9d6c-9c1e-4308-8f5a-e5f7fec1af25"
+    href: "https://repository.najah.edu/items/3a8b9d6c-9c1e-4308-8f5a-e5f7fec1af25",
+    doi: null
   },
   {
     title: "Deep Learning Random Process Predictivity Analysis",
     meta: "University of Calgary",
     summary:
       "Implemented deep learning experimentation workflows for predictivity analysis, including preprocessing, evaluation, and repeatable experiment structure.",
-    href: publicPdf
+    href: publicPdf,
+    doi: null
   }
 ];
 
