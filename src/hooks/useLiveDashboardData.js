@@ -178,25 +178,75 @@ async function fetchResearch() {
   return metrics;
 }
 
+async function fetchIss() {
+  const data = await fetchJson("https://api.wheretheiss.at/v1/satellites/25544");
+  return {
+    latitude: data.latitude,
+    longitude: data.longitude,
+    altitude: data.altitude,
+    velocity: data.velocity,
+    visibility: data.visibility,
+    timestamp: data.timestamp
+  };
+}
+
+async function fetchQuakes() {
+  const data = await fetchJson(
+    "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_day.geojson"
+  );
+  const features = (data.features || []).slice(0, 8).map((feature) => ({
+    id: feature.id,
+    magnitude: feature.properties.mag,
+    place: feature.properties.place,
+    time: feature.properties.time,
+    url: feature.properties.url,
+    depth: feature.geometry?.coordinates?.[2] ?? null
+  }));
+
+  return {
+    count: data.metadata?.count ?? features.length,
+    features
+  };
+}
+
+async function fetchSpaceNews() {
+  const data = await fetchJson("https://api.spaceflightnewsapi.net/v4/articles/?limit=5");
+  return (data.results || []).map((article) => ({
+    id: article.id,
+    title: article.title,
+    source: article.news_site,
+    url: article.url,
+    publishedAt: article.published_at
+  }));
+}
+
 async function fetchDashboardData() {
-  const [github, weather, research] = await Promise.allSettled([
+  const [github, weather, research, quakes, news] = await Promise.allSettled([
     fetchGitHub(),
     fetchWeather(),
-    fetchResearch()
+    fetchResearch(),
+    fetchQuakes(),
+    fetchSpaceNews()
   ]);
 
   return {
     github: github.status === "fulfilled" ? github.value : null,
     weather: weather.status === "fulfilled" ? weather.value : null,
     research: research.status === "fulfilled" ? research.value : [],
+    quakes: quakes.status === "fulfilled" ? quakes.value : null,
+    news: news.status === "fulfilled" ? news.value : [],
     errors: {
       github: github.status === "rejected" ? github.reason.message : null,
       weather: weather.status === "rejected" ? weather.reason.message : null,
-      research: research.status === "rejected" ? research.reason.message : null
+      research: research.status === "rejected" ? research.reason.message : null,
+      quakes: quakes.status === "rejected" ? quakes.reason.message : null,
+      news: news.status === "rejected" ? news.reason.message : null
     },
     updatedAt: new Date().toISOString()
   };
 }
+
+const ISS_POLL_MS = 5000;
 
 function useLiveDashboardData() {
   const cached = useMemo(() => readCache(), []);
@@ -205,6 +255,7 @@ function useLiveDashboardData() {
     data: cached?.data || null,
     error: null
   });
+  const [iss, setIss] = useState(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -231,7 +282,29 @@ function useLiveDashboardData() {
     };
   }, []);
 
-  return state;
+  // Real-time loop: the ISS moves ~7.6 km/s, so re-poll its position frequently.
+  useEffect(() => {
+    let cancelled = false;
+    let timer;
+
+    async function tick() {
+      try {
+        const position = await fetchIss();
+        if (!cancelled) setIss(position);
+      } catch {
+        // Keep the last known position if a single poll fails.
+      }
+      if (!cancelled) timer = window.setTimeout(tick, ISS_POLL_MS);
+    }
+
+    tick();
+    return () => {
+      cancelled = true;
+      window.clearTimeout(timer);
+    };
+  }, []);
+
+  return { ...state, iss };
 }
 
 export default useLiveDashboardData;

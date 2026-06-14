@@ -1,4 +1,4 @@
-import { ArrowUpRight, CloudSun, Github, LayoutDashboard, MapPinned } from "lucide-react";
+import { Activity, ArrowUpRight, Github, LayoutDashboard, Satellite } from "lucide-react";
 import { Link } from "react-router-dom";
 import Hero from "../components/Hero.jsx";
 import ProjectCard from "../components/ProjectCard.jsx";
@@ -12,9 +12,9 @@ function Home() {
   return (
     <>
       <Hero />
-      <Section kicker="About" title="Engineering software for data-heavy AI and perception workflows.">
+      <Section kicker="About" title="Software that helps machines sense, estimate, and act.">
         <div className="feature-strip">
-          <img src={profile.heroImg} alt="Computational and engineering work" width="1600" height="900" loading="lazy" decoding="async" />
+          <img src={profile.heroImg} alt="Robotics and computational engineering work" width="1600" height="900" loading="lazy" decoding="async" />
           <div>
             <p>{aboutCopy.intro}</p>
             <Link to="/about">
@@ -23,33 +23,33 @@ function Home() {
           </div>
         </div>
       </Section>
-      <Section kicker="Skills" title="Core skills for backend systems, ML workflows, and perception data.">
+      <Section kicker="Skills" title="Core skills across robotics, perception, and estimation.">
         <div className="focus-grid">
           {skills.slice(0, 3).map((skill) => (
             <SkillCard key={skill.category} skill={skill} />
           ))}
         </div>
       </Section>
-      <Section kicker="Live Hub" title="A macOS dashboard for public signals and context.">
+      <Section kicker="Live Mission Control" title="A real-time dashboard wired to public science &amp; engineering APIs.">
         <div className="live-preview-grid">
           <article>
             <Github size={24} />
             <h3>Code activity</h3>
-            <p>GitHub repositories, languages, and recent updates.</p>
+            <p>GitHub repositories, languages, and recent commits.</p>
           </article>
           <article>
-            <CloudSun size={24} />
-            <h3>Vancouver weather</h3>
-            <p>Open-Meteo temperature and precipitation charts.</p>
+            <Satellite size={24} />
+            <h3>ISS live track</h3>
+            <p>Real-time orbital position of the Space Station.</p>
           </article>
           <article>
-            <MapPinned size={24} />
-            <h3>Place context</h3>
-            <p>Map-style widget centered on Vancouver.</p>
+            <Activity size={24} />
+            <h3>Earth &amp; space feeds</h3>
+            <p>Live seismic events and spaceflight headlines.</p>
           </article>
           <Link className="live-preview-action" to="/dashboard">
             <LayoutDashboard size={22} />
-            Open Dashboard <ArrowUpRight size={16} />
+            Open Mission Control <ArrowUpRight size={16} />
           </Link>
         </div>
       </Section>

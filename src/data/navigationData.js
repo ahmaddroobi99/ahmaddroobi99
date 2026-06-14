@@ -7,8 +7,8 @@ export const navigationItems = [
   { label: "Publications", path: "/publications", title: "Publications" },
   { label: "Awards", path: "/awards", title: "Awards" },
   { label: "Advising", path: "/advising", title: "Advising" },
-  { label: "Gallery", path: "/gallery", title: "Photos" },
-  { label: "Dashboard", path: "/dashboard", title: "Live Dashboard" },
+  { label: "Gallery", path: "/gallery", title: "Gallery" },
+  { label: "Dashboard", path: "/dashboard", title: "Mission Control" },
   { label: "Contact", path: "/contact", title: "Contact" }
 ];
 
