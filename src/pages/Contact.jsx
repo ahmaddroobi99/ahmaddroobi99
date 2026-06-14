@@ -8,8 +8,8 @@ function Contact() {
     <>
       <PageHero
         kicker="Contact"
-        title="Open to software engineering, AI/ML, backend, data, and perception software roles."
-        intro="Best-fit teams include AI platforms, ML infrastructure, robotics, perception, LiDAR applications, developer tools, and data-intensive product engineering."
+        title="Open to robotics, perception, estimation, controls, and autonomy software roles."
+        intro="Best-fit teams build robots and autonomous systems: localization & SLAM, sensor fusion, LiDAR/vision perception, motion planning, controls, and the reliable software around them."
         path="/contact"
       />
       <Section className="compact-section">
@@ -31,9 +31,9 @@ function Contact() {
               <Linkedin size={18} />
               LinkedIn
             </a>
-            <a className="button secondary" href={profile.cvPdf} target="_blank" rel="noreferrer">
+            <a className="button accent" href={profile.resumePdf} target="_blank" rel="noreferrer">
               <FileText size={18} />
-              CV
+              Resume
             </a>
           </div>
         </div>

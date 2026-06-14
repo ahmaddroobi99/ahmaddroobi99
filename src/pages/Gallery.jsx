@@ -1,6 +1,5 @@
 import { Images, Search } from "lucide-react";
 import { useMemo, useState } from "react";
-import GalleryCarousel from "../components/GalleryCarousel.jsx";
 import GalleryGrid from "../components/GalleryGrid.jsx";
 import GalleryLightbox from "../components/GalleryLightbox.jsx";
 import PageHero from "../components/PageHero.jsx";
@@ -34,10 +33,12 @@ function photoNumber(name) {
   return match ? Number(match[0]) : 0;
 }
 
+const categoryOrder = Object.keys(galleryGroups);
+
 function buildItems() {
   const map = new Map();
-  Object.entries(galleryGroups).forEach(([category, names]) => {
-    names.forEach((name) => {
+  categoryOrder.forEach((category) => {
+    galleryGroups[category].forEach((name) => {
       const item = map.get(name) || { name, title: name.replace("_", " "), categories: [] };
       if (!item.categories.includes(category)) item.categories.push(category);
       map.set(name, item);
@@ -60,19 +61,49 @@ function buildItems() {
 }
 
 function Gallery() {
-  const items = useMemo(() => buildItems(), []);
-  const categories = useMemo(() => ["All", ...Object.keys(galleryGroups)], []);
+  const items = useMemo(buildItems, []);
+  const categories = useMemo(() => ["All", ...categoryOrder], []);
   const [filter, setFilter] = useState("All");
   const [query, setQuery] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(null);
 
-  const visible = useMemo(() => {
+  const { sections, visible } = useMemo(() => {
     const search = query.trim().toLowerCase();
-    return items.filter((item) => {
-      const categoryMatch = filter === "All" || item.categories.includes(filter);
+    const matches = (item) => {
+      if (!search) return true;
       const text = `${item.title} ${item.categories.join(" ")} ${item.description}`.toLowerCase();
-      return categoryMatch && (!search || text.includes(search));
+      return text.includes(search);
+    };
+
+    let groups;
+    if (filter === "All") {
+      // Classify each photo once, under its primary album.
+      groups = categoryOrder
+        .map((category) => ({
+          category,
+          description: galleryDescriptions[category],
+          items: items.filter((item) => item.primaryCategory === category && matches(item))
+        }))
+        .filter((group) => group.items.length);
+    } else {
+      groups = [
+        {
+          category: filter,
+          description: galleryDescriptions[filter],
+          items: items.filter((item) => item.categories.includes(filter) && matches(item))
+        }
+      ].filter((group) => group.items.length);
+    }
+
+    // Flat list (in render order) so the lightbox can navigate across sections.
+    let cursor = 0;
+    const sectionsWithOffset = groups.map((group) => {
+      const startIndex = cursor;
+      cursor += group.items.length;
+      return { ...group, startIndex };
     });
+
+    return { sections: sectionsWithOffset, visible: groups.flatMap((group) => group.items) };
   }, [filter, items, query]);
 
   function navigateLightbox(nextIndex) {
@@ -84,63 +115,62 @@ function Gallery() {
     <>
       <PageHero
         kicker="Gallery"
-        title="Photo archive."
-        intro="Selected academic, professional, and personal images preserved from the original site with search, filtering, and responsive viewing."
+        title="Field log & photo archive."
+        intro="Academic, professional, and personal images, classified into albums with instant search and fast, lazy-loaded viewing."
         path="/gallery"
       />
       <Section className="compact-section">
-        <div className="mac-gallery-desktop">
-          <div className="desktop-menubar" aria-hidden="true">
-            <span className="apple-dot" />
-            <strong>Photos</strong>
-            <span>File</span>
-            <span>Edit</span>
-            <span>View</span>
-            <span>Window</span>
-          </div>
-          <div className="photos-window">
-            <aside className="photos-sidebar" aria-label="Gallery summary">
-              <div className="window-controls" aria-hidden="true">
-                <span />
-                <span />
-                <span />
-              </div>
-              <div className="gallery-stats">
-                <span><strong>{items.length}</strong> Photos</span>
-                <span><strong>{Object.keys(galleryGroups).length}</strong> Albums</span>
-                <span><strong>{visible.length}</strong> Showing</span>
-              </div>
-              <div className="gallery-filters" aria-label="Filter by category">
-                {categories.map((category) => (
-                  <button key={category} type="button" className={filter === category ? "active" : ""} onClick={() => setFilter(category)}>
-                    {category}
-                  </button>
-                ))}
-              </div>
-            </aside>
-            <div className="photos-stage">
-              <div className="gallery-toolbar" aria-label="Gallery controls">
-                <label>
-                  <Search size={17} aria-hidden="true" />
-                  <input type="search" value={query} placeholder="Search gallery" onChange={(event) => setQuery(event.target.value)} />
-                </label>
-              </div>
-              <GalleryCarousel items={visible} onSelect={setSelectedIndex} />
-              <GalleryGrid items={visible} onSelect={setSelectedIndex} />
-              {!visible.length && (
-                <div className="gallery-empty">
-                  <Images size={28} />
-                  <h3>No matching photos</h3>
-                  <p>Try a broader search term or choose another category.</p>
-                </div>
-              )}
+        <div className="gallery-app">
+          <aside className="gallery-rail-panel" aria-label="Gallery albums">
+            <div className="gallery-stats">
+              <span><strong>{items.length}</strong> Photos</span>
+              <span><strong>{categoryOrder.length}</strong> Albums</span>
+              <span><strong>{visible.length}</strong> Showing</span>
             </div>
-          </div>
-          <div className="desktop-dock" aria-hidden="true">
-            <span />
-            <span />
-            <span />
-            <span />
+            <div className="gallery-filters" aria-label="Filter by album">
+              {categories.map((category) => (
+                <button
+                  key={category}
+                  type="button"
+                  className={filter === category ? "active" : ""}
+                  onClick={() => setFilter(category)}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
+          </aside>
+          <div className="gallery-stage">
+            <div className="gallery-toolbar" aria-label="Gallery search">
+              <label>
+                <Search size={17} aria-hidden="true" />
+                <input
+                  type="search"
+                  value={query}
+                  placeholder="Search albums, places, moments"
+                  onChange={(event) => setQuery(event.target.value)}
+                />
+              </label>
+            </div>
+            {sections.map((group) => (
+              <section className="gallery-album" key={group.category}>
+                <header className="gallery-album-head">
+                  <div>
+                    <h2>{group.category}</h2>
+                    <p>{group.description}</p>
+                  </div>
+                  <span className="gallery-album-count">{group.items.length}</span>
+                </header>
+                <GalleryGrid items={group.items} onSelect={setSelectedIndex} startIndex={group.startIndex} />
+              </section>
+            ))}
+            {!visible.length && (
+              <div className="gallery-empty">
+                <Images size={28} />
+                <h3>No matching photos</h3>
+                <p>Try a broader search term or choose another album.</p>
+              </div>
+            )}
           </div>
         </div>
       </Section>

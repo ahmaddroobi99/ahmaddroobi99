@@ -9,7 +9,7 @@ function Education() {
       <PageHero
         kicker="Education"
         title="Education in computer engineering, applied mathematics, and computational modeling."
-        intro="Relevant coursework and research foundations include algorithms, programming, databases, numerical methods, machine learning, and software design."
+        intro="Foundations span algorithms, programming, databases, numerical methods, estimation, control theory, dynamical systems, and software design."
         path="/education"
       />
       <Section className="compact-section">

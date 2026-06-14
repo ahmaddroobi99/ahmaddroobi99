@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 
-const siteTitle = "Ahmad Droobi | Software Engineer & AI/ML Developer";
+const siteTitle = "Ahmad Droobi | Robotics & Perception Engineer";
 const defaultDescription =
-  "Portfolio of Ahmad Droobi, a software engineer and AI/ML developer focused on backend systems, data pipelines, research software, and perception-oriented applications.";
+  "Portfolio of Ahmad Droobi, a robotics and perception engineer working on state estimation, sensor fusion, LiDAR/vision perception, controls, and reliable autonomy software.";
 
 function setMeta(selector, attribute, value) {
   const element = document.head.querySelector(selector);

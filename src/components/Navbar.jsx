@@ -1,4 +1,4 @@
-import { Download, Wifi } from "lucide-react";
+import { Activity, Download } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { profile } from "../data/profileData.js";
@@ -27,17 +27,17 @@ function Navbar({ title }) {
       </Link>
       <div className="mac-menu-title" aria-live="polite">
         <strong>{title}</strong>
-        <span>Window</span>
-        <span>View</span>
-        <span>Share</span>
+        <span>Robotics</span>
+        <span>Perception</span>
+        <span>Autonomy</span>
       </div>
       <div className="mac-menu-status">
-        <Wifi size={16} aria-hidden="true" />
+        <Activity size={16} aria-hidden="true" />
         <span>{formatClock(now)}</span>
       </div>
-      <a className="topbar-cta" href={profile.cvPdf} target="_blank" rel="noreferrer" aria-label="Open Ahmad Droobi CV">
+      <a className="topbar-cta" href={profile.resumePdf} target="_blank" rel="noreferrer" aria-label="Download Ahmad Droobi resume">
         <Download size={17} />
-        CV
+        Resume
       </a>
     </header>
   );

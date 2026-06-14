@@ -6,27 +6,27 @@ function Philosophy() {
     <>
       <PageHero
         kicker="Philosophy"
-        title="Engineering principles for reliable AI and data systems."
-        intro="A concise view of how I approach software quality, model workflows, perception data, and technical communication."
+        title="Engineering principles for reliable robots and autonomy."
+        intro="A concise view of how I approach estimation, perception, controls, and the software discipline that keeps autonomous systems trustworthy."
         path="/philosophy"
       />
       <Section className="compact-section">
         <div className="repo-board">
           <article>
-            <h3>Implementation over buzzwords</h3>
-            <p>I prioritize software that runs reliably, handles real inputs, and exposes clear behavior under edge cases.</p>
-          </article>
-          <article>
-            <h3>Models need workflows</h3>
-            <p>AI/ML work depends on preprocessing, evaluation, versioning, documentation, and integration, not only model selection.</p>
+            <h3>Estimate before you act</h3>
+            <p>A robot is only as good as its belief about the world. I treat state estimation and uncertainty as first-class, not an afterthought.</p>
           </article>
           <article>
             <h3>Perception starts with data quality</h3>
-            <p>LiDAR, spatial data, and sensor applications require reliable data handling before detection or mapping algorithms can be trusted.</p>
+            <p>LiDAR, vision, and sensor data need calibration, cleaning, and honest preprocessing before detection, mapping, or planning can be trusted.</p>
+          </article>
+          <article>
+            <h3>The loop must close safely</h3>
+            <p>Sensing, estimation, planning, and control form one feedback loop. I design for latency, failure modes, and graceful degradation across all of it.</p>
           </article>
           <article>
             <h3>Readable systems scale</h3>
-            <p>Maintainable code, clear interfaces, and technical documentation reduce review time and make systems easier to extend.</p>
+            <p>Maintainable code, clear interfaces, tests, and documentation reduce review time and make autonomy stacks safe to extend.</p>
           </article>
         </div>
       </Section>

@@ -1,10 +1,21 @@
-import { ArrowUpRight, CloudSun, Code2, FlaskConical, MapPinned, RefreshCw } from "lucide-react";
+import {
+  ArrowUpRight,
+  CloudSun,
+  Code2,
+  FlaskConical,
+  MapPinned,
+  Newspaper,
+  RefreshCw,
+  Satellite,
+  Waves
+} from "lucide-react";
+import ApiStackPanel from "../components/ApiStackPanel.jsx";
 import PageHero from "../components/PageHero.jsx";
 import Section from "../components/Section.jsx";
 import { publications } from "../data/profileData.js";
 import useLiveDashboardData from "../hooks/useLiveDashboardData.js";
 
-const chartColors = ["#0a84ff", "#30d158", "#ff9f0a", "#bf5af2", "#64d2ff", "#ff453a"];
+const chartColors = ["#0e8bbf", "#1bbf8f", "#ff8a3d", "#7c5cff", "#34c7e6", "#ff6b6b"];
 
 function formatNumber(value) {
   return new Intl.NumberFormat("en-US").format(value || 0);
@@ -21,6 +32,17 @@ function formatTime(value) {
 function daysAgo(value) {
   const difference = Date.now() - new Date(value).getTime();
   return Math.max(0, Math.round(difference / 86_400_000));
+}
+
+function timeAgo(value) {
+  if (!value) return "";
+  const seconds = Math.round((Date.now() - new Date(value).getTime()) / 1000);
+  if (seconds < 60) return `${seconds}s ago`;
+  const minutes = Math.round(seconds / 60);
+  if (minutes < 60) return `${minutes}m ago`;
+  const hours = Math.round(minutes / 60);
+  if (hours < 24) return `${hours}h ago`;
+  return `${Math.round(hours / 24)}d ago`;
 }
 
 function makeLinePoints(values, width = 320, height = 116) {
@@ -196,17 +218,100 @@ function ResearchWidget({ research }) {
   );
 }
 
+function IssWidget({ iss }) {
+  if (!iss) {
+    return (
+      <article className="dashboard-widget">
+        <WidgetHeader icon={Satellite} label="ISS - wheretheiss.at" title="Live Orbital Track" />
+        <p className="widget-muted">Acquiring the International Space Station signal...</p>
+      </article>
+    );
+  }
+
+  const left = ((iss.longitude + 180) / 360) * 100;
+  const top = ((90 - iss.latitude) / 180) * 100;
+
+  return (
+    <article className="dashboard-widget">
+      <WidgetHeader icon={Satellite} label="ISS - live (5s)" title="International Space Station" />
+      <div className="iss-map" role="img" aria-label="Live ISS ground track position">
+        <span className="iss-marker" style={{ left: `${left}%`, top: `${top}%` }} />
+      </div>
+      <div className="metric-grid iss-metrics">
+        <span><strong>{iss.latitude.toFixed(2)}&deg;</strong> Lat</span>
+        <span><strong>{iss.longitude.toFixed(2)}&deg;</strong> Lon</span>
+        <span><strong>{Math.round(iss.altitude)} km</strong> Altitude</span>
+        <span><strong>{formatNumber(Math.round(iss.velocity))} km/h</strong> Speed</span>
+      </div>
+    </article>
+  );
+}
+
+function QuakesWidget({ quakes }) {
+  if (!quakes) {
+    return (
+      <article className="dashboard-widget">
+        <WidgetHeader icon={Waves} label="USGS" title="Seismic Activity" />
+        <p className="widget-muted">Earthquake feed is unavailable right now.</p>
+      </article>
+    );
+  }
+
+  return (
+    <article className="dashboard-widget">
+      <WidgetHeader icon={Waves} label="USGS - last 24h" title="Seismic Activity (M2.5+)" />
+      <div className="research-summary">
+        <strong>{quakes.count}</strong>
+        <span>events in the last day</span>
+      </div>
+      <div className="research-list">
+        {quakes.features.slice(0, 5).map((quake) => (
+          <a key={quake.id} href={quake.url} target="_blank" rel="noreferrer">
+            <span>{quake.place || "Unknown location"}</span>
+            <strong>M{quake.magnitude?.toFixed(1)} - {timeAgo(quake.time)}</strong>
+          </a>
+        ))}
+      </div>
+    </article>
+  );
+}
+
+function NewsWidget({ news }) {
+  if (!news?.length) {
+    return (
+      <article className="dashboard-widget">
+        <WidgetHeader icon={Newspaper} label="Spaceflight News" title="Robotics & Space Headlines" />
+        <p className="widget-muted">Headlines are unavailable right now.</p>
+      </article>
+    );
+  }
+
+  return (
+    <article className="dashboard-widget dashboard-widget-wide">
+      <WidgetHeader icon={Newspaper} label="Spaceflight News API" title="Robotics & Space Headlines" />
+      <div className="news-list">
+        {news.map((article) => (
+          <a key={article.id} href={article.url} target="_blank" rel="noreferrer">
+            <strong>{article.title}</strong>
+            <small>{article.source} - {timeAgo(article.publishedAt)}</small>
+          </a>
+        ))}
+      </div>
+    </article>
+  );
+}
+
 function Dashboard() {
-  const { status, data, error } = useLiveDashboardData();
+  const { status, data, error, iss } = useLiveDashboardData();
   const updatedAt = data?.updatedAt;
   const hasApiError = data?.errors && Object.values(data.errors).some(Boolean);
 
   return (
     <>
       <PageHero
-        kicker="Dashboard"
-        title="Live signals in a macOS dashboard."
-        intro="Public API widgets for code activity, Vancouver weather, map context, and exact-only research metadata."
+        kicker="Mission Control"
+        title="Real-time signals from public science & engineering APIs."
+        intro="Live widgets for code activity, the ISS orbital track (updated every 5 seconds), Vancouver weather, global seismic events, spaceflight headlines, and research metadata."
         path="/dashboard"
       />
       <Section className="compact-section dashboard-section">
@@ -215,19 +320,26 @@ function Dashboard() {
             <RefreshCw size={16} aria-hidden="true" />
             {status === "loading" ? "Loading live APIs" : `Updated ${formatTime(updatedAt)}`}
           </span>
+          <span className={`live-dot${iss ? " on" : ""}`}>{iss ? "ISS tracking live" : "Connecting to ISS"}</span>
           {status === "cached" && <span>Showing cached data while APIs refresh.</span>}
           {hasApiError && <span>Some APIs are temporarily unavailable.</span>}
           {error && <span>{error}</span>}
         </div>
         <div className="dashboard-grid">
           <GitHubWidget github={data?.github} />
+          <IssWidget iss={iss} />
           <WeatherWidget weather={data?.weather} />
+          <QuakesWidget quakes={data?.quakes} />
+          <NewsWidget news={data?.news} />
           <MapWidget />
           <ResearchWidget research={data?.research || []} />
         </div>
         <a className="dashboard-source-link" href="https://github.com/ahmaddroobi99" target="_blank" rel="noreferrer">
           Open GitHub profile <ArrowUpRight size={16} />
         </a>
+      </Section>
+      <Section className="compact-section">
+        <ApiStackPanel />
       </Section>
     </>
   );

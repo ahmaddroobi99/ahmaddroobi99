@@ -9,7 +9,7 @@ function Hero() {
       <SEO path="/" />
       <section className="hero section">
         <div className="hero-copy">
-          <span className="eyebrow"><Sparkles size={14} /> Software Engineering - AI/ML - Perception Systems</span>
+          <span className="eyebrow"><Sparkles size={14} /> Robotics - Perception - Estimation &amp; Controls</span>
           <h1>{profile.name}</h1>
           <h2 className="hero-title">{profile.title}</h2>
           <p>{profile.tagline}</p>
@@ -26,15 +26,15 @@ function Hero() {
               <Mail size={18} />
               Contact
             </Link>
-            <a className="button secondary" href={profile.cvPdf} target="_blank" rel="noreferrer">
+            <a className="button accent" href={profile.resumePdf} target="_blank" rel="noreferrer">
               <Download size={18} />
-              CV
+              Download Resume
             </a>
           </div>
           <div className="hero-metrics" aria-label="Portfolio focus areas">
-            <span><strong>AI/ML</strong> Applied workflows</span>
-            <span><strong>Backend</strong> Reliable systems</span>
-            <span><strong>Research</strong> Data-heavy software</span>
+            <span><strong>Estimation</strong> Filters &amp; sensor fusion</span>
+            <span><strong>Perception</strong> LiDAR &amp; vision</span>
+            <span><strong>Autonomy</strong> Reliable robot software</span>
           </div>
         </div>
         <div className="hero-panel" aria-label="Profile summary">
@@ -43,7 +43,7 @@ function Hero() {
           </div>
           <div className="signal-card">
             <span>Role focus</span>
-            <strong>Backend, full-stack, AI/ML, data pipelines, and perception software.</strong>
+            <strong>Robotics, perception, state estimation, controls, and autonomy software.</strong>
           </div>
           <div className="signature">
             <img src={profile.signatureImg} alt={`${profile.name} signature`} width="520" height="220" loading="lazy" decoding="async" />
