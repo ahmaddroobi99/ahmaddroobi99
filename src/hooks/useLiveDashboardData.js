@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { profile, publications } from "../data/profileData.js";
 
 const CACHE_KEY = "macos-portfolio-live-dashboard-v1";
@@ -250,12 +250,15 @@ const ISS_POLL_MS = 5000;
 
 function useLiveDashboardData() {
   const cached = useMemo(() => readCache(), []);
+  const [refreshId, setRefreshId] = useState(0);
   const [state, setState] = useState({
     status: cached ? "cached" : "loading",
     data: cached?.data || null,
     error: null
   });
   const [iss, setIss] = useState(null);
+
+  const refresh = useCallback(() => setRefreshId((id) => id + 1), []);
 
   useEffect(() => {
     let cancelled = false;
@@ -280,7 +283,7 @@ function useLiveDashboardData() {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [refreshId]);
 
   // Real-time loop: the ISS moves ~7.6 km/s, so re-poll its position frequently.
   useEffect(() => {
@@ -304,7 +307,7 @@ function useLiveDashboardData() {
     };
   }, []);
 
-  return { ...state, iss };
+  return { ...state, iss, refresh };
 }
 
 export default useLiveDashboardData;

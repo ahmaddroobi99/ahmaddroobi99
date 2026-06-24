@@ -1118,6 +1118,280 @@ h3 {
   transform: translateY(-50%);
 }
 
+.dashboard-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.dashboard-controls {
+  display: grid;
+  gap: 12px;
+  min-width: 280px;
+}
+
+.dashboard-filter-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.dashboard-filter-button {
+  border: 1px solid var(--line-soft);
+  border-radius: 999px;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.86);
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 180ms var(--ease), border-color 180ms ease, background 180ms ease;
+}
+
+.dashboard-filter-button:hover,
+.dashboard-filter-button.active {
+  border-color: var(--blue);
+  background: rgba(14, 139, 191, 0.1);
+  transform: translateY(-1px);
+}
+
+.dashboard-toggle-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.widget-header-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.widget-action-button,
+.dashboard-ask-button {
+  border: 1px solid var(--line-soft);
+  border-radius: 999px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.82);
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 180ms var(--ease), border-color 180ms ease, background 180ms ease;
+}
+
+.widget-action-button:hover,
+.dashboard-ask-button:hover {
+  border-color: var(--blue);
+  background: rgba(14, 139, 191, 0.12);
+  transform: translateY(-1px);
+}
+
+.dashboard-status.notes {
+  margin-top: -4px;
+  margin-bottom: 18px;
+}
+
+@media (max-width: 900px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-widget-wide {
+    grid-column: span 1;
+  }
+}
+
+@media (max-width: 640px) {
+  .dashboard-toolbar {
+    flex-direction: column;
+  }
+
+  .dashboard-controls {
+    width: 100%;
+  }
+}
+
+.floating-copilot {
+  position: fixed;
+  right: 18px;
+  bottom: 22px;
+  z-index: 60;
+}
+
+.copilot-launcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(16, 32, 48, 0.16);
+  background: linear-gradient(135deg, rgba(14, 139, 191, 0.96), rgba(27, 191, 143, 0.92));
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 22px 50px rgba(14, 45, 75, 0.22);
+}
+
+.copilot-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  display: grid;
+  place-items: end center;
+  padding: 16px;
+  background: rgba(14, 31, 50, 0.38);
+  backdrop-filter: blur(12px);
+}
+
+.copilot-panel {
+  width: min(520px, 100%);
+  display: grid;
+  gap: 16px;
+  padding: 18px;
+  border-radius: 24px;
+  background: rgba(6, 20, 39, 0.96);
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.32);
+  color: #f4f9ff;
+}
+
+.copilot-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.copilot-panel-header > div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.copilot-panel-header p {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.copilot-panel-header span {
+  display: block;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 13px;
+}
+
+.copilot-body {
+  display: grid;
+  gap: 14px;
+}
+
+.copilot-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.copilot-chip {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #f7fafc;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.copilot-chip:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.copilot-messages {
+  display: grid;
+  gap: 12px;
+  max-height: 420px;
+  overflow: auto;
+  padding-right: 6px;
+}
+
+.copilot-message {
+  display: grid;
+}
+
+.copilot-message.user .copilot-message-bubble {
+  justify-self: end;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.copilot-message.assistant .copilot-message-bubble {
+  background: rgba(12, 35, 62, 0.96);
+  border: 1px solid rgba(14, 139, 191, 0.2);
+}
+
+.copilot-message-bubble {
+  display: grid;
+  gap: 8px;
+  padding: 14px;
+  border-radius: 18px;
+  line-height: 1.6;
+  color: #f4f9ff;
+}
+
+.copilot-input {
+  display: grid;
+  gap: 12px;
+}
+
+.copilot-input input {
+  width: 100%;
+  min-height: 48px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+}
+
+.copilot-send {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 18px;
+  border-radius: 999px;
+  border: none;
+  background: linear-gradient(135deg, #1bbf8f, #0e8bbf);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.copilot-send:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.copilot-error {
+  color: #ff8a8a;
+  font-size: 13px;
+}
+
+@media (max-width: 520px) {
+  .copilot-panel {
+    width: 100%;
+    border-radius: 18px;
+  }
+
+  .copilot-launcher {
+    width: calc(100vw - 36px);
+    justify-content: center;
+  }
+}
+
 .live-dot.on::before {
   background: var(--green);
   box-shadow: 0 0 0 0 rgba(27, 191, 143, 0.6);
