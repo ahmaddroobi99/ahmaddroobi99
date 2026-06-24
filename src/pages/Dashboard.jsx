@@ -14,6 +14,7 @@ import PageHero from "../components/PageHero.jsx";
 import Section from "../components/Section.jsx";
 import { publications } from "../data/profileData.js";
 import useLiveDashboardData from "../hooks/useLiveDashboardData.js";
+import { useEffect, useState } from "react";
 
 const chartColors = ["#0e8bbf", "#1bbf8f", "#ff8a3d", "#7c5cff", "#34c7e6", "#ff6b6b"];
 
@@ -60,14 +61,21 @@ function makeLinePoints(values, width = 320, height = 116) {
     .join(" ");
 }
 
-function WidgetHeader({ icon: Icon, label, title }) {
+function WidgetHeader({ icon: Icon, label, title, onAsk }) {
   return (
     <div className="widget-header">
       <span>
         <Icon size={18} aria-hidden="true" />
         {label}
       </span>
-      <h3>{title}</h3>
+      <div className="widget-header-title">
+        <h3>{title}</h3>
+        {onAsk && (
+          <button type="button" className="widget-action-button" onClick={onAsk}>
+            Ask Copilot
+          </button>
+        )}
+      </div>
     </div>
   );
 }
@@ -102,11 +110,11 @@ function DonutChart({ items }) {
   );
 }
 
-function GitHubWidget({ github }) {
+function GitHubWidget({ github, onAsk }) {
   if (!github) {
     return (
       <article className="dashboard-widget">
-        <WidgetHeader icon={Code2} label="GitHub" title="Coding Activity" />
+        <WidgetHeader icon={Code2} label="GitHub" title="Coding Activity" onAsk={onAsk} />
         <p className="widget-muted">GitHub data is unavailable right now. Cached or live values will appear after the API responds.</p>
       </article>
     );
@@ -114,7 +122,7 @@ function GitHubWidget({ github }) {
 
   return (
     <article className="dashboard-widget dashboard-widget-wide">
-      <WidgetHeader icon={Code2} label="GitHub" title="Coding Activity" />
+      <WidgetHeader icon={Code2} label="GitHub" title="Coding Activity" onAsk={onAsk} />
       <div className="metric-grid">
         <span><strong>{formatNumber(github.publicRepos)}</strong> Public repos</span>
         <span><strong>{formatNumber(github.stars)}</strong> Stars</span>
@@ -142,11 +150,11 @@ function GitHubWidget({ github }) {
   );
 }
 
-function WeatherWidget({ weather }) {
+function WeatherWidget({ weather, onAsk }) {
   if (!weather) {
     return (
       <article className="dashboard-widget">
-        <WidgetHeader icon={CloudSun} label="Weather" title="Vancouver" />
+        <WidgetHeader icon={CloudSun} label="Weather" title="Vancouver" onAsk={onAsk} />
         <p className="widget-muted">Weather data is unavailable right now.</p>
       </article>
     );
@@ -173,14 +181,19 @@ function WeatherWidget({ weather }) {
           </span>
         ))}
       </div>
+      {onAsk && (
+        <button type="button" className="dashboard-ask-button" onClick={onAsk}>
+          Ask Copilot about weather
+        </button>
+      )}
     </article>
   );
 }
 
-function MapWidget() {
+function MapWidget({ onAsk }) {
   return (
     <article className="dashboard-widget">
-      <WidgetHeader icon={MapPinned} label="Maps" title="Vancouver" />
+      <WidgetHeader icon={MapPinned} label="Maps" title="Vancouver" onAsk={onAsk} />
       <div className="map-frame">
         <iframe
           title="OpenStreetMap view of Vancouver"
@@ -188,17 +201,22 @@ function MapWidget() {
           loading="lazy"
         />
       </div>
+      {onAsk && (
+        <button type="button" className="dashboard-ask-button" onClick={onAsk}>
+          Ask Copilot about the map
+        </button>
+      )}
     </article>
   );
 }
 
-function ResearchWidget({ research }) {
+function ResearchWidget({ research, onAsk }) {
   const byTitle = new Map(research.map((item) => [item.title, item]));
   const matched = research.filter((item) => item.matched);
 
   return (
     <article className="dashboard-widget">
-      <WidgetHeader icon={FlaskConical} label="Crossref" title="Research Metadata" />
+      <WidgetHeader icon={FlaskConical} label="Crossref" title="Research Metadata" onAsk={onAsk} />
       <div className="research-summary">
         <strong>{matched.length}</strong>
         <span>exact live matches</span>
@@ -218,11 +236,11 @@ function ResearchWidget({ research }) {
   );
 }
 
-function IssWidget({ iss }) {
+function IssWidget({ iss, onAsk }) {
   if (!iss) {
     return (
       <article className="dashboard-widget">
-        <WidgetHeader icon={Satellite} label="ISS - wheretheiss.at" title="Live Orbital Track" />
+        <WidgetHeader icon={Satellite} label="ISS - wheretheiss.at" title="Live Orbital Track" onAsk={onAsk} />
         <p className="widget-muted">Acquiring the International Space Station signal...</p>
       </article>
     );
@@ -247,11 +265,11 @@ function IssWidget({ iss }) {
   );
 }
 
-function QuakesWidget({ quakes }) {
+function QuakesWidget({ quakes, onAsk }) {
   if (!quakes) {
     return (
       <article className="dashboard-widget">
-        <WidgetHeader icon={Waves} label="USGS" title="Seismic Activity" />
+        <WidgetHeader icon={Waves} label="USGS" title="Seismic Activity" onAsk={onAsk} />
         <p className="widget-muted">Earthquake feed is unavailable right now.</p>
       </article>
     );
@@ -276,11 +294,11 @@ function QuakesWidget({ quakes }) {
   );
 }
 
-function NewsWidget({ news }) {
+function NewsWidget({ news, onAsk }) {
   if (!news?.length) {
     return (
       <article className="dashboard-widget">
-        <WidgetHeader icon={Newspaper} label="Spaceflight News" title="Robotics & Space Headlines" />
+        <WidgetHeader icon={Newspaper} label="Spaceflight News" title="Robotics & Space Headlines" onAsk={onAsk} />
         <p className="widget-muted">Headlines are unavailable right now.</p>
       </article>
     );
@@ -302,9 +320,38 @@ function NewsWidget({ news }) {
 }
 
 function Dashboard() {
-  const { status, data, error, iss } = useLiveDashboardData();
+  const { status, data, error, refresh, iss } = useLiveDashboardData();
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [autoRefresh, setAutoRefresh] = useState(true);
+
   const updatedAt = data?.updatedAt;
   const hasApiError = data?.errors && Object.values(data.errors).some(Boolean);
+
+  useEffect(() => {
+    if (!autoRefresh) return undefined;
+    const timer = window.setInterval(refresh, 30_000);
+    return () => window.clearInterval(timer);
+  }, [autoRefresh, refresh]);
+
+  function openCopilotForTopic(question) {
+    window.dispatchEvent(new CustomEvent("copilot-query", { detail: question }));
+  }
+
+  const widgetCategory = {
+    GitHub: "Code",
+    ISS: "Space",
+    Weather: "Earth",
+    Quakes: "Earth",
+    News: "Space",
+    Map: "Earth",
+    Research: "Research"
+  };
+
+  function shouldShowWidget(key) {
+    return selectedCategory === "All" || widgetCategory[key] === selectedCategory;
+  }
+
+  const categories = ["All", "Code", "Space", "Earth", "Research"];
 
   return (
     <>
@@ -315,24 +362,54 @@ function Dashboard() {
         path="/dashboard"
       />
       <Section className="compact-section dashboard-section">
-        <div className="dashboard-status">
-          <span>
-            <RefreshCw size={16} aria-hidden="true" />
-            {status === "loading" ? "Loading live APIs" : `Updated ${formatTime(updatedAt)}`}
-          </span>
-          <span className={`live-dot${iss ? " on" : ""}`}>{iss ? "ISS tracking live" : "Connecting to ISS"}</span>
+        <div className="dashboard-toolbar">
+          <div className="dashboard-status">
+            <span>
+              <RefreshCw size={16} aria-hidden="true" />
+              {status === "loading" ? "Loading live APIs" : `Updated ${formatTime(updatedAt)}`}
+            </span>
+            <span className={`live-dot${iss ? " on" : ""}`}>{iss ? "ISS tracking live" : "Connecting to ISS"}</span>
+          </div>
+          <div className="dashboard-controls">
+            <div className="dashboard-filter-buttons" role="group" aria-label="Dashboard data filters">
+              {categories.map((category) => (
+                <button
+                  key={category}
+                  type="button"
+                  className={`dashboard-filter-button${selectedCategory === category ? " active" : ""}`}
+                  onClick={() => setSelectedCategory(category)}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
+            <div className="dashboard-toggle-row">
+              <button type="button" className="button secondary" onClick={refresh}>
+                Refresh now
+              </button>
+              <button
+                type="button"
+                className={`button${autoRefresh ? " accent" : " secondary"}`}
+                onClick={() => setAutoRefresh((current) => !current)}
+              >
+                Auto-refresh: {autoRefresh ? "On" : "Off"}
+              </button>
+            </div>
+          </div>
+        </div>
+        <div className="dashboard-status notes">
           {status === "cached" && <span>Showing cached data while APIs refresh.</span>}
           {hasApiError && <span>Some APIs are temporarily unavailable.</span>}
           {error && <span>{error}</span>}
         </div>
         <div className="dashboard-grid">
-          <GitHubWidget github={data?.github} />
-          <IssWidget iss={iss} />
-          <WeatherWidget weather={data?.weather} />
-          <QuakesWidget quakes={data?.quakes} />
-          <NewsWidget news={data?.news} />
-          <MapWidget />
-          <ResearchWidget research={data?.research || []} />
+          {shouldShowWidget("Code") && <GitHubWidget github={data?.github} onAsk={() => openCopilotForTopic("Explain Ahmad's coding activity and recent GitHub metrics.")} />}
+          {shouldShowWidget("Space") && <IssWidget iss={iss} onAsk={() => openCopilotForTopic("Explain the ISS live orbital track widget and why it is included in the mission control dashboard.")} />}
+          {shouldShowWidget("Earth") && <WeatherWidget weather={data?.weather} onAsk={() => openCopilotForTopic("Explain the weather widget and how environmental data supports robotics and perception work.")} />}
+          {shouldShowWidget("Earth") && <QuakesWidget quakes={data?.quakes} onAsk={() => openCopilotForTopic("Explain the earthquake feed and how it relates to sensing and environmental monitoring.")} />}
+          {shouldShowWidget("Space") && <NewsWidget news={data?.news} onAsk={() => openCopilotForTopic("Explain the space and robotics headlines feed in the dashboard.")} />}
+          {shouldShowWidget("Earth") && <MapWidget onAsk={() => openCopilotForTopic("Explain the embedded map view and its connection to location-aware autonomy.")} />}
+          {shouldShowWidget("Research") && <ResearchWidget research={data?.research || []} onAsk={() => openCopilotForTopic("Explain the research metadata widget and the publications tracked there.")} />}
         </div>
         <a className="dashboard-source-link" href="https://github.com/ahmaddroobi99" target="_blank" rel="noreferrer">
           Open GitHub profile <ArrowUpRight size={16} />

@@ -1,5 +1,6 @@
 import { Outlet, useLocation } from "react-router-dom";
 import Footer from "../components/Footer.jsx";
+import FloatingCopilot from "../components/FloatingCopilot.jsx";
 import MacDock from "../components/MacDock.jsx";
 import MacWindow from "../components/MacWindow.jsx";
 import Navbar from "../components/Navbar.jsx";
@@ -19,6 +20,7 @@ function Layout() {
       </main>
       <MacDock />
       <Footer />
+      <FloatingCopilot />
     </div>
   );
 }
