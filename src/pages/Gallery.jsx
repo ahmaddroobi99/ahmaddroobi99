@@ -1,5 +1,5 @@
-import { Images, RotateCcw, Search } from "lucide-react";
-import { useMemo, useState } from "react";
+import { Grid3X3, Images, RotateCcw, Search, Sparkles } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
 import GalleryGrid from "../components/GalleryGrid.jsx";
 import GalleryLightbox from "../components/GalleryLightbox.jsx";
 import PageHero from "../components/PageHero.jsx";
@@ -37,32 +37,60 @@ const categoryOrder = Object.keys(galleryGroups);
 
 const sortOptions = [
   { value: "oldest", label: "Oldest first" },
-  { value: "newest", label: "Newest first" }
+  { value: "newest", label: "Newest first" },
+  { value: "portrait", label: "Portraits first" },
+  { value: "landscape", label: "Landscapes first" }
 ];
 
-function buildItems() {
-  const map = new Map();
-  categoryOrder.forEach((category) => {
-    galleryGroups[category].forEach((name) => {
-      const item = map.get(name) || { name, title: name.replace("_", " "), categories: [] };
-      if (!item.categories.includes(category)) item.categories.push(category);
-      map.set(name, item);
-    });
-  });
+function photoNameFromPath(path) {
+  return path.split("/").pop()?.replace(/\.(jpe?g|png)$/i, "");
+}
 
-  return [...map.values()]
-    .map((item) => ({
-      ...item,
-      src: getImage(item.name),
-      thumbSmall: getThumb(item.name, 640),
-      thumbLarge: getThumb(item.name, 1200),
-      width: galleryImageMeta[item.name]?.width || 1200,
-      height: galleryImageMeta[item.name]?.height || 900,
-      primaryCategory: item.categories[0],
-      description: galleryDescriptions[item.categories[0]]
-    }))
-    .filter((item) => item.src && item.thumbSmall && item.thumbLarge)
-    .sort((a, b) => photoNumber(a.name) - photoNumber(b.name));
+function categoriesForName(name) {
+  const categories = categoryOrder.filter((category) => galleryGroups[category].includes(name));
+  return categories.length ? categories : ["Archive"];
+}
+
+function buildItems() {
+  return Object.keys(imageModules)
+    .map(photoNameFromPath)
+    .filter(Boolean)
+    .sort((a, b) => photoNumber(a) - photoNumber(b))
+    .map((name) => {
+      const categories = categoriesForName(name);
+      const width = galleryImageMeta[name]?.width || 1200;
+      const height = galleryImageMeta[name]?.height || 900;
+
+      return {
+        name,
+        title: name.replace("_", " "),
+        categories,
+        src: getImage(name),
+        thumbSmall: getThumb(name, 640),
+        thumbLarge: getThumb(name, 1200),
+        width,
+        height,
+        orientation: width >= height ? "landscape" : "portrait",
+        primaryCategory: categories[0],
+        description: galleryDescriptions[categories[0]] || "Photo archive image."
+      };
+    })
+    .filter((item) => item.src && item.thumbSmall && item.thumbLarge);
+}
+
+function sortGalleryItems(nextItems, sortOrder) {
+  return [...nextItems].sort((a, b) => {
+    if (sortOrder === "newest") return photoNumber(b.name) - photoNumber(a.name);
+    if (sortOrder === "portrait") {
+      const orientation = Number(b.orientation === "portrait") - Number(a.orientation === "portrait");
+      return orientation || photoNumber(a.name) - photoNumber(b.name);
+    }
+    if (sortOrder === "landscape") {
+      const orientation = Number(b.orientation === "landscape") - Number(a.orientation === "landscape");
+      return orientation || photoNumber(a.name) - photoNumber(b.name);
+    }
+    return photoNumber(a.name) - photoNumber(b.name);
+  });
 }
 
 function Gallery() {
@@ -73,6 +101,11 @@ function Gallery() {
   const [sortOrder, setSortOrder] = useState("oldest");
   const [selectedIndex, setSelectedIndex] = useState(null);
 
+  const orientationCounts = useMemo(() => ({
+    portrait: items.filter((item) => item.orientation === "portrait").length,
+    landscape: items.filter((item) => item.orientation === "landscape").length
+  }), [items]);
+
   const albumCounts = useMemo(() => {
     const counts = { All: items.length };
     categoryOrder.forEach((category) => {
@@ -81,7 +114,7 @@ function Gallery() {
     return counts;
   }, [items]);
 
-  const { sections, visible } = useMemo(() => {
+  const visible = useMemo(() => {
     const search = query.trim().toLowerCase();
     const matches = (item) => {
       if (!search) return true;
@@ -89,41 +122,13 @@ function Gallery() {
       return text.includes(search);
     };
 
-    const sortItems = (nextItems) => [...nextItems].sort((a, b) => {
-      const direction = sortOrder === "newest" ? -1 : 1;
-      return (photoNumber(a.name) - photoNumber(b.name)) * direction;
-    });
-
-    let groups;
-    if (filter === "All") {
-      // Classify each photo once, under its primary album.
-      groups = categoryOrder
-        .map((category) => ({
-          category,
-          description: galleryDescriptions[category],
-          items: sortItems(items.filter((item) => item.primaryCategory === category && matches(item)))
-        }))
-        .filter((group) => group.items.length);
-    } else {
-      groups = [
-        {
-          category: filter,
-          description: galleryDescriptions[filter],
-          items: sortItems(items.filter((item) => item.categories.includes(filter) && matches(item)))
-        }
-      ].filter((group) => group.items.length);
-    }
-
-    // Flat list (in render order) so the lightbox can navigate across sections.
-    let cursor = 0;
-    const sectionsWithOffset = groups.map((group) => {
-      const startIndex = cursor;
-      cursor += group.items.length;
-      return { ...group, startIndex };
-    });
-
-    return { sections: sectionsWithOffset, visible: groups.flatMap((group) => group.items) };
+    const filtered = items.filter((item) => (filter === "All" || item.categories.includes(filter)) && matches(item));
+    return sortGalleryItems(filtered, sortOrder);
   }, [filter, items, query, sortOrder]);
+
+  useEffect(() => {
+    if (selectedIndex !== null && selectedIndex >= visible.length) setSelectedIndex(null);
+  }, [selectedIndex, visible.length]);
 
   const hasActiveControls = filter !== "All" || query.trim() || sortOrder !== "oldest";
 
@@ -142,18 +147,27 @@ function Gallery() {
     <>
       <PageHero
         kicker="Gallery"
-        title="Field log & photo archive."
-        intro="Academic, professional, and personal images, classified into albums with instant search and fast, lazy-loaded viewing."
+        title="Photo archive, rebuilt for fast browsing."
+        intro="A complete visual archive with repaired thumbnails, album filters, quick search, and a cleaner full-screen viewer."
         path="/gallery"
       />
       <Section className="compact-section">
         <div className="gallery-app">
-          <aside className="gallery-rail-panel" aria-label="Gallery albums">
-            <div className="gallery-stats">
+          <header className="gallery-command" aria-label="Gallery overview and filters">
+            <div className="gallery-command-copy">
+              <span className="eyebrow"><Sparkles size={14} aria-hidden="true" /> Complete archive</span>
+              <h2>Every photo loads from real responsive thumbnails.</h2>
+              <p>Browse the whole collection first, then narrow it by album, search text, or image shape.</p>
+            </div>
+            <div className="gallery-stats" aria-label="Gallery statistics">
               <span><strong>{items.length}</strong> Photos</span>
               <span><strong>{categoryOrder.length}</strong> Albums</span>
-              <span><strong>{visible.length}</strong> Showing</span>
+              <span><strong>{orientationCounts.portrait}</strong> Portrait</span>
+              <span><strong>{orientationCounts.landscape}</strong> Wide</span>
             </div>
+          </header>
+
+          <div className="gallery-controls" aria-label="Gallery controls">
             <div className="gallery-filters" aria-label="Filter by album">
               {categories.map((category) => (
                 <button
@@ -168,9 +182,8 @@ function Gallery() {
                 </button>
               ))}
             </div>
-          </aside>
-          <div className="gallery-stage">
-            <div className="gallery-toolbar" aria-label="Gallery controls">
+
+            <div className="gallery-toolbar">
               <div className="gallery-search-wrap">
                 <Search size={17} aria-hidden="true" />
                 <label className="sr-only" htmlFor="gallery-search">Search gallery</label>
@@ -178,11 +191,12 @@ function Gallery() {
                   id="gallery-search"
                   type="search"
                   value={query}
-                  placeholder="Search albums, places, moments"
+                  placeholder="Search album, place, photo number"
                   onChange={(event) => setQuery(event.target.value)}
                 />
               </div>
               <label className="gallery-sort">
+                <Grid3X3 size={16} aria-hidden="true" />
                 <span>Sort</span>
                 <select value={sortOrder} onChange={(event) => setSortOrder(event.target.value)}>
                   {sortOptions.map((option) => (
@@ -195,21 +209,15 @@ function Gallery() {
                 Reset
               </button>
             </div>
-            <p className="gallery-result-note" aria-live="polite">
-              Showing {visible.length} of {items.length} photos{filter !== "All" ? ` in ${filter}` : ""}{query.trim() ? ` for "${query.trim()}"` : ""}.
-            </p>
-            {sections.map((group) => (
-              <section className="gallery-album" key={group.category}>
-                <header className="gallery-album-head">
-                  <div>
-                    <h2>{group.category}</h2>
-                    <p>{group.description}</p>
-                  </div>
-                  <span className="gallery-album-count">{group.items.length}</span>
-                </header>
-                <GalleryGrid items={group.items} onSelect={setSelectedIndex} startIndex={group.startIndex} />
-              </section>
-            ))}
+          </div>
+
+          <div className="gallery-stage">
+            <div className="gallery-result-bar" aria-live="polite">
+              <span>Showing {visible.length} of {items.length}</span>
+              <strong>{filter === "All" ? "All albums" : filter}</strong>
+              {query.trim() && <em>Search: {query.trim()}</em>}
+            </div>
+            {visible.length > 0 && <GalleryGrid items={visible} onSelect={setSelectedIndex} />}
             {!visible.length && (
               <div className="gallery-empty">
                 <Images size={28} />
