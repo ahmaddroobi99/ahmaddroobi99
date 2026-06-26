@@ -1,4 +1,4 @@
-import { Images, Search } from "lucide-react";
+import { Images, RotateCcw, Search } from "lucide-react";
 import { useMemo, useState } from "react";
 import GalleryGrid from "../components/GalleryGrid.jsx";
 import GalleryLightbox from "../components/GalleryLightbox.jsx";
@@ -35,6 +35,11 @@ function photoNumber(name) {
 
 const categoryOrder = Object.keys(galleryGroups);
 
+const sortOptions = [
+  { value: "oldest", label: "Oldest first" },
+  { value: "newest", label: "Newest first" }
+];
+
 function buildItems() {
   const map = new Map();
   categoryOrder.forEach((category) => {
@@ -65,7 +70,16 @@ function Gallery() {
   const categories = useMemo(() => ["All", ...categoryOrder], []);
   const [filter, setFilter] = useState("All");
   const [query, setQuery] = useState("");
+  const [sortOrder, setSortOrder] = useState("oldest");
   const [selectedIndex, setSelectedIndex] = useState(null);
+
+  const albumCounts = useMemo(() => {
+    const counts = { All: items.length };
+    categoryOrder.forEach((category) => {
+      counts[category] = items.filter((item) => item.categories.includes(category)).length;
+    });
+    return counts;
+  }, [items]);
 
   const { sections, visible } = useMemo(() => {
     const search = query.trim().toLowerCase();
@@ -75,6 +89,11 @@ function Gallery() {
       return text.includes(search);
     };
 
+    const sortItems = (nextItems) => [...nextItems].sort((a, b) => {
+      const direction = sortOrder === "newest" ? -1 : 1;
+      return (photoNumber(a.name) - photoNumber(b.name)) * direction;
+    });
+
     let groups;
     if (filter === "All") {
       // Classify each photo once, under its primary album.
@@ -82,7 +101,7 @@ function Gallery() {
         .map((category) => ({
           category,
           description: galleryDescriptions[category],
-          items: items.filter((item) => item.primaryCategory === category && matches(item))
+          items: sortItems(items.filter((item) => item.primaryCategory === category && matches(item)))
         }))
         .filter((group) => group.items.length);
     } else {
@@ -90,7 +109,7 @@ function Gallery() {
         {
           category: filter,
           description: galleryDescriptions[filter],
-          items: items.filter((item) => item.categories.includes(filter) && matches(item))
+          items: sortItems(items.filter((item) => item.categories.includes(filter) && matches(item)))
         }
       ].filter((group) => group.items.length);
     }
@@ -104,7 +123,15 @@ function Gallery() {
     });
 
     return { sections: sectionsWithOffset, visible: groups.flatMap((group) => group.items) };
-  }, [filter, items, query]);
+  }, [filter, items, query, sortOrder]);
+
+  const hasActiveControls = filter !== "All" || query.trim() || sortOrder !== "oldest";
+
+  function resetControls() {
+    setFilter("All");
+    setQuery("");
+    setSortOrder("oldest");
+  }
 
   function navigateLightbox(nextIndex) {
     if (!visible.length) return;
@@ -133,25 +160,44 @@ function Gallery() {
                   key={category}
                   type="button"
                   className={filter === category ? "active" : ""}
+                  aria-pressed={filter === category}
                   onClick={() => setFilter(category)}
                 >
-                  {category}
+                  <span>{category}</span>
+                  <strong>{albumCounts[category]}</strong>
                 </button>
               ))}
             </div>
           </aside>
           <div className="gallery-stage">
-            <div className="gallery-toolbar" aria-label="Gallery search">
-              <label>
+            <div className="gallery-toolbar" aria-label="Gallery controls">
+              <div className="gallery-search-wrap">
                 <Search size={17} aria-hidden="true" />
+                <label className="sr-only" htmlFor="gallery-search">Search gallery</label>
                 <input
+                  id="gallery-search"
                   type="search"
                   value={query}
                   placeholder="Search albums, places, moments"
                   onChange={(event) => setQuery(event.target.value)}
                 />
+              </div>
+              <label className="gallery-sort">
+                <span>Sort</span>
+                <select value={sortOrder} onChange={(event) => setSortOrder(event.target.value)}>
+                  {sortOptions.map((option) => (
+                    <option key={option.value} value={option.value}>{option.label}</option>
+                  ))}
+                </select>
               </label>
+              <button className="gallery-reset" type="button" onClick={resetControls} disabled={!hasActiveControls}>
+                <RotateCcw size={16} aria-hidden="true" />
+                Reset
+              </button>
             </div>
+            <p className="gallery-result-note" aria-live="polite">
+              Showing {visible.length} of {items.length} photos{filter !== "All" ? ` in ${filter}` : ""}{query.trim() ? ` for "${query.trim()}"` : ""}.
+            </p>
             {sections.map((group) => (
               <section className="gallery-album" key={group.category}>
                 <header className="gallery-album-head">
