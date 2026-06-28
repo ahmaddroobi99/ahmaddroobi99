@@ -19,6 +19,7 @@ export const profile = {
   signatureImg,
   heroImg,
   cvPdf,
+  resumePdf: cvPdf,
   publicPdf,
   generalizationPdf
 };
