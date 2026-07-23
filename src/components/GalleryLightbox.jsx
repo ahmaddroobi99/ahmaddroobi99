@@ -6,6 +6,16 @@ function GalleryLightbox({ items, index, onClose, onNavigate }) {
   const item = items[index];
 
   useEffect(() => {
+    if (!item || !items.length) return;
+    [index - 1, index + 1].forEach((nextIndex) => {
+      const nextItem = items[(nextIndex + items.length) % items.length];
+      if (!nextItem?.src) return;
+      const image = new Image();
+      image.src = nextItem.src;
+    });
+  }, [index, item, items]);
+
+  useEffect(() => {
     const previousActive = document.activeElement;
     closeRef.current?.focus();
 
@@ -56,7 +66,7 @@ function GalleryLightbox({ items, index, onClose, onNavigate }) {
           <ChevronRight size={22} />
         </button>
         <figcaption>
-          <span>{item.categories.join(" / ")}</span>
+          <span>{item.categories.join(" / ")} / {index + 1} of {items.length}</span>
           <h3>{item.title}</h3>
           <p>{item.description}</p>
         </figcaption>

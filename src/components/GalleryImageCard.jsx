@@ -1,20 +1,21 @@
 function GalleryImageCard({ item, index, onSelect }) {
-  const isPriority = index < 3;
+  const isPriority = index < 8;
+  const isFeatured = index % 13 === 0;
 
   return (
     <button
-      className="gallery-tile"
+      className={`gallery-tile ${item.orientation} ${isFeatured ? "is-featured" : ""}`}
       type="button"
       onClick={onSelect}
       aria-label={`Open ${item.title}: ${item.description}`}
       style={{ "--tile-ratio": `${item.width} / ${item.height}` }}
     >
       <picture>
-        <source srcSet={`${item.thumbSmall} 640w, ${item.thumbLarge} 1200w`} sizes="(min-width: 1080px) 25vw, (min-width: 760px) 50vw, 100vw" />
+        <source srcSet={`${item.thumbSmall} 640w, ${item.thumbLarge} 1200w`} sizes="(min-width: 1180px) 18vw, (min-width: 820px) 28vw, 50vw" />
         <img
           src={item.thumbSmall}
           srcSet={`${item.thumbSmall} 640w, ${item.thumbLarge} 1200w`}
-          sizes="(min-width: 1080px) 25vw, (min-width: 760px) 50vw, 100vw"
+          sizes="(min-width: 1180px) 18vw, (min-width: 820px) 28vw, 50vw"
           width={item.width}
           height={item.height}
           alt={`${item.title} from the ${item.primaryCategory.toLowerCase()} collection`}
