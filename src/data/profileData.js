@@ -8,7 +8,7 @@ import generalizationPdf from "../../files/Ahmad_project_on_Generalization.pdf?u
 export const profile = {
   name: "Ahmad Droobi",
   title: "Software Engineer | AI/ML Developer | LiDAR & Perception Systems",
-  tagline: "Building reliable software for data-intensive AI, perception, automation, and intelligent systems.",
+  tagline: "Building production-ready autonomy software that turns sensor data into robust perception, state estimation, and control systems.",
   email: "ahmad.droobi@ucalgary.ca",
   githubUsername: "ahmaddroobi99",
   github: "https://github.com/ahmaddroobi99",

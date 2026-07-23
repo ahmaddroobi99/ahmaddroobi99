@@ -3,14 +3,17 @@ import { ArrowUpRight } from "lucide-react";
 function ProjectCard({ project }) {
   return (
     <article className="publication-card project-card">
-      <h3>{project.title}</h3>
+      <div className="project-card-heading">
+        <h3>{project.title}</h3>
+        {project.category && <span className="project-type">{project.category}</span>}
+      </div>
       <p>{project.summary}</p>
       <div className="project-detail">
-        <strong>Problem solved</strong>
+        <strong>Challenge</strong>
         <p>{project.problem}</p>
       </div>
       <div className="project-detail">
-        <strong>Why it matters</strong>
+        <strong>Impact</strong>
         <p>{project.impact}</p>
       </div>
       <ul className="tag-list">
@@ -18,11 +21,18 @@ function ProjectCard({ project }) {
           <li key={tech}>{tech}</li>
         ))}
       </ul>
-      {project.href && (
-        <a href={project.href} target="_blank" rel="noreferrer">
-          Open project <ArrowUpRight size={16} />
-        </a>
-      )}
+      <div className="project-links">
+        {project.href && (
+          <a href={project.href} target="_blank" rel="noreferrer">
+            Open project <ArrowUpRight size={16} />
+          </a>
+        )}
+        {project.secondaryHref && (
+          <a className="button secondary" href={project.secondaryHref} target="_blank" rel="noreferrer">
+            View notes
+          </a>
+        )}
+      </div>
     </article>
   );
 }
