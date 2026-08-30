@@ -3,7 +3,8 @@
     "allow": [
       "Bash(git fetch *)",
       "Bash(git rev-list *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(git remote *)"
     ]
   }
 }
