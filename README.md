@@ -25,7 +25,7 @@ MSc (2025), University of Calgary. Computer engineering before that. Open to eng
 
 Live captures from deployed sites. Not mockups.
 
-Repos on this account are grouped by **project**, not by last-push. Same grouping lives in [`ahmaddroobi99/projects`](https://github.com/ahmaddroobi99/projects) as an issue board.
+GitHub has **no custom sort** on the Repositories tab. This profile is the catalog: **research first, undergraduate last**. Homework from 2020–2022 is archived. Pins below are the six to open first. Same grouping lives in [`ahmaddroobi99/projects`](https://github.com/ahmaddroobi99/projects).
 
 ---
 
@@ -36,6 +36,7 @@ Completed MSc thesis: *Data-Driven Filtering Techniques for Turbulent Flow Model
 | Repo | |
 |---|---|
 | **[qg-lada-lab](https://github.com/ahmaddroobi99/qg-lada-lab)** | Public lab: spectral QG twin + localized EnKF in the browser, plus a committed Python solver (N = 32, XCOR 0.964). **[Live](https://qg-lada-lab.netlify.app)** |
+| **[local_wccm](https://github.com/ahmaddroobi99/local_wccm)** | Public MATLAB working copy of the barotropic Lagrangian filter (`lagrangianfilter_baro.m`, spectra, drivers). |
 
 Private thesis sources stay private (MATLAB / Python / TeX). They are not listed here.
 
@@ -64,6 +65,7 @@ Lagrangian drifters  →  QG barotropic model (q = ∇²ψ − μψ)
 | **[lattice](https://github.com/ahmaddroobi99/lattice)** | Visual field manual of machine intelligence. **[Live](https://lattice-field-manual.netlify.app)** |
 | **[world-pulse](https://github.com/ahmaddroobi99/world-pulse)** | Choropleth atlas of global development indicators. |
 | **[resource-graph-crawler](https://github.com/ahmaddroobi99/resource-graph-crawler)** | Crawler / graph over public research resources. |
+| **[200-dataset-websites](https://github.com/ahmaddroobi99/200-dataset-websites)** | Catalog of ~200 dataset-source websites in 25 categories. |
 
 ---
 
@@ -79,7 +81,40 @@ Lagrangian drifters  →  QG barotropic model (q = ∇²ψ − μψ)
 
 ## 5 · Experiments
 
-Smaller public prototypes: [ridgeflight](https://github.com/ahmaddroobi99/ridgeflight), [ai-engineering-command-center](https://github.com/ahmaddroobi99/ai-engineering-command-center), [tensortonic-rag-from-scratch](https://github.com/ahmaddroobi99/tensortonic-rag-from-scratch), [forge-mind](https://github.com/ahmaddroobi99/forge-mind), [mosqguard](https://github.com/ahmaddroobi99/mosqguard), [aetherforge](https://github.com/ahmaddroobi99/aetherforge). Honest READMEs — not presented as production systems.
+Smaller public prototypes — honest about what is actually committed:
+
+| Repo | What is actually there |
+|---|---|
+| [ridgeflight](https://github.com/ahmaddroobi99/ridgeflight) | Low-poly 3D terrain flyer (toy, not a sim) |
+| [tensortonic-rag-from-scratch](https://github.com/ahmaddroobi99/tensortonic-rag-from-scratch) | RAG practice, from scratch |
+| [mosqguard](https://github.com/ahmaddroobi99/mosqguard) | Fan-trap **controller state machine** + architecture notes — not hardware |
+| [forge-mind](https://github.com/ahmaddroobi99/forge-mind) | 2D geometry-vs-observation core — not a CAD workbench |
+| [aetherforge](https://github.com/ahmaddroobi99/aetherforge) | Name-holder scaffold; no `src/` yet |
+| [aws-from-scratch](https://github.com/ahmaddroobi99/aws-from-scratch) | Mini-cloud Makefile/Compose; service code thin |
+| [vancouver-bronze-recon](https://github.com/ahmaddroobi99/vancouver-bronze-recon) | OpenSCAD/JSON of two Vancouver bronzes |
+| [ENME517](https://github.com/ahmaddroobi99/ENME517) | UCalgary DoE pathfinding course project (2024) |
+| [DL_Project_Can-I-read-your-brain-](https://github.com/ahmaddroobi99/DL_Project_Can-I-read-your-brain-) | 2024 FC-network → emotion hackathon notebooks |
+
+---
+
+## 6 · Undergraduate (last)
+
+BSc Computer Engineering, An-Najah National University, 2023. These are **provenance**, not current work. Most 2020–2022 homework is **archived** so it sits behind current repos.
+
+Capstone and the stronger course projects (left unarchived):
+
+| Repo | |
+|---|---|
+| [seniorGraduationProject2022_cookOverflow](https://github.com/ahmaddroobi99/seniorGraduationProject2022_cookOverflow) | BSc senior project: Django recipe site + recommender R&D |
+| [cookoverflow_Mobile_GradProject_2022](https://github.com/ahmaddroobi99/cookoverflow_Mobile_GradProject_2022) | Flutter client for CookOverflow |
+| [SoftwareProject_2021_Agile_Trello](https://github.com/ahmaddroobi99/SoftwareProject_2021_Agile_Trello) | Agile team of 7 (Scrum Master): **PayMe** Java Swing e-wallet — not Trello |
+| [computer_Architecture_Project_Piplined-_CPU_2021](https://github.com/ahmaddroobi99/computer_Architecture_Project_Piplined-_CPU_2021) | Verilog pipelined MIPS CPU (forwarding, stall, flush) |
+| [Artificial_Intelligence_Ckecker_AI_Game](https://github.com/ahmaddroobi99/Artificial_Intelligence_Ckecker_AI_Game) | Python Checkers with Minimax + alpha-beta |
+| [Messnger_FileTransfer_StopAndWaitProtocol_UDP](https://github.com/ahmaddroobi99/Messnger_FileTransfer_StopAndWaitProtocol_UDP) | Java UDP chat + Stop-and-Wait 3.0 file transfer |
+| [WordCup2022_WinnerPrediction_ML](https://github.com/ahmaddroobi99/WordCup2022_WinnerPrediction_ML) | FIFA WC 2022 knockout predictor |
+| [Clemson_Project_Realtime-Face-Emotion-Recognition-Tensorflow-Transfer-Learning-Python](https://github.com/ahmaddroobi99/Clemson_Project_Realtime-Face-Emotion-Recognition-Tensorflow-Transfer-Learning-Python) | Face-emotion transfer-learning notebooks |
+
+Everything else from that period (Django/Flask tutorials, Sparks Foundation tasks, 365 Data Science exercises, formatting drills, empty placeholders) has an honest README and is archived.
 
 ---
 
@@ -92,7 +127,7 @@ Smaller public prototypes: [ridgeflight](https://github.com/ahmaddroobi99/ridgef
 - **Perception** — camera pipelines, in-browser detection, tracking
 - **Software** — Python, TypeScript/React, MATLAB, experiments other people can rerun
 
-Forks of DAPPER, PyDA, torchda, and similar are **reference**, not original work.
+Forks of DAPPER, PyDA, torchda, and similar are **reference**, not original work. Their descriptions now say so.
 
 ---
 
@@ -100,8 +135,6 @@ Forks of DAPPER, PyDA, torchda, and similar are **reference**, not original work
 
 - **MSc**, University of Calgary, 2025 — scientific ML / Lagrangian DA / UQ (completed)
 - **BSc Computer Engineering**, An-Najah National University, 2023
-
-Coursework from 2020–2022 (OS, networking, Django, Flutter, CPU pipeline) stays on the account for provenance. It is not current work.
 
 ---
 
