@@ -13,6 +13,17 @@ I reconstruct high-dimensional Eulerian fields from sparse, noisy Lagrangian tra
   · <a href="https://x.com/AhmadDroobi99">X</a>
 </p>
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/ahmaddroobi99/qg-lada-lab/main/docs/demo.png" alt="QG Lagrangian DA lab" width="48%" />
+  <img src="https://raw.githubusercontent.com/ahmaddroobi99/meridian/main/docs/demo.png" alt="Meridian research terminal" width="48%" />
+</p>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/ahmaddroobi99/lattice/main/docs/demo.png" alt="Lattice field manual" width="48%" />
+  <img src="https://raw.githubusercontent.com/ahmaddroobi99/aether-visualizer/main/docs/demo.png" alt="Aether visualizer" width="48%" />
+</p>
+
+Live captures from deployed sites (August 2026). Not mockups.
+
 ---
 
 ## Current work
@@ -93,8 +104,8 @@ I follow research tools (DAPPER, PyDA, torchda, Neural Dynamical Operator, PI-De
 
 ## How to read this account
 
-1. **Pinned repositories** are the six original public projects I want a hiring manager to open.
-2. **Research and thesis material** stays private or archived-never. It is not deleted.
+1. **Featured repositories** above are the six original public projects I want a hiring manager to open. Pin them from the GitHub profile UI if they are not yet pinned.
+2. **Research and thesis material** stays private. It is not deleted.
 3. **Coursework 2020–2022** is historical (computer engineering, OS, networking, Django, Flutter). Kept for provenance, not presented as current work.
 4. **Empty stubs, typo-named repos, and unused upstream forks** are archived or removed so the signal is visible.
 
