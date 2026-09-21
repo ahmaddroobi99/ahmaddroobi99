@@ -16,13 +16,27 @@ MSc (2025), University of Calgary. Computer engineering before that.
   · <a href="https://github.com/ahmaddroobi99/projects">Index</a>
 </p>
 
+## Featured — open these first
+
+| # | Repo | What you will actually find |
+| --- | --- | --- |
+| 1 | **[qg-lada-lab](https://github.com/ahmaddroobi99/qg-lada-lab)** | Spectral QG twin + localized EnKF in the browser, plus a committed Python solver. Demo-scale XCOR 0.964 on N = 32 (not the thesis table). **[Live](https://qg-lada-lab.netlify.app)** |
+| 2 | **[axis-vision-pan-tilt](https://github.com/ahmaddroobi99/axis-vision-pan-tilt)** | Vision → UART → STM32 STEP/DIR. Software verified. Hardware not bench-tested. **[Live](https://axis-vision-pan-tilt.netlify.app)** |
+| 3 | **[local_wccm](https://github.com/ahmaddroobi99/local_wccm)** | MATLAB working copy of the barotropic Lagrangian filter (`lagrangianfilter_baro.m`, spectra, drivers). |
+| 4 | **[ai-perception-lab](https://github.com/ahmaddroobi99/ai-perception-lab)** | Local-first camera workstation. Real COCO-SSD in the browser. Simulated fleet KPIs are labeled. |
+| 5 | **[computer_Architecture_Project_Piplined-_CPU_2021](https://github.com/ahmaddroobi99/computer_Architecture_Project_Piplined-_CPU_2021)** | Verilog pipelined MIPS: forwarding, stall, flush, testbench. Student CPU. |
+| 6 | **[meridian](https://github.com/ahmaddroobi99/meridian)** | Research terminal. Ranks papers and artifacts by technical depth, not virality. **[Live](https://meridian-research-terminal.netlify.app)** |
+| 7 | **[lattice](https://github.com/ahmaddroobi99/lattice)** | Visual field manual of machine intelligence. Original live product. **[Live](https://lattice-field-manual.netlify.app)** |
+
+GitHub pins max out at six — pin **1–6**. `lattice` is seventh here because it is original and live, but it is not the thesis or the control stack.
+
 <p align="center">
   <img src="https://raw.githubusercontent.com/ahmaddroobi99/qg-lada-lab/main/docs/demo.png" alt="QG Lagrangian DA lab" width="48%" />
   <img src="https://raw.githubusercontent.com/ahmaddroobi99/axis-vision-pan-tilt/main/docs/media/hero.jpg" alt="AXIS pan/tilt console" width="48%" />
 </p>
 <p align="center">
   <img src="https://raw.githubusercontent.com/ahmaddroobi99/ai-perception-lab/main/docs/demo/camera.jpg" alt="Perception lab camera stage" width="48%" />
-  <img src="https://raw.githubusercontent.com/ahmaddroobi99/lattice/main/docs/demo.png" alt="Lattice field manual" width="48%" />
+  <img src="https://raw.githubusercontent.com/ahmaddroobi99/meridian/main/docs/demo.png" alt="Meridian research terminal" width="48%" />
 </p>
 
 Live captures. Not mockups.
@@ -39,28 +53,6 @@ Simulation + visualization
 Research software that runs
 ```
 
-GitHub cannot custom-sort the Repositories tab. Open these seven first. Pins hold six; the seventh lives here. Same grouping: [`projects`](https://github.com/ahmaddroobi99/projects). Homework from 2020–2022 is archived.
-
----
-
-## Current focus
-
-Public research lab for Lagrangian data assimilation, a software-verified vision pan/tilt control stack, and perception tooling. Looking for engineering roles where models, sensors, and software have to meet.
-
----
-
-## Featured — open these first
-
-| # | Repo | What you will actually find |
-| --- | --- | --- |
-| 1 | **[qg-lada-lab](https://github.com/ahmaddroobi99/qg-lada-lab)** | Spectral QG twin + localized EnKF in the browser, plus a committed Python solver. Demo-scale XCOR 0.964 on N = 32 (not the thesis table). **[Live](https://qg-lada-lab.netlify.app)** |
-| 2 | **[axis-vision-pan-tilt](https://github.com/ahmaddroobi99/axis-vision-pan-tilt)** | Vision → UART → STM32 STEP/DIR. Software verified. Hardware not bench-tested. **[Live](https://axis-vision-pan-tilt.netlify.app)** |
-| 3 | **[local_wccm](https://github.com/ahmaddroobi99/local_wccm)** | MATLAB working copy of the barotropic Lagrangian filter (`lagrangianfilter_baro.m`, spectra, drivers). |
-| 4 | **[ai-perception-lab](https://github.com/ahmaddroobi99/ai-perception-lab)** | Local-first camera workstation. Real COCO-SSD in the browser. Simulated fleet KPIs are labeled. |
-| 5 | **[computer_Architecture_Project_Piplined-_CPU_2021](https://github.com/ahmaddroobi99/computer_Architecture_Project_Piplined-_CPU_2021)** | Verilog pipelined MIPS: forwarding, stall, flush, testbench. Student CPU. |
-| 6 | **[meridian](https://github.com/ahmaddroobi99/meridian)** | Research terminal. Ranks papers and artifacts by technical depth, not virality. **[Live](https://meridian-research-terminal.netlify.app)** |
-| 7 | **[lattice](https://github.com/ahmaddroobi99/lattice)** | Visual field manual of machine intelligence. Original writing, not a catalog dump. **[Live](https://lattice-field-manual.netlify.app)** |
-
 ```
 Lagrangian drifters  →  QG barotropic model (q = ∇²ψ − μψ)
                      →  spectral Helmholtz inversion
@@ -70,13 +62,21 @@ Lagrangian drifters  →  QG barotropic model (q = ∇²ψ − μψ)
 
 Thesis: *Data-Driven Filtering Techniques for Turbulent Flow Models (A Lagrangian Data Assimilation Approach)* ([Scholaris](https://ucalgary.scholaris.ca/items/b4a3d3b9-4fbf-4d1e-8e1e-80c71c009825)). Private thesis sources stay private.
 
+GitHub cannot custom-sort the Repositories tab. This profile is the catalog: **research first, undergraduate last**. Homework from 2020–2022 is archived. Same grouping: [`projects`](https://github.com/ahmaddroobi99/projects).
+
+---
+
+## Current focus
+
+Public research lab for Lagrangian data assimilation, a software-verified vision pan/tilt control stack, and perception tooling. Looking for engineering roles where models, sensors, and software have to meet.
+
 ---
 
 ## Also public
 
-**Research software.** [engineering-portfolio](https://github.com/ahmaddroobi99/engineering-portfolio) · [world-pulse](https://github.com/ahmaddroobi99/world-pulse)
-
 **Perception / control.** [vla-drive-sim](https://github.com/ahmaddroobi99/vla-drive-sim) is a pedagogical driving loop (language selects a path; vision is heading error; PD emits actions). Not a trained VLA.
+
+**Research software.** [engineering-portfolio](https://github.com/ahmaddroobi99/engineering-portfolio) · [world-pulse](https://github.com/ahmaddroobi99/world-pulse)
 
 **Maps / study notes.** Catalogs and seminar reconstructions (`found-300`, `36-key-cv-topics`, `robot-data-gap-gofe`, and similar) are reading maps. They are not implementations. See the [index](https://github.com/ahmaddroobi99/projects).
 
