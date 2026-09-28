@@ -12,6 +12,7 @@ MSc (2025), University of Calgary. Computer engineering before that.
   · <a href="https://scholar.google.com/citations?user=H-3pF00AAAAJ">Scholar</a>
   · <a href="https://ucalgary.scholaris.ca/items/b4a3d3b9-4fbf-4d1e-8e1e-80c71c009825">Thesis</a>
   · <a href="https://ahmaddroobi99.github.io/">Portfolio</a>
+  · <a href="https://www.equitechfutures.com/alumni/ahmad-hamdan-droobi">Equitech Futures</a>
   · <a href="https://x.com/AhmadDroobi99">X</a>
   · <a href="https://github.com/ahmaddroobi99/projects">Index</a>
 </p>
@@ -112,5 +113,6 @@ Forks of DAPPER, PyDA, torchda, and similar are **reference**, not original work
 
 - **MSc**, University of Calgary, 2025 — scientific ML / Lagrangian DA / UQ
 - **BSc Computer Engineering**, An-Najah National University, 2023
+- **Applied Data Institute**, Equitech Futures, 2022 — [alumni profile](https://www.equitechfutures.com/alumni/ahmad-hamdan-droobi)
 
 [linkedin.com/in/droobi7](https://www.linkedin.com/in/droobi7/) · [Scholar](https://scholar.google.com/citations?user=H-3pF00AAAAJ)
