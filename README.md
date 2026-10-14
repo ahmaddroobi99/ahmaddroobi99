@@ -67,6 +67,30 @@ GitHub cannot custom-sort the Repositories tab. This profile is the catalog: **r
 
 ---
 
+## Interactive Portfolio & Brand Labs
+
+Live web apps, 3D tools, brand assets, and demos developed collaboratively and hosted under the [personal site](https://ahmaddroobi99.github.io/). These sit alongside the research stack — many are interactive prototypes for perception, visualization, scientific teaching, and physical AI branding.
+
+| Project | What it is | Live |
+| --- | --- | --- |
+| **[aether-one](https://github.com/ahmaddroobi99/ahmaddroobi99.github.io/tree/main/aether-one)** | Aether interactive visualizer / control surface | [Live](https://ahmaddroobi99.github.io/aether-one/) |
+| **[aether-visualizer](https://github.com/ahmaddroobi99/ahmaddroobi99.github.io/tree/main/aether-visualizer)** | 3D / field visualization playground | [Live](https://ahmaddroobi99.github.io/aether-visualizer/) |
+| **[pulsegrid](https://github.com/ahmaddroobi99/ahmaddroobi99.github.io/tree/main/pulsegrid)** | Pulse / grid real-time dashboard | [Live](https://ahmaddroobi99.github.io/pulsegrid/) |
+| **[pulse](https://github.com/ahmaddroobi99/ahmaddroobi99.github.io/tree/main/pulse)** | Pulse monitoring / telemetry UI | [Live](https://ahmaddroobi99.github.io/pulse/) |
+| **[locus](https://github.com/ahmaddroobi99/ahmaddroobi99.github.io/tree/main/locus)** | Locus tracking / spatial tool | [Live](https://ahmaddroobi99.github.io/locus/) |
+| **[quiver](https://github.com/ahmaddroobi99/ahmaddroobi99.github.io/tree/main/quiver)** | Quiver vector / field explorer | [Live](https://ahmaddroobi99.github.io/quiver/) |
+| **[command-center](https://github.com/ahmaddroobi99/ahmaddroobi99.github.io/tree/main/command-center)** | AI engineering command center | [Live](https://ahmaddroobi99.github.io/command-center/) |
+| **[vla-drive](https://github.com/ahmaddroobi99/ahmaddroobi99.github.io/tree/main/vla-drive)** | VLA driving loop demo | [Live](https://ahmaddroobi99.github.io/vla-drive/) |
+| **[sciforge](https://github.com/ahmaddroobi99/sciforge)** | Local scientific teaching compiler (paper → lecture IR → slides + video) | Repo |
+| **[ai-stack-forge](https://github.com/ahmaddroobi99/ai-stack-forge)** | Collaborative AI engineering lab composing the 2026 open-source stack | Repo |
+| **[ridgeflight](https://github.com/ahmaddroobi99/ridgeflight)** | Terrain flyer / physics toy | Repo |
+| **[wake](https://github.com/ahmaddroobi99/wake)** | Wake field / visual manual | [Live](https://wake-field.netlify.app) |
+| **[world-pulse](https://github.com/ahmaddroobi99/world-pulse)** | World pulse research software | Repo |
+
+Brand asset passes and OG cards for **Lumenwake**, **WorldPilot**, **Physical AI Lab**, **Fieldline**, **SciForge**, and related physical-AI / SciML identities live across the portfolio site and private repos. Private hardware-lab, quantum-sim, 3D-clothing, and workstation setups are not listed here.
+
+---
+
 ## Current focus
 
 Public research lab for Lagrangian data assimilation, a software-verified vision pan/tilt control stack, and perception tooling. Looking for engineering roles where models, sensors, and software have to meet.
