@@ -1,8 +1,8 @@
 # Ahmad Droobi
 
-Scientific computing · data assimilation · perception systems.
+Scientific computing · Lagrangian data assimilation · perception systems for autonomous platforms.
 
-I build software that connects physical models, sparse observations, and reconstruction — and the engineering around that: cameras, control loops, and research tools that actually run.
+I build software that connects physical models, sparse observations, and reconstruction — LiDAR and camera pipelines, Lagrangian DA for turbulent flows, and the production systems that keep them running.
 
 MSc (2025), University of Calgary. Computer engineering before that.
 
@@ -11,7 +11,7 @@ MSc (2025), University of Calgary. Computer engineering before that.
   · <a href="https://github.com/ahmaddroobi99">GitHub</a>
   · <a href="https://scholar.google.com/citations?user=H-3pF00AAAAJ">Scholar</a>
   · <a href="https://ucalgary.scholaris.ca/items/b4a3d3b9-4fbf-4d1e-8e1e-80c71c009825">Thesis</a>
-  · <a href="https://ahmaddroobi99.github.io/">Portfolio</a>
+  · <a href="https://ahmaddroobi99.github.io/"><b>Portfolio</b></a>
   · <a href="https://www.equitechfutures.com/alumni/ahmad-hamdan-droobi">Equitech Futures</a>
   · <a href="https://x.com/AhmadDroobi99">X</a>
   · <a href="https://github.com/ahmaddroobi99/projects">Index</a>
@@ -25,98 +25,36 @@ MSc (2025), University of Calgary. Computer engineering before that.
 | 2 | **[axis-vision-pan-tilt](https://github.com/ahmaddroobi99/axis-vision-pan-tilt)** | Vision → UART → STM32 STEP/DIR. Software verified. Hardware not bench-tested. **[Live](https://axis-vision-pan-tilt.netlify.app)** |
 | 3 | **[local_wccm](https://github.com/ahmaddroobi99/local_wccm)** | MATLAB working copy of the barotropic Lagrangian filter (`lagrangianfilter_baro.m`, spectra, drivers). |
 | 4 | **[ai-perception-lab](https://github.com/ahmaddroobi99/ai-perception-lab)** | Local-first camera workstation. Real COCO-SSD in the browser. Simulated fleet KPIs are labeled. |
-| 5 | **[computer_Architecture_Project_Piplined-_CPU_2021](https://github.com/ahmaddroobi99/computer_Architecture_Project_Piplined-_CPU_2021)** | Verilog pipelined MIPS: forwarding, stall, flush, testbench. Student CPU. |
-| 6 | **[meridian](https://github.com/ahmaddroobi99/meridian)** | Research terminal. Ranks papers and artifacts by technical depth, not virality. **[Live](https://meridian-research-terminal.netlify.app)** |
-| 7 | **[lattice](https://github.com/ahmaddroobi99/lattice)** | Visual field manual of machine intelligence. Original live product. **[Live](https://lattice-field-manual.netlify.app)** |
-
-GitHub pins max out at six — pin **1–6**. `lattice` is seventh here because it is original and live, but it is not the thesis or the control stack.
-
-<p align="center">
-  <img src="https://raw.githubusercontent.com/ahmaddroobi99/qg-lada-lab/main/docs/demo.png" alt="QG Lagrangian DA lab" width="48%" />
-  <img src="https://raw.githubusercontent.com/ahmaddroobi99/axis-vision-pan-tilt/main/docs/media/hero.jpg" alt="AXIS pan/tilt console" width="48%" />
-</p>
-<p align="center">
-  <img src="https://raw.githubusercontent.com/ahmaddroobi99/ai-perception-lab/main/docs/demo/camera.jpg" alt="Perception lab camera stage" width="48%" />
-  <img src="https://raw.githubusercontent.com/ahmaddroobi99/meridian/main/docs/demo.png" alt="Meridian research terminal" width="48%" />
-</p>
-
-Live captures. Not mockups.
-
-```
-Hardware / sensors
-        ↓
-Real-time software
-        ↓
-Estimation / control / filters
-        ↓
-Simulation + visualization
-        ↓
-Research software that runs
-```
-
-```
-Lagrangian drifters  →  QG barotropic model (q = ∇²ψ − μψ)
-                     →  spectral Helmholtz inversion
-                     →  localized stochastic EnKF  (+ optional EnKF–PF)
-                     →  reconstructed Eulerian field, spectra, XCOR
-```
+| 5 | **[meridian](https://github.com/ahmaddroobi99/meridian)** | Research terminal. Ranks papers and artifacts by technical depth, not virality. **[Live](https://meridian-research-terminal.netlify.app)** |
+| 6 | **[lattice](https://github.com/ahmaddroobi99/lattice)** | Visual field manual of machine intelligence. Original live product. **[Live](https://lattice-field-manual.netlify.app)** |
 
 Thesis: *Data-Driven Filtering Techniques for Turbulent Flow Models (A Lagrangian Data Assimilation Approach)* ([Scholaris](https://ucalgary.scholaris.ca/items/b4a3d3b9-4fbf-4d1e-8e1e-80c71c009825)). Private thesis sources stay private.
 
-GitHub cannot custom-sort the Repositories tab. This profile is the catalog: **research first, undergraduate last**. Homework from 2020–2022 is archived. Same grouping: [`projects`](https://github.com/ahmaddroobi99/projects).
+GitHub cannot custom-sort the Repositories tab. This profile is the catalog: **research first, undergraduate last**.
 
 ---
 
 ## Interactive Portfolio & Brand Labs
 
-Live web apps, 3D tools, brand assets, and demos developed collaboratively and hosted under the [personal site](https://ahmaddroobi99.github.io/). These sit alongside the research stack — many are interactive prototypes for perception, visualization, scientific teaching, and physical AI branding.
+Live web apps, 3D tools, and demos hosted under the [personal site](https://ahmaddroobi99.github.io/). These sit alongside the research stack — interactive prototypes for perception, visualization, scientific teaching, and physical AI branding.
 
 | Project | What it is | Live |
 | --- | --- | --- |
-| **[aether-one](https://github.com/ahmaddroobi99/ahmaddroobi99.github.io/tree/main/aether-one)** | Aether interactive visualizer / control surface | [Live](https://ahmaddroobi99.github.io/aether-one/) |
-| **[aether-visualizer](https://github.com/ahmaddroobi99/ahmaddroobi99.github.io/tree/main/aether-visualizer)** | 3D / field visualization playground | [Live](https://ahmaddroobi99.github.io/aether-visualizer/) |
-| **[pulsegrid](https://github.com/ahmaddroobi99/ahmaddroobi99.github.io/tree/main/pulsegrid)** | Pulse / grid real-time dashboard | [Live](https://ahmaddroobi99.github.io/pulsegrid/) |
+| **[aether-one](https://github.com/ahmaddroobi99/ahmaddroobi99.github.io/tree/main/aether-one)** | Aether interactive visualizer | [Live](https://ahmaddroobi99.github.io/aether-one/) |
 | **[pulse](https://github.com/ahmaddroobi99/ahmaddroobi99.github.io/tree/main/pulse)** | Pulse monitoring / telemetry UI | [Live](https://ahmaddroobi99.github.io/pulse/) |
 | **[locus](https://github.com/ahmaddroobi99/ahmaddroobi99.github.io/tree/main/locus)** | Locus tracking / spatial tool | [Live](https://ahmaddroobi99.github.io/locus/) |
 | **[quiver](https://github.com/ahmaddroobi99/ahmaddroobi99.github.io/tree/main/quiver)** | Quiver vector / field explorer | [Live](https://ahmaddroobi99.github.io/quiver/) |
-| **[command-center](https://github.com/ahmaddroobi99/ahmaddroobi99.github.io/tree/main/command-center)** | AI engineering command center | [Live](https://ahmaddroobi99.github.io/command-center/) |
-| **[vla-drive](https://github.com/ahmaddroobi99/ahmaddroobi99.github.io/tree/main/vla-drive)** | VLA driving loop demo | [Live](https://ahmaddroobi99.github.io/vla-drive/) |
 | **[sciforge](https://github.com/ahmaddroobi99/sciforge)** | Local scientific teaching compiler (paper → lecture IR → slides + video) | Repo |
-| **[ai-stack-forge](https://github.com/ahmaddroobi99/ai-stack-forge)** | Collaborative AI engineering lab composing the 2026 open-source stack | Repo |
-| **[ridgeflight](https://github.com/ahmaddroobi99/ridgeflight)** | Terrain flyer / physics toy | Repo |
+| **[ai-stack-forge](https://github.com/ahmaddroobi99/ai-stack-forge)** | Collaborative AI engineering lab | Repo |
 | **[wake](https://github.com/ahmaddroobi99/wake)** | Wake field / visual manual | [Live](https://wake-field.netlify.app) |
-| **[world-pulse](https://github.com/ahmaddroobi99/world-pulse)** | World pulse research software | Repo |
 
-Brand asset passes and OG cards for **Lumenwake**, **WorldPilot**, **Physical AI Lab**, **Fieldline**, **SciForge**, and related physical-AI / SciML identities live across the portfolio site and private repos. Private hardware-lab, quantum-sim, 3D-clothing, and workstation setups are not listed here.
+Brand asset passes and OG cards for **Lumenwake**, **WorldPilot**, **Physical AI Lab**, **Fieldline**, **SciForge**, and related physical-AI / SciML identities live across the portfolio site and private repos.
 
 ---
 
 ## Current focus
 
-Public research lab for Lagrangian data assimilation, a software-verified vision pan/tilt control stack, and perception tooling. Looking for engineering roles where models, sensors, and software have to meet.
-
----
-
-## Also public
-
-**Perception / control.** [vla-drive-sim](https://github.com/ahmaddroobi99/vla-drive-sim) is a pedagogical driving loop (language selects a path; vision is heading error; PD emits actions). Not a trained VLA.
-
-**Research software.** [engineering-portfolio](https://github.com/ahmaddroobi99/engineering-portfolio) · [world-pulse](https://github.com/ahmaddroobi99/world-pulse)
-
-**Maps / study notes.** Catalogs and seminar reconstructions (`found-300`, `36-key-cv-topics`, `robot-data-gap-gofe`, and similar) are reading maps. They are not implementations. See the [index](https://github.com/ahmaddroobi99/projects).
-
-**Experiments.** Honest about what is committed: [ridgeflight](https://github.com/ahmaddroobi99/ridgeflight), [tensortonic-rag-from-scratch](https://github.com/ahmaddroobi99/tensortonic-rag-from-scratch), [mosqguard](https://github.com/ahmaddroobi99/mosqguard), [forge-mind](https://github.com/ahmaddroobi99/forge-mind), [aws-from-scratch](https://github.com/ahmaddroobi99/aws-from-scratch), [aetherforge](https://github.com/ahmaddroobi99/aetherforge) (no `src/` yet), [stackforge](https://github.com/ahmaddroobi99/stackforge) (scaffold only).
-
----
-
-## Undergraduate (last)
-
-BSc Computer Engineering, An-Najah National University, 2023. Provenance, not current work.
-
-- [seniorGraduationProject2022_cookOverflow](https://github.com/ahmaddroobi99/seniorGraduationProject2022_cookOverflow) — Django recipe site + recommender R&D
-- [cookoverflow_Mobile_GradProject_2022](https://github.com/ahmaddroobi99/cookoverflow_Mobile_GradProject_2022) — Flutter client
-- [SoftwareProject_2021_Agile_Trello](https://github.com/ahmaddroobi99/SoftwareProject_2021_Agile_Trello) — PayMe Java Swing e-wallet (not Trello)
-- [Messnger_FileTransfer_StopAndWaitProtocol_UDP](https://github.com/ahmaddroobi99/Messnger_FileTransfer_StopAndWaitProtocol_UDP) — Java UDP + Stop-and-Wait 3.0
+Public research lab for Lagrangian data assimilation, software-verified vision control stacks, and perception tooling. Looking for engineering roles where models, sensors, and software have to meet.
 
 ---
 
@@ -129,8 +67,6 @@ BSc Computer Engineering, An-Najah National University, 2023. Provenance, not cu
 - **Perception and control design** — camera pipelines, in-browser detection, UART protocol, PID with safety interlocks (software-verified)
 - **Software** — Python, TypeScript/React, MATLAB, Verilog, experiments other people can rerun
 
-Forks of DAPPER, PyDA, torchda, and similar are **reference**, not original work.
-
 ---
 
 ## Background
@@ -139,4 +75,4 @@ Forks of DAPPER, PyDA, torchda, and similar are **reference**, not original work
 - **BSc Computer Engineering**, An-Najah National University, 2023
 - **Applied Data Institute**, Equitech Futures, 2022 — [alumni profile](https://www.equitechfutures.com/alumni/ahmad-hamdan-droobi)
 
-[linkedin.com/in/droobi7](https://www.linkedin.com/in/droobi7/) · [Scholar](https://scholar.google.com/citations?user=H-3pF00AAAAJ)
+[linkedin.com/in/droobi7](https://www.linkedin.com/in/droobi7/) · [Scholar](https://scholar.google.com/citations?user=H-3pF00AAAAJ) · [Portfolio](https://ahmaddroobi99.github.io/)
